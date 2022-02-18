@@ -1,0 +1,70 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  [mode]="(isHandset$ | async) ? 'over' : 'side'"
+  [opened]="(isHandset$ | async) === false" >
+    <!-- <mat-drawer mode="side" opened="true"> -->
+      <!-- <app-main-nav></app-main-nav> -->
+      <app-slidelist (slidespercent)="slidesPercentage($event, $event)" [slideTimer]="slideTimer" [sTheme]="sTheme" [sColor]="sColor" ></app-slidelist>
+  </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar class="header mat-elevation-z3 justify-content-between">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <app-header ></app-header>
+      </mat-toolbar>
+      <!-- <app-slideheader (toggleSidebarForMe)="sideBarToggler()"></app-slideheader> -->
+      <div class="container-fluid page">
+        <div class="wrapper">
+            <section>
+                <mat-card class="header_title d-flex flex-nowrap justify-content-between">
+                    <span class="slide_title my-auto">
+                      My Presentation <span style="color: #334e5c;"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle('')" required> 
+                    </span>
+                        
+                  <div class="slide_function d-flex align-content-end">
+                    <div class="spinner"  *ngIf="showSpinner">
+                      <mat-spinner [diameter]="30" color="accent"  matTooltip="Automatically saves work">
+                      </mat-spinner>
+                    </div>
+                  
+                    <div *ngIf="!showSpinner" class="spinner d-flex my-auto" matTooltip="Automatically saves work">
+                      <mat-icon class="mat-icon mr-1" style="color:#08f4ad">check</mat-icon>
+                      <span >Saved</span>
+                    </div>
+                    
+                    <button mat-mini-fab color="primary"  class="mr-1" >
+                      <mat-icon [matBadge]="this.studentslists.length" matBadgeSize="small" matBadgeColor="warn">account_circle</mat-icon>
+                    </button>
+
+                    <button mat-button  class="theme_code btn"  [cdkCopyToClipboard]="sCode" (click)="copypaste()"  matTooltip="Room Code">
+                      <mat-icon class="play-image-icon">content_copy</mat-icon>
+                      <span>{{sCode}}</span>
+                    </button>
+
+                    <button mat-button  class="theme_code btn mr-2" [cdkCopyToClipboard]="sCode" (click)="setTheme()"  matTooltip="Set Theme">
+                      <mat-icon class="play-image-icon">water_drop</mat-icon>
+                      <span>Theme</span>
+                    </button>
+
+                    <button mat-raised-button  class="play btn" matTooltip="Present your slide" (click)="this.editor.openFullscreen()">
+                            <mat-icon class="play-image-icon">play_arrow</mat-icon>
+                        <span >Present</span>
+                    </button>
+                  </div>
+              </mat-card>
+            </section>
+
+            <div>
+              <app-editor (toSlideMain)="renderSpinner($event, $event)"  (Pace)="updateTitle($event)" (Timer)="countDowntime($event)" [slideListPercent]="slidePercent" [totalSelectAnswerPage]="totalSelectAnswerPage"  [sTheme]="sTheme" [sColor]="sColor" [sImage]="sImage"></app-editor>
+            </div>
+          
+          </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

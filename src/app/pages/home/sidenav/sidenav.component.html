@@ -1,0 +1,25 @@
+<mat-nav-list>
+    <div class="logo">
+        <img [src]="profilepic" alt="GC CLIP Logo">
+    </div>
+    <div class="fullname">
+      <p>{{fullname}}</p>
+      <small>{{department}}</small>
+    </div>
+    <mat-divider></mat-divider>
+
+    <!-- <h2 matSubheader  class="mt-2"> Activity</h2> -->
+
+      <a mat-list-item routerLinkActive="active" routerLink="/main/app">
+        <mat-icon>dashboard</mat-icon> <span> My Presentation</span>
+      </a>
+      <!-- <a mat-list-item routerLinkActive="active" routerLink="/main/quiz">
+        <mat-icon>dashboard</mat-icon> My Quiz
+      </a> -->
+      
+    <mat-divider></mat-divider>
+    <div class="version">
+      <small >GC CLIP {{version}}</small>
+    </div>
+
+</mat-nav-list>

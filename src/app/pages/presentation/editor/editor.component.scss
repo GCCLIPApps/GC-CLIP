@@ -1,0 +1,203 @@
+#presentSlide{
+    width: 100% !important;
+    height: 100% !important; 
+}
+.slide, .presentationSlide{
+    max-width: 100%;
+    min-height: 400px !important;
+    height: 95% !important; 
+
+    text-size-adjust: auto;
+    word-wrap: break-word;
+    overflow-y: auto;
+
+    padding: 1rem;
+    display: flex; 
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+
+
+
+
+
+    .question-holder{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: space-around;
+
+        // .card-question{
+        //     font-weight: 600;
+        //     text-align: center;
+        //     text-justify: inter-word;
+            
+        // }.question-status,p{
+        //     text-align: center;
+        //     text-justify: inter-word;
+        // }
+    }
+    .bullet-holder{
+        text-align: center;
+    
+        .bulletlists{
+            display: flex;
+            flex-flow: column wrap; 
+            justify-content: space-between;
+    
+
+            .bulletlist-holder{
+                display:flex
+                // border: solid 2px #1b89e9;
+            }
+        }
+    }
+    .multiplechoice-holder{
+        text-align: center;
+    
+        .optionlists{
+       
+            // display: flex;
+            // flex-direction: row;
+            margin-top: 3rem;
+            justify-content: space-around;            
+            }
+            .optionlists-holder{
+                justify-content: space-between;  
+                text-align: center;
+    
+                mat-divider{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 60%; 
+                    
+                   
+                    border-top-width: 5px;
+                }
+                p{
+                    margin: 0 1rem 0 1rem;
+                }
+                .mat-icon{
+                    font-weight: bolder;
+                    font-size: 50px;
+                    height: 50px ;
+                    width: 50px ;
+                }
+        }
+    
+   
+    }
+
+    .content-holder{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        .card-head,.card-subhead,.card-paragraph{
+            text-align: center;
+            text-justify: inter-word;
+        }
+    
+        .card-paragraph{
+            display: flex;
+            justify-content:center;
+        }
+
+    }
+
+    .progress-bar{
+        position: absolute;
+        bottom: 0px;
+    }
+    .option_image{
+        margin: 1rem;
+        width: 9vw !important;
+        height: 15vh !important;
+    }
+    .img-thumbnail{
+        padding: 0;
+        border: none;
+        // width: 100%;
+        // min-width: 0;
+        // max-width:50%;
+        // max-height: 50%;
+        text-align: center;
+    }
+
+    .big-image{
+        padding: 0;
+        border: none;
+        min-width: 0;
+        max-width: 40%;
+        max-height: 300px;
+        text-align: center;
+    }
+    h2{
+        font-weight: 600;
+    }
+
+}
+
+
+
+.empty_image{
+    width: 90%;
+    height: 60%;
+    align-items: center;
+}
+
+
+.section2{
+    display: flex;
+    flex-flow: row;
+    margin: 1rem 0 0 1rem;
+}
+
+.router_outlet{
+    flex: 1;
+    order: 1;
+    margin: 2rem 1rem 0 0;
+}
+
+.right_nav{
+    order: 2;
+}
+
+
+@media (min-width: 1280px) and (min-height: 720px) {
+    .presentationSlide { 
+        h2{
+            font-size: 7.0vh;
+        }
+        p{
+            font-size: 4.0vh;
+        }
+
+
+     }
+    
+}
+
+@media (min-width: 1280px) and (min-height: 768px) {
+    .presentationSlide { 
+        h2{
+            font-size: 9.0vh;
+        }
+        p{
+            font-size: 4.0vh;
+        }
+    }
+}
+
+
+footer{
+    margin-top: .5rem;
+    mat-progress-bar{
+        margin-bottom: -1rem;
+        border-top-width: 2px;
+        padding: 0; width: 100% ;
+    }
+}

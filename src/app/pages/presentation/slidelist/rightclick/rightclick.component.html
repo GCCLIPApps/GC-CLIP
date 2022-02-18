@@ -1,0 +1,26 @@
+<context-menu #basicMenu>
+	<ng-template contextMenuItem [subMenu]="subMenuMove">
+		Move
+	</ng-template>
+
+  <ng-template contextMenuItem [divider]="true"></ng-template>
+
+	<context-menu #subMenuMove>
+		<ng-template contextMenuItem>
+			Right
+		</ng-template>
+		<ng-template contextMenuItem>
+			Left
+		</ng-template>
+	</context-menu>
+	<ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+		Say hi!
+	</ng-template>
+	<ng-template contextMenuItem [divider]="true"></ng-template>
+	<ng-template contextMenuItem let-item (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+		Bye, {{item?.name}}
+	</ng-template>
+	<!-- <ng-template contextMenuItem passive="true">
+    Input something: <input type="text">
+  </ng-template> -->
+</context-menu>

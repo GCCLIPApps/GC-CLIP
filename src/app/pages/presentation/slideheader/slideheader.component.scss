@@ -1,0 +1,25 @@
+@import url(../..//home//header/header.component.scss);
+
+.row{
+    margin: auto;
+}
+.play{
+    // display: flex;
+    // align-items: center;
+    font-size: 14px;
+}
+
+.play-image.icon{
+    height: 18px;
+    font-size: 16px;
+}
+
+button{
+    border: 0;
+    outline: none;
+}
+
+.mat-raised-button{
+     width: 130px;
+    height: 40px;
+}

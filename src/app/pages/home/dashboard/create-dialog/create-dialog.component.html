@@ -1,0 +1,15 @@
+<mat-dialog-content class="mat-typography">
+    <h1 mat-dialog-title>Create Presentation</h1>
+    <mat-form-field appearance="fill">
+        <mat-label>Presentation title</mat-label>
+        <input matInput [(ngModel)]="title" required class="input">
+      </mat-form-field>
+
+   
+  </mat-dialog-content>
+<mat-dialog-actions align="end">
+    <div class="button">
+        <button mat-raised-button (click)="onClose()" color="warn">Cancel</button>
+        <button mat-raised-button (click)="onSubmit()" [disabled]="!title" class="btn btn-primary">Create Presentation</button>
+    </div>
+</mat-dialog-actions>  

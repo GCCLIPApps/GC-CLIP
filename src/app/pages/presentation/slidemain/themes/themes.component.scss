@@ -1,0 +1,21 @@
+mat-card{
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
+    border: .05rem solid  #979797;
+
+
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+        transition: 0.3s;
+        border: .3rem solid  #0a8dff;
+        background-color: #d2eaff !important;
+      }
+}
+
+.highlight {
+    border: .05rem solid  #0a8dff;
+    background-color: #c2c2c2 !important;    
+
+  }

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Themes</h1>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+ 
+    <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
+
+        <mat-grid-tile *ngFor="let item of tiles"  >  
+            <mat-card  class="list-cell" (click)="selectTheme(item)" [ngClass]="{'highlight':checkTheme(item.backgroundColor) || isTheme  === item.backgroundColor}" [style.background-color]="item.backgroundColor"  style="margin: auto;">
+                <p [style.color]="item.color">{{item.name}}</p>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-dialog-content>

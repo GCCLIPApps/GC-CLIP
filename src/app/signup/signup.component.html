@@ -1,0 +1,89 @@
+<div class="background">
+    <div class="foreground">
+        <div class="wrapper_body">
+            <section>
+                <div class="header">
+                    <div class="header_image">
+                        <img src="../../assets/App logo wbg.png" alt="" class="logo">
+                        <img src="../../assets/App logo wbg.png" alt="" class="logo">
+                    </div>
+                    <div class="welcome">
+                        <h3 style="color: white;">Welcome to <strong style="color: #1bbb94;">GC CLIP</strong></h3>
+                    </div>
+                    </div>
+      
+                <mat-card class="form" >
+                    <mat-card-title class="text-center">Faculty Portal</mat-card-title>   
+                    <mat-card-content>
+                        <p>Sign Up your credentials</p>
+                        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" ngNativeValidate >
+                
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Enter your employee number</mat-label>
+                                <input type="number" matInput  formControlName="employeeno" required>                         
+                              </mat-form-field> 
+                              
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Enter your email address</mat-label>
+                                <input type="email" matInput  formControlName="email" required>                         
+                            </mat-form-field>  
+                            
+                            <div class="container">
+                                <div class="row">
+                                  <div class="col-md">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Enter your first name</mat-label>
+                                        <input type="text" matInput  formControlName="fname" required>                         
+                                      </mat-form-field>                            
+                                    </div>
+                                  <div class="col-md mr-1 ml-1">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Enter your middle name</mat-label>
+                                        <input type="text" matInput  formControlName="mname" >                         
+                                    </mat-form-field>                                  
+                                  </div>
+                                  <div class="col-md">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Enter your last name</mat-label>
+                                        <input type="text" matInput  formControlName="lname" required>                         
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                            </div>
+                         
+                            <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label>Select your Department</mat-label>
+                                <select matNativeControl formControlName="dept" required>
+                                  <option value="CCS">CCS</option>
+                                </select>              
+                            </mat-form-field>
+
+                            <div class="container">
+                              <div class="row">
+                                <div class="col">
+                                  <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Enter your password</mat-label>
+                                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>                     
+                                  </mat-form-field>             
+                                  </div>
+                                <!-- <div class="col-md">
+                                                                 
+                                </div>
+                         -->
+                              </div>
+                          </div>
+                       
+                        
+                            <button type="submit" class="signup-button btn btn-primary"  [disabled]="!signupForm.valid"  mat-raised-button >
+                                Register
+                            </button>
+                          </form>
+                    </mat-card-content>
+                </mat-card>
+            </section>
+        </div>
+    </div>
+</div>

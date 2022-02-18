@@ -1,0 +1,129 @@
+:host {
+    .mat-icon {
+      margin-right: 1rem;
+      vertical-align: middle;
+    }
+  }
+
+  .mat-divider {
+    margin: 1rem 1rem ;
+    border-top-width: 2px;
+    border-color: white;
+  }
+  .mat-list-item {
+    font-size: .9rem;
+    font-weight: lighter;
+    height: 80px !important;
+    color: #ffffff !important;
+    &:hover {
+      color: #f2f5f7 !important;
+    }
+    ::ng-deep {
+      .mat-list-item-content {
+        // margin: 0 8px;
+        border-radius: 5px;
+        &:hover {
+          background-color: #9BACCC !important;
+        }
+      }
+    }
+  }
+  
+  .active {
+    color: #f2f5f7 !important;
+    ::ng-deep {
+      .mat-list-item-content {
+        opacity: 1;
+        transition: 0.5s;
+        background: #0c2661 !important;
+        &:hover {
+          transition: 0.5s;
+          background:#9BACCC !important;
+        }
+      }
+    }
+  }
+
+// .mat-subheader {
+//   color: #818cf8;
+//   font-size: 1rem;
+//   font-weight: 100;
+//   letter-spacing: 1px;
+// }
+
+.logo {
+  width: 150px;
+  min-height: 170px;
+  margin: auto;
+  padding: .5rem .5rem;
+  img {     
+    border-radius: 50%;
+    border: 5px solid rgb(124, 124, 124);    
+    width: inherit;
+    height: inherit;
+  }
+}
+
+
+.fullname{
+  text-align: center;
+  color: #fff;
+  padding: 0 .2em;
+  margin-top: .3em;
+  p{
+    margin: 0;
+    font-weight: 600;
+    font-size: .8rem;
+    color: white;
+  
+  }
+}
+
+.version{
+  text-align: center;
+  small{
+    color: rgb(255, 255, 255);
+    font-size: .8rem;
+  }
+}
+
+
+@media  screen and (max-width: 1366px) {
+  :host {
+    .mat-icon {
+      margin-right: .6rem;
+      vertical-align: middle;
+    }
+  }
+
+  .mat-divider {
+    margin: 1rem 1rem ;
+    border-top-width: 2px;
+    border-color: white;
+  }
+
+  .mat-list-item {
+    font-size: .7rem;
+    height: 80px !important;
+    color: #ffffff !important;
+    &:hover {
+      color: #f2f5f7 !important;
+    }
+    ::ng-deep {
+      .mat-list-item-content {
+        // margin: 0 8px;
+        border-radius: 5px;
+        &:hover {
+          background-color: rgb(155, 172, 204) !important;
+        }
+      }
+    }
+  }
+  .fullname{
+    margin-top: .1rem;
+  }
+  .logo {
+    width: 100px;
+    min-height: 140px; 
+  }
+}

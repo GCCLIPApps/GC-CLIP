@@ -1,0 +1,89 @@
+<div class="background">
+
+    
+<div id="main" class="fullscreen">
+    </div>
+    
+    <div class="cont">
+        <div *ngFor='let in of counter(100) ;let i = index' class="circle-container">
+            <div class="circle"></div>
+</div>
+
+<div class="background">
+    <div class="foreground">
+        <div class="wrapper_body">
+            <section>
+                <div class="header">
+                    <div class="header_image">
+                        <img src="../../assets/App logo wbg.png" alt="" class="logo">
+                        <!-- <img src="../../assets/App logo wbg.png" alt="" class="logo"> -->
+                    </div>
+                    <div class="welcome">
+                        <h3 >Welcome to <strong>GCCLIP</strong></h3>
+                    </div>
+                        <div class="sec1">
+                            <mat-card class="mat-elevation-z8">
+                                <mat-card-content>
+                                <p class="gcclip">
+                                    <strong>GORDON COLLEGE CLASSROOM LEARNER'S INTERACTIVE PRESENTATION</strong> 
+                                    <span style="font-weight: lighter;"> (GC CLIP) - Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                    Reprehenderit magnam sit fugit
+
+                                    </span>
+                                </p> 
+                                <p class="version" >
+                                    Version 1.0
+                                </p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+            </section>
+            <section>
+                <mat-card class="sec2 mat-elevation-z8 " >
+                    <mat-card-title class="title">Faculty Portal</mat-card-title>   
+                    <mat-card-content>
+                        <p>Login your credentials</p>
+                        <form [formGroup]="loginForm" (ngSubmit)="signIn()" ngNativeValidate >
+
+                            <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label>Enter your email</mat-label>
+                              <input type="email" matInput  formControlName="email" required>                         
+                            </mat-form-field>
+        
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Enter your password</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>                 
+                            </mat-form-field>
+                            <div class="text-center">
+                                <mat-checkbox color="primary" formControlName="rememberme"  [checked]="rememberme"> Remember Me</mat-checkbox>
+                                <br>
+                                <strong *ngIf="Error" style="color:red">Incorrect Email or Password</strong>    
+                            </div>
+            
+                            <button type="submit" class="login-button btn btn-primary"  [disabled]="!loginForm.valid"  mat-raised-button >
+                                Login
+                            </button>
+                          </form>
+                    </mat-card-content>
+                    <div class="text-center">
+                        <small  >No account yet? <a routerLink="/signup"><strong>Click Here</strong></a></small>
+                        <br>
+                        <small >Forget Password ? <a routerLink="/forgotpassword"><strong>Click Here</strong></a></small>
+                    </div>
+                
+                </mat-card>
+            </section>
+    
+        </div>
+    </div>
+</div>
+
+<!-- <footer>
+	<p>
+	  Team Parallel Startup 2021-2022
+	</p>
+</footer> -->
