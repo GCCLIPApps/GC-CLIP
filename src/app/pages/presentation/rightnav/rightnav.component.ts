@@ -35,7 +35,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   SubjectslideId: Subscription;
   SubjectpresPace: Subscription;
 
-  private currentTabIndex = 1
+  currentTabIndex = 1
   contentTabs: string = '';
   items: any;
   toggleLanguagechecked: boolean = true;
@@ -44,7 +44,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   currentlyClickedCardIndex: any;
   step: number = 0;
   
-  isPaceTo: string = this._user.getPresentationPace();
+  isPaceTo: string;
   viewers: any = [];
 
   // Content Variables
@@ -76,10 +76,11 @@ export class RightnavComponent implements OnInit,OnDestroy {
     
   
     ngOnInit():void {
+ 
       this.SubjectslideId =  this._user.SubjectslideId?.subscribe((data) => {
       this._ds.processData1('slides/pres/byOneSlideId', {sdId: data}, 2)?.subscribe((res: any) => {
         let load = this._ds.decrypt(res.d);
-
+        console.log(load, this.isPaceTo = this._user.getPresentationPace())
         this.contentTabs = load[0]["sType_fld"];
        
     
@@ -115,23 +116,27 @@ export class RightnavComponent implements OnInit,OnDestroy {
       this.isDisabled = false;
     }, 1000);
   }
-
-  getSelectedIndex(): number {
-        return this.currentTabIndex
-  }
-
-  onTabChange(event: any) {
-        this.currentTabIndex = event.index
-  }
   
   setStep(index: number) {
     this.step = index;
   }
+
   public checkIfCardIsSelected(cardIndex: string): boolean {
     return cardIndex === this.currentlyClickedCardIndex;
   }
 
+  istabDisable = true;
 
+  onTabChange(event: any) {
+    if(event.index != 0){
+      this.istabDisable = false;
+    }
+    this.currentTabIndex = event.index;
+    return this.currentTabIndex
+  }
+
+
+  
   selectType(msg: string){
     this.currentlyClickedCardIndex = msg;
 
@@ -181,6 +186,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
       
       default:
         this.currentTabIndex = 0
+        this.istabDisable = true;
         this.updateContent('')
     }
   }
@@ -233,6 +239,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
         console.log('err', this._ds.decrypt(err.d))
       });
   } 
+
   updateOption(id:any, type:any,optionTitle: any){
     this.Options = optionTitle.target.value;
     this._ds.processData1('option/updateOptions/'+id,{option:  this.Options}, 2)?.subscribe((res: any) => {
@@ -242,13 +249,14 @@ export class RightnavComponent implements OnInit,OnDestroy {
       });
   }
 
-  checkedChanged(id:number, type:any, isCorrect : any){
+  isCorrect(id:number, type:any, isCorrect : any){
     this._ds.processData1('option/updateOptions/'+id,{isCorrect: isCorrect.checked}, 2)?.subscribe((res: any) => {
       this.DisabledInput();
       },err =>{
         console.log('err', err)
       })
   }
+
   removeOptions(id:number, index:number){
     // console.log(id, index)
     this._ds.processData1('option/removeOptions/id/'+id,'', 2)?.subscribe((res: any) => {

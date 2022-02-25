@@ -8,6 +8,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../home/dashboard/confirmation-dialog/confirmation-dialog.component';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,11 +22,11 @@ export class SlidelistComponent implements OnInit {
   @Output() totalSelectAnswerPage: EventEmitter<any> = new EventEmitter<any>();
   contextMenuPosition = { x: '0px', y: '0px' };
 
+  @Input() id: number;
   @Input() slideTimer: number;
   @Input() sTheme:string = this._user.getPresentationTheme();
   @Input() sColor: string = this._user.getPresentationFontColor();
   @Input() sImage: string = this._user.getPresentationFontColor();
-
 
   newslideTimer: number;
   sType: string
@@ -49,12 +50,17 @@ export class SlidelistComponent implements OnInit {
     private _router: Router,
     private _socket: SocketService,
     private _ds: DataService, 
-    public _user: UserService) { }
+    public _user: UserService) { 
+
+
+    }
 
   ngOnInit(): void {
-  this.fullname = this._user.getFullname();
-  this.department = this._user.getDept();
-  this.getPresentations();
+  // this.fullname = this._user.getFullname();
+  // this.department = this._user.getDept();
+ 
+
+  this.getSlidelist();
   }
 
   ngOnDestroy(): void {
@@ -66,16 +72,18 @@ export class SlidelistComponent implements OnInit {
   ngOnChanges(changes: any): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    this.slideTimer = changes.slideTimer.currentValue;
+    // this.slideTimer = changes.slideTimer.currentValue;
     
   }
 
   showMessage(message: any) {
   }
 
-  getPresentations(){
-    this._ds.processData1('slides/pres/bySlideId', this._user.getPresentationId(), 2)?.subscribe((res: any) => {
+  getSlidelist(){
+    console.log(this.id, this.slideTimer)
+    this._ds.processData1('slides/pres/bySlideId', this.id, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
+      // console.log(load)
       this.items = load;
       this.slideSelector(load[0], 0);
       this._user.getSlideId();
@@ -100,8 +108,10 @@ export class SlidelistComponent implements OnInit {
     }, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.DisabledInput();
-      this.items.push(load)
-      this._user.setSlideDetails(load.id, load.sCode_fld,load.sName_fld);
+      this.items.push(load);
+      this.slideSelector(load, length);
+      this. progressIndex(length);
+      this._user.setSlideDetails(load.id, load.sNo_fld,load.sType_fld);
       },err =>{
         console.log('err', err)
       });
@@ -178,7 +188,7 @@ export class SlidelistComponent implements OnInit {
             this.percent = 100;
         }else{
 
-           this.percent += this.min * index;
+           this.percent += (this.min * index);
         }
     }
 
@@ -187,7 +197,7 @@ export class SlidelistComponent implements OnInit {
         this.percent = (100 / this.items.length);
 
       }else{
-        this.percent -= this.min * index;
+        this.percent = (this.min *(this.items.length - index)) ;
       }
     }
     this.oldIndex = index 
@@ -203,6 +213,7 @@ export class SlidelistComponent implements OnInit {
 
 
   openDeleteDialog(item:any, index: number) {
+    console.log(item)
     const dialogRef = this.matDialog.open(ConfirmationDialogComponent,{
       data:{
         item: item,

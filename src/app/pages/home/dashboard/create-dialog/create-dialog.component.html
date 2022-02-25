@@ -1,15 +1,28 @@
-<mat-dialog-content class="mat-typography">
+<div class="dialog-header d-flex justify-content-between">
     <h1 mat-dialog-title>Create Presentation</h1>
-    <mat-form-field appearance="fill">
-        <mat-label>Presentation title</mat-label>
-        <input matInput [(ngModel)]="title" required class="input">
-      </mat-form-field>
+
+    <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-divider></mat-divider>
+
+
+<div mat-dialog-content>
+    <div class="row gx-5">
+   
+            <mat-form-field appearance="fill">
+                <mat-label>Presentation title</mat-label>
+                <input matInput [(ngModel)]="title" required class="input">
+            </mat-form-field>
+     
+    </div>
+</div>
+
+
 
    
-  </mat-dialog-content>
 <mat-dialog-actions align="end">
     <div class="button">
-        <button mat-raised-button (click)="onClose()" color="warn">Cancel</button>
-        <button mat-raised-button (click)="onSubmit()" [disabled]="!title" class="btn btn-primary">Create Presentation</button>
+        <button mat-raised-button (click)="onSubmit()" [disabled]="title.length <= 6" class="success"><mat-icon>check</mat-icon></button>
     </div>
 </mat-dialog-actions>  

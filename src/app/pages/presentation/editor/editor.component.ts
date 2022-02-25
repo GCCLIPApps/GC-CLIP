@@ -93,26 +93,14 @@ export class EditorComponent implements OnInit {
   ngOnChanges(changes: any): any {
         //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
         //Add '${implements OnChanges}' to the class.
-    try {
       this.percent = this.slideListPercent;
-      console.log( changes.slideListPercent.currentValue)
-     
-      // for (let i = 0; this.totalSelectAnswerPage.length > i; i++){
-
-      
-
-      // }
-      // console.log(this.totalPages = changes.totalSelectAnswerPage.currentValue)
-    } catch (error) {
-      
-      throw error;
-    }
   }
   
   //Fetch Data rom RightNav 
   getcontentFrom(data:any, type: any, newOption: any){
 
     this.type = type.newType;
+    console.log(this.type)
 
     switch (this.type) {
       case 'qa':
@@ -172,7 +160,7 @@ export class EditorComponent implements OnInit {
 
   timerToMain(timer: number){
     this.slideTimer = timer
-    console.log(this.slideTimer)
+    // console.log(this.slideTimer)
   }
 
   updatePace(pace:number){
@@ -252,17 +240,20 @@ export class EditorComponent implements OnInit {
     }
   }
 
+  isCardloading = false;
+  
   updateContent(){
-
+    this.isCardloading = true;
     this.showSlide = false;
     this.isPresssedEnter = false;
  
     this._ds.processData1('contents/update/'+this._user.getContentId(), this.myArrayData, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-
+        this.isCardloading = false;
         this.toSlideMain.emit({isSpin: true, type: this.type});
   
         },err =>{
+          this.isCardloading = false;
           console.log('err', err)
         });
   }
@@ -273,7 +264,7 @@ export class EditorComponent implements OnInit {
         let load = this._ds.decrypt(res.d);
         this.responseLists = load;
         
-        console.log(this.responseLists)
+        // console.log(this.responseLists)
           // this._snackBar.open("Presentation Updated", '', {
           //   duration: 1000,
           // });

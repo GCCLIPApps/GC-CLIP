@@ -26,11 +26,14 @@ const routes: Routes = [
         {path: '', redirectTo: 'app', pathMatch: 'full'},
       ]},
 
-    {path: 'presentation', component: SlidemainComponent,
+    {path: 'presentation/:code', component: SlidemainComponent,
+    data:{
+      title: 'asdsads'
+    },
         canActivate: [AuthGuard],
           children:[
-            {path: 'editor', component: EditorComponent},
-            {path: '', redirectTo: 'editor', pathMatch: 'full'},
+            {path: '', component: EditorComponent},
+            {path: '', redirectTo: '', pathMatch: 'full'},
 
       ]},
 ];

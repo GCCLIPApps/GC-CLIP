@@ -4,7 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
@@ -25,61 +25,81 @@ export interface Presentations {
 })
 export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['sName_fld', 'Owner', 'updatedOn', 'createdOn', 'Action'];
-  dataSource = new MatTableDataSource<Presentations>();
-  
-  value = '';
-  pageSize = 7;
-  pageOption = [5, 10, 25, 100];
+  dataSource: MatTableDataSource<Presentations>;
+
+
+  @ViewChild(CreateDialogComponent) createdPresent: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  value: string = '';
+  pageOption: number[] = [5, 10, 25, 100];
   Owner : string = (this._user.getFullname() == this._user.getFullname()) ? "Me"  : this._user.getFullname();
 
+
+
+
+  // @ViewChild(MatTable) table: MatTable<Presentations>;
+
+
+  
   constructor( 
     private _snackBar: MatSnackBar, 
     private _route: Router, 
     private _ds: DataService, 
     private _user: UserService, 
-    private matDialog: MatDialog) { }
+    private matDialog: MatDialog) {
 
-  @ViewChild(CreateDialogComponent) createdPresent: any;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+      this.getAllPresentation()
+     }
+
 
   ngOnInit(): void {
-    this.getAllPresentation()
-  }
-
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+   
   }
 
   getAllPresentation(){
     this._ds.processData1('slides/byUserId', this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
+  
       this.dataSource = new MatTableDataSource(load); 
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+
       },err =>{
         console.log('err', err)
       });
   }
 
+
+
   searchThis(){
     this.value = ""
   }
-  applyFilter(){
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = this.value.trim().toLocaleLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   onCreate(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%";
-    this.matDialog.open(CreateDialogComponent,{width: '30%'});
+    const dialogConfig = this.matDialog.open(CreateDialogComponent, {
+      autoFocus: true,
+      disableClose: false
+    });
+
+    dialogConfig.afterClosed().subscribe((res: any) => {
+        if (res) {
+          console.log(res)
+          this.dataSource.data.push(res)
+          // this.table.renderRows();
+          }
+    });
   }
 
   openDeleteDialog(presId: number, index: number) {
@@ -105,21 +125,13 @@ export class DashboardComponent implements OnInit {
     });
 }
 
+ 
 
 
-  editPresentation(presId: number, name: string){
+openPresentation(id: string){
 
-    this._ds.processData1('slides/'+presId,'', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
-     
-      console.log(load);
-      this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld);
-      this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
-      this._route.navigate(['/presentation'])
+    this._route.navigate([]).then(result => {  window.open( `${this._user.webLink}editor?link=${btoa(this._user.webLink)}/${btoa(id)}`); });
 
-      },err =>{
-        console.log('err', err)
-      });
   }
 
 }

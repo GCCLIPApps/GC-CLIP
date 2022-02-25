@@ -39,18 +39,15 @@ export class ThemesComponent implements OnInit {
     this.checkTheme(this.isTheme)
   }
 
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-  }
-
   public checkTheme(background:any): boolean{
+
     return background === this.currentTheme
   }
 
   selectTheme(item:any){ 
     // console.log("clicked confirm",item)
     this.currentTheme = item.backgroundColor;
+    this.isTheme = this.currentTheme
     this.mainOutput.emit(item);
 
   } 

@@ -1,7 +1,7 @@
 <mat-card class="scrollable-content" >
   
   
-  <mat-tab-group [selectedIndex]="getSelectedIndex()" (selectedTabChange)="onTabChange($event)" 
+  <mat-tab-group [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)" 
   animationDuration="0ms" mat-stretch-tabs >
             <mat-tab label="Type" class="card_holder" matTooltip="Choose type of slide">
         
@@ -160,7 +160,7 @@
                         </div> -->
           
             </mat-tab>
-            <mat-tab label="Content" >
+            <mat-tab label="Content" [disabled]="istabDisable">
               <div class="container">
                 <div class="card-body title">
                   <div class="heading" *ngIf="contentTabs == 'heading'">
@@ -373,7 +373,7 @@
                             <mat-list-item >
 
                               <div class="option-input">
-                                <mat-checkbox  class="example-margin"  matTooltip="Mark option as correct answer" [(ngModel)]="optionlist.isCorrect_fld"  [disabled]="isDisabled" [checked]="optionlist.isCorrect_fld" (change)="checkedChanged(optionlist.id, contentTabs, $event)"></mat-checkbox>
+                                <mat-checkbox  class="example-margin"  matTooltip="Mark option as correct answer" [(ngModel)]="optionlist.isCorrect_fld"  [disabled]="isDisabled" [checked]="optionlist.isCorrect_fld" (change)="isCorrect(optionlist.id, contentTabs, $event)"></mat-checkbox>
                                 <div class="option-holder">
                                   <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                                   <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>

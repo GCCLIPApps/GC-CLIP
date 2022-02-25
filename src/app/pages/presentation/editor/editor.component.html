@@ -10,79 +10,67 @@
               <h1  *ngIf="fullscreen" class="text-center">{{heading}}</h1> -->
 
               <mat-card-content>
-                <ng-container  *ngIf="type == 'qa'">
-                  <div class="question-holder">
-  
-                    <h2  class="card-question">{{heading}}</h2>
-                    <h5 class="question-status"  *ngIf="type == 'qa'">{{status}}</h5>
-                    <p  *ngIf="type == 'qa'">{{smallParagraph}}</p>
-    
-                    <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                    <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
-                  
-                    <div class="question" *ngFor="let responseList of responseLists">
-                      <p>{{responseList.studentResponse}}</p>
-                      <p *ngIf="responseList.response_fld">{{responseList.response_fld}}</p>
 
-                    </div>
-                  </div>
-                </ng-container>
-                
-          
-                <ng-container *ngIf="type == 'bullets' || type == 'poll'" >
-                  <div class="bullet-holder"  >
-  
-                    <div class="bullet-header">
-                      <h2  >{{heading}}</h2>
+                <div class="text-center" *ngIf="isCardloading"> 
+
+                  <mat-spinner></mat-spinner>
+
+       
+
+                </div>
+
+                <div class="" *ngIf="!isCardloading">
+                             
+                  <ng-container *ngIf="!type">
+                    <div class="content-holder">
+                      <h2 class="card-head"> Select Type</h2>
                     </div>
                     
-                    <div class="bulletlists" *ngFor="let item of showOptions" >
+                  </ng-container>
+                  
+                  <ng-container  *ngIf="type == 'qa'">
+                    <div class="question-holder">
+    
+                      <h2  class="card-question">{{heading}}</h2>
+                      <h5 class="question-status"  *ngIf="type == 'qa'">{{status}}</h5>
+                      <p  *ngIf="type == 'qa'">{{smallParagraph}}</p>
+      
+                      <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                      <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
                     
-                      <div class="bulletlist-holder">
-                        <mat-icon>arrow_forward</mat-icon>
-                        {{item.choice_fld}}
-                      </div>
-              
-                    </div>
-                    <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                    <img *ngIf="image" [src]="this._user.imageLink+image" >
-                  </div>
-                  
-                </ng-container>
-                
-          
-
-                <ng-container *ngIf="type == 'mc'" >
-    
-                  <div class="multiplechoice-holder"  >
+                      <div class="question" *ngFor="let responseList of responseLists">
+                        <p>{{responseList.studentResponse}}</p>
+                        <p *ngIf="responseList.response_fld">{{responseList.response_fld}}</p>
   
-                    <div class="multiplechoice-header">
-                      <h2  >{{heading}}</h2>
-                    </div>
-                 
-  
-                    <div class="optionlists d-flex">
-           
-                      <div class="optionlists-holder" *ngFor="let item of showOptions" >
-                   
-              
-                              <img *ngIf="item.image_fld && type == 'mc'" [src]="this._user.imageLink+item.image_fld" class="option_image" >
-
-                               <p >{{item.choice_fld}}</p> 
-    
-             
                       </div>
-                     
                     </div>
+                  </ng-container>
                   
-                    <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                    <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
-                    </div>
-                </ng-container>
+            
+                  <ng-container *ngIf="type == 'bullets' || type == 'poll'" >
+                    <div class="bullet-holder"  >
+    
+                      <div class="bullet-header">
+                        <h2  >{{heading}}</h2>
+                      </div>
+                      
+                      <div class="bulletlists" *ngFor="let item of showOptions" >
+                      
+                        <div class="bulletlist-holder">
+                          <mat-icon>arrow_forward</mat-icon>
+                          {{item.choice_fld}}
+                        </div>
                 
-                <ng-container *ngIf="type === 'sa'">
-
-                  <ng-container *ngIf="type == 'sa'" >
+                      </div>
+                      <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                      <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                    </div>
+                    
+                  </ng-container>
+                  
+            
+  
+                  <ng-container *ngIf="type == 'mc'" >
       
                     <div class="multiplechoice-holder"  >
     
@@ -95,14 +83,9 @@
              
                         <div class="optionlists-holder" *ngFor="let item of showOptions" >
                      
-                              <div *ngIf=" type == 'sa'">  
-                                <div *ngIf="item.isCorrect_fld; else notCorrect">
-                                <mat-icon class="mat-icon" [ngStyle]="{'color':'#08f4ad'}">check</mat-icon>
-                              </div>
-                              <ng-template #notCorrect>
-                                <mat-icon  class="mat-icon" [ngStyle]="{'color':'#ff3333'}">close</mat-icon>
-                              </ng-template>
-                              </div>
+                
+                                <img *ngIf="item.image_fld && type == 'mc'" [src]="this._user.imageLink+item.image_fld" class="option_image" >
+  
                                  <p >{{item.choice_fld}}</p> 
       
                
@@ -114,26 +97,55 @@
                       <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
                       </div>
                   </ng-container>
-                </ng-container>
-              
-          
-                  <ng-container *ngIf="type == 'heading' || type == 'paragraph'">
-                    <div class="content-holder">
-                      <h2 class="card-head"> {{heading}}</h2>
-                      <h6  class="card-paragraph" *ngIf="type == 'paragraph'">{{subheading}}</h6>
-                      <p class="card-subhead" *ngIf="type == 'heading'">{{subheading}}</p>
-                      <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                      <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
-                    </div>
-                    
-                  </ng-container>
+                  
+                  <ng-container *ngIf="type === 'sa'">
+        
+                      <div class="multiplechoice-holder"  >
+      
+                        <div class="multiplechoice-header">
+                          <h2  >{{heading}}</h2>
+                        </div>
+                     
+      
+                        <div class="optionlists d-flex">
+               
+                          <div class="optionlists-holder" *ngFor="let item of showOptions" >
+                       
+                                <div *ngIf=" type == 'sa'">  
+                                  <div *ngIf="item.isCorrect_fld; else notCorrect">
+                                  <mat-icon class="mat-icon" [ngStyle]="{'color':'var(--clr-success)'}">check</mat-icon>
+                                </div>
+                                <ng-template #notCorrect>
+                                  <mat-icon  class="mat-icon" [ngStyle]="{'color':'var(--clr-warn)'}">close</mat-icon>
+                                </ng-template>
+                                </div>
+                                   <p >{{item.choice_fld}}</p> 
+        
+                 
+                          </div>
+                         
+                        </div>
+                      
+                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                        <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>
 
-                  <ng-container *ngIf="type === ''">
-                    <div class="content-holder">
-                      <h2 class="card-head"> Select Type</h2>
-                    </div>
-                    
                   </ng-container>
+                
+            
+                    <ng-container *ngIf="type == 'heading' || type == 'paragraph'">
+                      <div class="content-holder">
+                        <h2 class="card-head"> {{heading}}</h2>
+                        <h6  class="card-paragraph" *ngIf="type == 'paragraph'">{{subheading}}</h6>
+                        <p class="card-subhead" *ngIf="type == 'heading'">{{subheading}}</p>
+                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                        <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                      </div>
+                      
+                    </ng-container>
+  
+                </div>
+                
          
                 </mat-card-content>
             </div>

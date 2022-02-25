@@ -2,18 +2,37 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
-
 html, body { height: 100%; }
 * { 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+   
 
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-    mat-grid-tile {
-        padding: 0;
-        border-radius: 5px;
-        background: rgb(206, 206, 206);
-        border: .01rem solid rgb(155, 155, 155);
-    }
+    // font-family: 'Saira Semi Condensed', sans-serif;
+    // mat-grid-tile {
+    //     padding: 0;
+    //     border-radius: 5px;
+    //     background: rgb(206, 206, 206);
+    //     border: .01rem solid rgb(155, 155, 155);
+    // }
     
+:root {
+    --clr-primary: #0166B3;
+    --clr-secondary: #255cff;
+    --clr-tertiary: #1A2B81;
+    --clr-light: #9BACCC;
+    --clr-third: #334e5c;
+    --clr-cardlist: #0a8dff;
+
+    --clr-white: #ffffff;
+    --clr-gray: #c9c7c7;
+    --clr-lightgray: #f1f1f1;
+
+    --clr-dark: #000;
+
+    --clr-button: #3366ff;
+    --clr-success: #08f4ad;
+    --clr-warn: #ff3333;
+
+}

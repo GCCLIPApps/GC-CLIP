@@ -3,8 +3,8 @@
   
   </div>
   <div mat-dialog-actions style="justify-content: center;">
-    <button mat-raised-button *ngIf="presentationId" color="warn" (click)="deletePres()" >{{confirmButtonText}}</button>
-    <button mat-raised-button *ngIf="items" color="warn" (click)="deleteSlide()" >{{confirmButtonText}}</button>
+    <button mat-raised-button *ngIf="!isPresentation" class="success" (click)="deletePres()" >{{confirmButtonText}}</button>
+    <button mat-raised-button *ngIf="isPresentation" class="success" (click)="deleteSlide()" >{{confirmButtonText}}</button>
 
-    <button mat-raised-button mat-dialog-close>{{cancelButtonText}}</button>
+    <button mat-raised-button class="warn" mat-dialog-close>{{cancelButtonText}}</button>
   </div>

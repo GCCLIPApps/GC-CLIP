@@ -5,7 +5,7 @@
   [opened]="(isHandset$ | async) === false" >
     <!-- <mat-drawer mode="side" opened="true"> -->
       <!-- <app-main-nav></app-main-nav> -->
-      <app-slidelist (slidespercent)="slidesPercentage($event, $event)" [slideTimer]="slideTimer" [sTheme]="sTheme" [sColor]="sColor" ></app-slidelist>
+      <app-slidelist (slidespercent)="slidesPercentage($event, $event)" [id]="id" [slideTimer]="slideTimer" [sTheme]="sTheme" [sColor]="sColor" ></app-slidelist>
   </mat-sidenav>
     <mat-sidenav-content>
       <mat-toolbar class="header mat-elevation-z3 justify-content-between">
@@ -23,6 +23,8 @@
         <div class="wrapper">
             <section>
                 <mat-card class="header_title d-flex flex-nowrap justify-content-between">
+
+
                     <span class="slide_title my-auto">
                       My Presentation <span style="color: #334e5c;"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle('')" required> 
                     </span>
@@ -49,12 +51,11 @@
 
                     <button mat-button  class="theme_code btn mr-2" [cdkCopyToClipboard]="sCode" (click)="setTheme()"  matTooltip="Set Theme">
                       <mat-icon class="play-image-icon">water_drop</mat-icon>
-                      <span>Theme</span>
                     </button>
 
                     <button mat-raised-button  class="play btn" matTooltip="Present your slide" (click)="this.editor.openFullscreen()">
                             <mat-icon class="play-image-icon">play_arrow</mat-icon>
-                        <span >Present</span>
+                        <!-- <span >Present</span> -->
                     </button>
                   </div>
               </mat-card>

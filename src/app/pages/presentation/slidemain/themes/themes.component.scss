@@ -1,21 +1,22 @@
 mat-card{
-    width: 100%;
-    height: 100%;
+    width: 25vh;
+    height: 15vh  !important;
     transition: 0.3s;
-    border: .05rem solid  #979797;
+    border: .05rem solid  var(--clr-gray);
 
 
     &:hover {
         opacity: 0.8;
         cursor: pointer;
         transition: 0.3s;
-        border: .3rem solid  #0a8dff;
-        background-color: #d2eaff !important;
+        border: .08rem solid  var(--clr-cardlist);
+        background-color: var(--clr-gray) !important;
       }
 }
 
 .highlight {
-    border: .05rem solid  #0a8dff;
-    background-color: #c2c2c2 !important;    
+
+    border: .08rem solid    var(--clr-cardlist);
+    background-color: rgba(187, 185, 185, 1)!important;    
 
   }

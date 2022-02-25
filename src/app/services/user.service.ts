@@ -16,8 +16,10 @@ export class UserService {
   private keyString = new DataSchema();
 
   // User
+  public webLink = `http://localhost:${window.location.port}/#/presentation/`;
   public apiLink: string = `http://localhost:5000/${btoa('api').replace('=', '')}/`;
   public imageLink: string = `http://localhost:5000/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`
+  
   private profilepic: string;
   private token: any;
   private empId: any;

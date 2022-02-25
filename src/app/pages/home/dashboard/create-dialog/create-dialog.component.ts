@@ -27,25 +27,18 @@ export class CreateDialogComponent implements OnInit {
     this._ds.processData1('slides/create/Presentation', 
     {instId: this._user.getUserID(), 
       sName_fld: this.title, 
-      sTheme_fld: '',
-      sColor_fld: ''}, 2)?.subscribe((res: any)=>{
+      sTheme_fld: '#FFFFFF',
+      sColor_fld: '#1D2127'}, 2)?.subscribe((res: any)=>{
 
-        let load =  this._ds.decrypt(res.d)
-        console.log(load);
-        this._user.setPresentation(load.slideId, load.sCode , this.title, load.sPace);
-        this._user.setPresentationTheme('', '');
-
-        this._route.navigate(['/presentation'])
-        this.onClose()
+      let load =  this._ds.decrypt(res.d)
+ 
+      this._route.navigate([]).then(result => {  window.open( `${this._user.webLink}editor?link=${btoa(this._user.webLink)}/${btoa(load.id)}`); });
+      this.dialogRef.close(load);
 
     }, err =>{
       console.log('err', err)
     });
     }
-  }
-
-  onClose(){
-    this.dialogRef.close();
   }
 }
 

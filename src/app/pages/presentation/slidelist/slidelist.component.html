@@ -4,7 +4,7 @@
     <mat-nav-list>
       <div class="logo d-flex flex-direction-row justify-content-start" (click)="home()" matTooltip="Go back to home">
         <img src="../../../../assets/App logo wbg.png">
-        <span >My Presentations</span>
+        <span >Presentations</span>
       </div>
       <div class="header text-center">
         <button mat-raised-button class="add_slide" (click)="addSlide()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
@@ -20,9 +20,9 @@
         (cdkDropListDropped)="drop($event)">
           <mat-list-item class="example-box"  [disabled]="isDisabled" *ngFor="let item of items; let i = index;" (keydown.arrowleft)="selectionChange($event)" 
           (keydown.arrowright)="selectionChange($event)" [ngClass]="{'highlight':checkIfCardIsClicked(i)}" (click)="slideSelector(item, i)" (click)="progressIndex(i)" [disabled]="i===currentlyClickedCardIndex"  cdkDrag>
-            <div class="slide_number"  >
-              <mat-label class="mr-1" (change)="updateIndex(i)" >{{i + 1}}</mat-label>
-            </div>  
+          
+              <mat-label class="number_label" (change)="updateIndex(i)" >{{i + 1}}</mat-label>
+        
               <mat-card class="slide_card d-flex align-items-center justify-content-center" matTooltip={{item.sType_fld}}  [style.background]="sTheme" [style.color]="sColor" (contextmenu)="onContextMenu($event, item, i)"> 
                 <mat-card-content >
   

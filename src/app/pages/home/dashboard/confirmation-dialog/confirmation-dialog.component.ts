@@ -14,11 +14,10 @@ export class ConfirmationDialogComponent implements OnInit {
   message: string = "Are you sure?"
   confirmButtonText = "Yes"
   cancelButtonText = "Cancel"
-  presentationId: number;
-  items : any;
+  isPresentation: boolean = true;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     private _ds: DataService,
     private _user: UserService) {
@@ -31,12 +30,10 @@ export class ConfirmationDialogComponent implements OnInit {
     }
     
     if(data.id){
-        this.presentationId = data.id
-    }else if(data.item.id){
-      this.items = data.item
+        this.isPresentation = false
       }
     }
-    console.log("no data")
+
   }
 
   
@@ -44,7 +41,7 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   deletePres(): void {
-    this._ds.processData1('slides/delete/'+this.presentationId,'', 2)?.subscribe((res: any) => {
+    this._ds.processData1('slides/delete/'+this.data.id,'', 2)?.subscribe((res: any) => {
         let load = this._ds.decrypt(res.d);
         this.dialogRef.close(true);
         },err =>{
@@ -53,7 +50,7 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   deleteSlide(): void {
-    this._ds.processData1('/slides/pres/'+this._user.getSlideId()+'/rem', '', 2)?.subscribe((res: any) => {
+    this._ds.processData1('/slides/pres/'+this.data.item.id+'/rem', '', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.dialogRef.close(true);
       },err =>{
