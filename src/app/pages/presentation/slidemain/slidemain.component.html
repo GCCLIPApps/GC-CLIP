@@ -26,7 +26,7 @@
 
 
                     <span class="slide_title my-auto">
-                      My Presentation <span style="color: #334e5c;"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle('')" required> 
+                    <a [routerLink]="['/main']" routerLinkActive="router-link-active" > My Presentation </a>  <span style="color: #334e5c;"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle('')" required> 
                     </span>
                         
                   <div class="slide_function d-flex align-content-end">

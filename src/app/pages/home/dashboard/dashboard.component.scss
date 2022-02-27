@@ -59,6 +59,10 @@
     table{
         width: 100%;
         table-layout: fixed;
+
+        .Name_header{
+          width: 400px !important;
+        }
     }
 
     .mat-column-sName_fld{
@@ -70,20 +74,21 @@
             margin-left: 1rem;
             white-space: nowrap !important; 
             text-overflow: ellipsis !important; 
-        
+            &:hover{
+                transition: .5s;
+                text-shadow: 1px 1px 1px black;
+                color: var(--clr-secondary);
+            }
+
             span{
                 color: var(--clr-gray);
                 font-size: .8rem;
             }
-
-            &:hover{
-                transition: .5s;
-                color: var(--clr-gray);
-            }
+       
         }
         mat-icon{
             transition: .5s;
-            font-size: 2rem;
+            font-size: 2.5rem;
             &:hover{
                 transition: .5s;
                 color: var(--clr-secondary);
@@ -94,13 +99,13 @@
     th, td{
         cursor: pointer;
         font-size: .9rem;
-        color: var(--clr-light);
+        color: var(--clr-third);
     }
     td{
         margin: auto;
         padding: 1rem;
     }
-
+  
   
     .action{
         margin: 8px;
@@ -132,7 +137,24 @@
 
 
 
+.action-warn{
+    font-size: .8rem;
+    color: var(--clr-warn) !important;
 
+    span{
+        font-size: .8rem;
+    }
+    mat-icon{
+        transition: .5s;
+        color: var(--clr-warn) !important;
+        &:hover{
+            transition: .5s;
+            font-weight: 600;
+        }
+
+    }
+  
+}
 
 
 @media screen and (min-width: 0px) and (max-width: 1024px) {
@@ -171,6 +193,18 @@
         td{
             font-size: .7rem;
         }
+        table{
+            .Name_header{
+              width: 100px !important;
+            }
+
+
+        .mat-column-sName_fld{
+            mat-icon{
+                visibility: hidden;
+            }
+        }
+    }
         .action{
             margin: 5px;
             .mat-icon{

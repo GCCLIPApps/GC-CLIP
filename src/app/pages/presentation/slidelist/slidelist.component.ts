@@ -33,7 +33,7 @@ export class SlidelistComponent implements OnInit {
 
   fullname: string; 
   department: string;
-  items: any = ['1','2','3'];
+  items: any = [];
   currentIndex: number = 0;
   lastslide: boolean = false
   oldIndex = 0;
