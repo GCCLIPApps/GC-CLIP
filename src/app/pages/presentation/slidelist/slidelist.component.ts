@@ -155,7 +155,7 @@ export class SlidelistComponent implements OnInit {
             this.currentIndex = 0;
             this.percent -=  this.min * this.items.length;
             console.log('This is the last slide')
-          // this._socket.sendData({sdId: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
+          this._socket.sendData({sdId: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
         }
           this.slideSelector(this.items[this.currentIndex], this.currentIndex);
           this.percent += this.min;
@@ -168,7 +168,7 @@ export class SlidelistComponent implements OnInit {
             this.currentIndex = this.items.length - 1;
             this.percent = this.min * this.items.length;
 
-            // this._socket.sendData({slideDetail: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
+            this._socket.sendData({slideDetail: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
           }else{
             this.percent -= this.min;
             // this.slideSelector(this.items[this.currentIndex = 0], this.currentIndex = 0)
