@@ -1,19 +1,23 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content>
- 
     <mat-nav-list>
-      <div class="logo d-flex flex-direction-row justify-content-start" (click)="home()" matTooltip="Go back to home">
-        <img src="../../../../assets/App logo wbg.png">
-        <span >Presentations</span>
-      </div>
-      <div class="header text-center">
-        <button mat-raised-button class="add_slide" (click)="addSlide()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
-          <mat-icon>add</mat-icon>
-          <span>Add Slide</span> 
-        </button>
-      </div>
+
+      <div class="header">
+        <div class="logo d-flex flex-direction-row justify-content-start" (click)="home()" matTooltip="Go back to home">
+          <img src="../../../../assets/App logo wbg.png">
+          <span >GC CLIP</span>
+        </div>
+        <div class="header text-center">
+          <button mat-raised-button class="add_slide" (click)="addSlide()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
+            <mat-icon>add</mat-icon>
+            <span>Add Slide</span> 
+          </button>
+        </div>
 
         <mat-divider></mat-divider>
+
+      </div>
+      
         <div cdkDropList
         [cdkDropListData]="items"
         class="example-list"

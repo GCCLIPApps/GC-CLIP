@@ -1,23 +1,38 @@
 @import url("../../home//main//main.component.scss");
 
 .header_title{
-    // display: flex;
-    // flex-flow:nowrap;
-    // justify-content: space-between;
+    top: 0;
+    z-index: 90;
     background-color: var(--clr-secondary);
 }
 .wrapper{
     margin: 1rem 0rem 0 0rem;
 }
 
-span{
+mat-card{
+    padding: 0;
+    border-radius: 0;
+    mat-card-content{
+        padding: .5rem;
+
+
+        span{
       
-    font-size: 1rem;
-    font-weight: 600;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .slide_title a{
+            padding-left: .5rem;
+            color: white;
+        }
+    }
 }
-.slide_title a{
-    color: white;
+
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+    stroke: var(--clr-success);
 }
+
 
 .slide_function{
     // display: flex;
@@ -35,21 +50,23 @@ span{
         }
     }
     .play{
-        background-color: rgb(50, 63, 85); 
-        color: rgb(255, 255, 255);
+        background-color: var(--clr-third);
+        color: var(--clr-white);
 
 
         &:hover{
-            background-color: #334e5c; 
+            color: var(--clr-secondary);
+            background-color: var(--clr-light); 
         }
     }
     .theme_code{
-        background-color: transparent; 
-        color: rgb(255, 255, 255);
+        margin-right: .5rem;
+        background-color: none; 
+        color: var(--clr-white);
 
 
         &:hover{
-            background-color: #0b2164; 
+            color: var(--clr-light); 
         }
     }
     .play-image-icon{
@@ -61,8 +78,8 @@ span{
 
 input{
     transition: .5s;
-    width: 500px;
-    height: 40px;
+    width: 250px;
+    height: 30px;
     border: none;
     outline: none;
     color: white;
@@ -73,10 +90,10 @@ input{
 }
 input[type="text"]:focus{
     outline: none;
-    transition: 1s;
+    width: 500px;
     padding-left: 1rem;    
     border: 1px solid var(--clr-lightgray);
-    box-shadow: 0px 0px 5px #9B9B9B;
+    box-shadow: 0px 0px 5px var(--clr-lightgray);
     }
     
     input[type="text"]:hover{
@@ -91,7 +108,18 @@ input[type="text"]:focus{
     // }  
     
     @media  screen and (max-width: 1366px) {
-        input{
-            width: 400px;   
+        input[type="text"]:focus{
+            outline: none;
+            width: 300px;
+            padding-left: 1rem;    
+            border: 1px solid var(--clr-lightgray);
+            box-shadow: 0px 0px 5px var(--clr-lightgray);
+        }
+
+        .header_title{
+            position: relative;
+            top: 0;
+            z-index: 90;
+            background-color: var(--clr-secondary);
         }
     }

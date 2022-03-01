@@ -19,45 +19,46 @@
         <app-header ></app-header>
       </mat-toolbar>
       <!-- <app-slideheader (toggleSidebarForMe)="sideBarToggler()"></app-slideheader> -->
-      <div class="container-fluid page">
-        <div class="wrapper">
+      <!-- <div class="container-fluid page">
+        <div class="wrapper"> -->
             <section>
-                <mat-card class="header_title d-flex flex-nowrap justify-content-between">
+                <mat-card class="header_title">
 
-
+                  <mat-card-content class=" d-flex flex-nowrap justify-content-between">
                     <span class="slide_title my-auto">
-                    <a [routerLink]="['/main']" routerLinkActive="router-link-active" > My Presentation </a>  <span style="color: #334e5c;"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle('')" required> 
-                    </span>
-                        
-                  <div class="slide_function d-flex align-content-end">
-                    <div class="spinner"  *ngIf="showSpinner">
-                      <mat-spinner [diameter]="30" color="accent"  matTooltip="Automatically saves work">
-                      </mat-spinner>
-                    </div>
-                  
-                    <div *ngIf="!showSpinner" class="spinner d-flex my-auto" matTooltip="Automatically saves work">
-                      <mat-icon class="mat-icon mr-1" style="color:#08f4ad">check</mat-icon>
-                      <span >Saved</span>
-                    </div>
+                      <a [routerLink]="['/main']" routerLinkActive="router-link-active" > My Presentation </a>  <span style="color: 'var(--clr-third)';"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle('')" required> 
+                      </span>
+                          
+                    <div class="slide_function d-flex align-content-end">
+                      <div class="spinner"  *ngIf="showSpinner">
+                        <mat-spinner [diameter]="30"  matTooltip="Automatically saves work">
+                        </mat-spinner>
+                      </div>
                     
-                    <button mat-mini-fab color="primary"  class="mr-1" >
-                      <mat-icon [matBadge]="this.studentslists.length" matBadgeSize="small" matBadgeColor="warn">account_circle</mat-icon>
-                    </button>
-
-                    <button mat-button  class="theme_code btn"  [cdkCopyToClipboard]="sCode" (click)="copypaste()"  matTooltip="Room Code">
-                      <mat-icon class="play-image-icon">content_copy</mat-icon>
-                      <span>{{sCode}}</span>
-                    </button>
-
-                    <button mat-button  class="theme_code btn mr-2" [cdkCopyToClipboard]="sCode" (click)="setTheme()"  matTooltip="Set Theme">
-                      <mat-icon class="play-image-icon">water_drop</mat-icon>
-                    </button>
-
-                    <button mat-raised-button  class="play btn" matTooltip="Present your slide" (click)="this.editor.openFullscreen()">
-                            <mat-icon class="play-image-icon">play_arrow</mat-icon>
-                        <!-- <span >Present</span> -->
-                    </button>
-                  </div>
+                      <div *ngIf="!showSpinner" class="spinner d-flex my-auto" matTooltip="Automatically saves work">
+                        <mat-icon class="mat-icon mr-1" style="color:'var(--clr-success)'">check</mat-icon>
+                        <span >Saved</span>
+                      </div>
+                      
+                      <!-- <button mat-mini-fab  class="mr-1 theme_code" >
+                        <mat-icon [matBadge]="this.studentslists.length" matBadgeSize="small" matBadgeColor="warn">account_circle</mat-icon>
+                      </button> -->
+  
+                      <button mat-button  class="theme_code btn"  [cdkCopyToClipboard]="sCode" (click)="copypaste()"  matTooltip="Room Code">
+                        <mat-icon class="play-image-icon">content_copy</mat-icon>
+                        <span>{{sCode}}</span>
+                      </button>
+  
+                      <button mat-button  class="theme_code btn" [cdkCopyToClipboard]="sCode" (click)="setTheme()"  matTooltip="Set Theme">
+                        <mat-icon class="play-image-icon">water_drop</mat-icon>
+                      </button>
+  
+                      <button mat-raised-button  class="play btn" matTooltip="Present your slide" (click)="this.editor.openFullscreen()">
+                              <mat-icon class="play-image-icon">play_arrow</mat-icon>
+                          <!-- <span >Present</span> -->
+                      </button>
+                    </div>
+                  </mat-card-content>
               </mat-card>
             </section>
 
@@ -65,7 +66,7 @@
               <app-editor (toSlideMain)="renderSpinner($event, $event)"  (Pace)="updateTitle($event)" (Timer)="countDowntime($event)" [slideListPercent]="slidePercent" [totalSelectAnswerPage]="totalSelectAnswerPage"  [sTheme]="sTheme" [sColor]="sColor" [sImage]="sImage"></app-editor>
             </div>
           
-          </div>
-        </div>
+          <!-- </div>
+        </div> -->
     </mat-sidenav-content>
 </mat-sidenav-container>

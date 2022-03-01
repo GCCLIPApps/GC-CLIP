@@ -15,56 +15,62 @@
 // 2c55d1
 .sidenav-container {
   height: 100%;
+  padding: 0%;
   background-color: var( --clr-primary);
-}
-
-.logo {
-  // margin: .5rem 0 1rem .5rem;
-  margin: 1rem 0 2rem 0;
-  width: 40px;
-  min-height: 40px;
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: flex-start;   
-  cursor: pointer;
-
-
-  img {     
-    margin: 0rem .3rem;
-    border-radius: 50%;
-    width: inherit;
-    height: inherit;
-  }
-  span{
-    font-size: .8rem;
-    margin: auto;
-    color: var(--clr-white);;
-    font-weight: 600;
-    white-space: nowrap ;
-  }
-}
-
-.header{
-
-  .add_slide{
-    width: auto;
-    height: 2.5rem;
-    color: var(--clr-white);
-    background-color: var(--clr-button);
-
-    span{
-      font-weight: 600;
+  .header{
+    top: 0;
+    z-index: 50;
+    position: sticky;
+    background-color: var(--clr-primary);
+    .add_slide{
+      width: auto;
+      height: 2.5rem;
+      color: var(--clr-white);
+      background-color: var(--clr-button);
+  
+      span{
+        font-weight: lighter;
+      }
+      &:hover{
+        background-color: var(--clr-third);
+      }
     }
-    &:hover{
-      background-color: var(--clr-third);
+  
+  
+    .logo {
+      width: 40px;
+      cursor: pointer;
+      min-height: 40px;
+      margin: 0rem 0 1rem 0;
+  
+      img {     
+        margin: 0rem .3rem;
+        border-radius: 50%;
+        width: inherit;
+        height: inherit;
+      }
+      span{
+        text-align: center;
+        font-size: 1rem;
+        margin: auto;
+        color: var(--clr-white);;
+        font-weight: 600;
+        white-space: nowrap ;
+      }
     }
+  
+    .mat-divider {
+      border-top-width: 2px;
+      margin: 1rem 0rem 0rem 0rem;
+      border-color: var(--clr-white);
+    }
+    
   }
 }
-  .mat-divider {
-    margin: 1rem 0rem 0rem 0rem;
-    border-top-width: 2px;
-    border-color: var(--clr-white);
-  }
+
+
+
+
   
 
   .mat-menu-item{
@@ -141,7 +147,8 @@
       color: var(--clr-cardlist);
     }
     .mat-card{
-      border: .1rem solid  var(--clr-cardlist);
+      border: 1px solid var(--clr-cardlist);
+      box-shadow: 0px 0px 10px var(--clr-cardlist);
     }
   }
 
@@ -186,14 +193,14 @@
       }
     }
 
-    .logo {
-      width: 30px;
-      min-height: 30px;
-      // display: flex;
-      // flex-direction: row;
-      // justify-content: flex-start;   
-      span{
-        font-size: .8rem;
-      }
-    }
+    // .logo {
+    //   width: 30px;
+    //   min-height: 30px;
+    //   // display: flex;
+    //   // flex-direction: row;
+    //   // justify-content: flex-start;   
+    //   span{
+    //     font-size: .8rem;
+    //   }
+    // }
 }

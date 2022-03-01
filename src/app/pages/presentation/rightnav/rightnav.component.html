@@ -1,6 +1,4 @@
 <mat-card class="scrollable-content" >
-  
-  
   <mat-tab-group [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)" 
   animationDuration="0ms" mat-stretch-tabs >
             <mat-tab label="Type" class="card_holder" matTooltip="Choose type of slide">
@@ -718,14 +716,16 @@
                           </mat-panel-description>
                         </mat-expansion-panel-header>
                     
-                        
+                  
                         <div class="settings">
-                          <h4>Settings</h4>
+                          <span>
+                            Settings
+                          </span>
                           <p>
                             Configure overall experience of presentation
                           </p>
                         </div>
-    
+
                          <mat-divider></mat-divider>
                          
                          <div class="top-header">

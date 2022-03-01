@@ -24,7 +24,7 @@ body {
 .circle-container {
 
     $particleNum: 1000;
-    $particleColor: hsl(180, 100%, 80%);
+    $particleColor:var(--clr-primary);
     // $particleColor:	hsl(33, 100%, 53%);
   
     position: absolute;
@@ -44,8 +44,8 @@ body {
     //     hsla(180, 100%, 80%, 0) 56%
     //   );
     background-image: radial-gradient(
-        hsl(168, 54%, 54%),
-        hsl(168, 54%, 54%)10%,
+      var(--clr-primary),
+      var(--clr-secondary)10%,
       hsla(180, 100%, 80%, 0) 56%
     );
 
@@ -133,13 +133,13 @@ body {
   
 .background{
     height: 100%;
-    background-color: #1bbb94;
+    background-color: var(--clr-primary);;
     // #3366ff
 }
 .foreground{
     position: relative;
     height: 100%;
-    background-color: #ffffff;
+    background-color: var(--clr-white);
     border-radius: 0 0 0 150% ;
     margin: 0 auto;
 }
@@ -171,7 +171,7 @@ body {
 .logo{
     max-width: 100%;
     border-radius: 50%;
-    box-shadow: .5px .5px 2px .5px rgb(221, 221, 221);
+    box-shadow: .5px .5px 2px .5px var(--clr-gray);
     width: 120px;
 }
 
@@ -180,7 +180,7 @@ h3{
     font-weight: 600;
     strong{
         // 08f4ad
-       color: #1bbb94;
+       color: var(--clr-third);;
     }
 }  
 
