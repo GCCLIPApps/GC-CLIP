@@ -126,6 +126,7 @@ export class EditorComponent implements OnInit {
                   "subheading_fld" : data.contentForm.subheading,
                   "image_fld": data.contentForm.image,
                   "points_fld": data.contentForm.point,
+                  "isextrapoints_fld": data.contentForm.isextrapoints,
                   "timer_fld": data.contentForm.timer
                 }  
 
@@ -160,7 +161,7 @@ export class EditorComponent implements OnInit {
 
   timerToMain(timer: number){
     this.slideTimer = timer
-    // console.log(this.slideTimer)
+    console.log(this.slideTimer)
   }
 
   updatePace(pace:number){
