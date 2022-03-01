@@ -28,7 +28,6 @@ import { ThemesComponent } from './pages/presentation/slidemain/themes/themes.co
 import { ConfirmationDialogComponent } from './pages/home/dashboard/confirmation-dialog/confirmation-dialog.component';
 import { ImageCropperComponent } from './pages/presentation/rightnav/image-cropper/image-cropper.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { MainNavComponent } from './pages/home/main-nav/main-nav.component';
 
 //Material
 import { MaterialModule } from 'src/material.module';
@@ -60,7 +59,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: { autoCo
     SlidemainComponent,
     RightnavComponent,
     ForgotpasswordComponent,
-    MainNavComponent,
     ThemesComponent,
     RightclickComponent,
     ConfirmationDialogComponent,
