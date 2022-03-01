@@ -9,6 +9,7 @@ import { Subject, Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { SocketService } from 'src/app/services/socket.service';
+import { ThrowStmt } from '@angular/compiler';
 
 export interface Viewers {
   image_fld: string;
@@ -39,7 +40,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
   contentTabs: string = '';
   items: any;
   toggleLanguagechecked: boolean = true;
-  toggleExtrapoints: boolean = false;
   isDisabled: boolean = false;
   currentlyClickedCardIndex: any;
   step: number = 0;
@@ -54,6 +54,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   // PointsTimer
   points: number;
   timer: number = 30;
+  toggleExtrapoints: boolean = false;
 
   // Image
   newImage: any;
@@ -207,6 +208,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
         this.subheading = load[0]['subheading_fld'];
         this.image = load[0]['image_fld'];
         this.points = load[0]['points_fld'];
+        this.toggleExtrapoints = load[0]['isextrapoints_fld'];
         this.timer = load[0]['timer_fld'];
       }
       
@@ -278,11 +280,13 @@ export class RightnavComponent implements OnInit,OnDestroy {
     "image": this.image,
     "selectedImage": this.selectedImage,
     "timer": this.timer,
-    "point": this.points
+    "point": this.points,
+    "isextrapoints": this.toggleExtrapoints
   }
   // console.log(contentForm)
   this.DisabledInput();
   
+  console.log("isextrapoints", this.toggleExtrapoints)
   this.contentData.emit({contentForm, newType, options: this.optionLists})
 }
 
