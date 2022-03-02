@@ -3,7 +3,7 @@
 .header_title{
     top: 0;
     z-index: 90;
-    background-color: var(--clr-secondary);
+    background-color: var(--clr-darkgreen);
 }
 .wrapper{
     margin: 1rem 0rem 0 0rem;
@@ -23,7 +23,7 @@ mat-card{
         }
         .slide_title a{
             padding-left: .5rem;
-            color: white;
+            color:var(--clr-white);
         }
     }
 }
@@ -43,30 +43,35 @@ mat-card{
             margin-right: 1rem;
         }
         span{
-            color: #cecece;
+            color: var(--clr-lightgray);
             margin-right: 1rem;
             font-weight: lighter;
 
         }
     }
-    .play{
-        background-color: var(--clr-third);
+    .play{      
+        transition: .3s;
         color: var(--clr-white);
+        background-color: var(--clr-darkbutton);
 
 
         &:hover{
-            color: var(--clr-secondary);
-            background-color: var(--clr-light); 
+            transition: .3s;
+            color: var(--clr-orange);
+            background-color: var(--clr-dbgreen); 
         }
     }
     .theme_code{
         margin-right: .5rem;
-        background-color: none; 
         color: var(--clr-white);
+        // background-color: var(--clr-darkgreen); 
 
 
         &:hover{
-            color: var(--clr-light); 
+            transition: .3s;
+            color: var(--clr-fontgreen); 
+            background-color: var(--clr-lightfontgreen); 
+
         }
     }
     .play-image-icon{
@@ -82,7 +87,7 @@ input{
     height: 30px;
     border: none;
     outline: none;
-    color: white;
+    color: var(--clr-white);
     font-size: 1rem;
     font-weight: 600;
     border-radius: 5px;

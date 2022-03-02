@@ -1,4 +1,4 @@
-<mat-card class="scrollable-content" >
+<mat-card class="scrollable-content mat-elevation-z8" >
   <mat-tab-group [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)" 
   animationDuration="0ms" mat-stretch-tabs >
             <mat-tab label="Type" class="card_holder" matTooltip="Choose type of slide">
@@ -50,7 +50,7 @@
                   <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
                     <mat-grid-tile> 
                       
-                      <mat-card (click)="selectType('sa')" [ngClass]="{'highlight':checkIfCardIsSelected('sa')}" class="card-type">
+                      <mat-card (click)="selectType('quiz')" [ngClass]="{'highlight':checkIfCardIsSelected('quiz')}" class="card-type">
                         <mat-card-content>
                           <!-- <img mat-card-image src="../../../../assets//status/heading.svg" alt="Empty" class="slide-type"> -->
                           <mat-icon class="slide-type">table_rows</mat-icon>
@@ -354,13 +354,13 @@
                   
                  
                 <div class="card-body title">
-                  <div class="sa" *ngIf="contentTabs == 'sa'" >
+                  <div class="sa" *ngIf="contentTabs == 'quiz'" >
                     <mat-card-content>
                       <div class="header">
                         Your Question
                       </div>
                       <div class="head-input">
-                          <input matInput #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('sa')">
+                          <input matInput #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
                           <span class="textlength">{{ 100 - heading.length }}</span>
 
                       </div>  
@@ -420,7 +420,7 @@
                                     <span class="item">Seconds to answer</span>    
     
                                     <div class="timer-input">
-                                      <input matInput #message type="number" max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('sa')">
+                                      <input matInput #message type="number" max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('quiz')">
                   
                                     </div>  
                                   </div>
@@ -428,14 +428,14 @@
                                     <span class="item">Set Points</span>    
   
                                     <div class="timer-input">
-                                      <input matInput #message type="number" max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('sa')">
+                                      <input matInput #message type="number" max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('quiz')">
                   
                                     </div>  
                                   </div>
                                 </div>
                             
                                   <mat-slide-toggle color="primary"
-                                  class="example-margin" [(ngModel)]="toggleExtrapoints" style="color: #808080;"  (change)="updateContent('sa')">
+                                  class="example-margin" [(ngModel)]="toggleExtrapoints" style="color: #808080;"  (change)="updateContent('quiz')">
                                 
                                   Extra points for fast answer
                                   </mat-slide-toggle>
@@ -502,7 +502,7 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('sa')">
+                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('quiz')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  
@@ -600,7 +600,7 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('sa')">
+                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('quiz')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  

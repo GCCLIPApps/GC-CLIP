@@ -5,6 +5,8 @@ import { UserService } from 'src/app/services/user.service';
 import { SocketService } from 'src/app/services/socket.service';
 import {Subscription } from 'rxjs';
 import { SlidemainComponent } from '../slidemain/slidemain.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ResponseviewerComponent } from './responseviewer/responseviewer.component';
 
 
 export interface Presentations {
@@ -57,6 +59,7 @@ export class EditorComponent implements OnInit {
   selectedImage: any;
   type: string;
   constructor(
+    private matDialog: MatDialog,
     public _socket: SocketService,
     private _snackBar: MatSnackBar,
     private _ds: DataService, 
@@ -120,7 +123,7 @@ export class EditorComponent implements OnInit {
               }  
         break;
 
-      case 'sa':
+      case 'quiz':
                 this.myArrayData = {
                   "heading_fld" : data.contentForm.heading,
                   "subheading_fld" : data.contentForm.subheading,
@@ -168,8 +171,23 @@ export class EditorComponent implements OnInit {
     this.Pace.emit(pace);
   }
   
-  showResponse(){
-    console.log(this.responseLists)
+  showResponse(messge:any){
+
+    const dialogRef = this.matDialog.open(ResponseviewerComponent,{
+      data:{
+        msg: messge
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+          // this.dataSource.data.splice(index, 1);
+          // this.dataSource._updateChangeSubscription();
+          // this._snackBar.open("Presentation Deleted", '', {
+          //   duration: 2000,
+          // });
+      }
+    });
   }
 
  

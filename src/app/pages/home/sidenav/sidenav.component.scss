@@ -1,16 +1,15 @@
 .mat-divider {
     margin: 1rem 1rem ;
     border-top-width: 2px;
-    border-color: #ffffff;
+    border-color: var(--clr-white);
 }
 
   .mat-list-item {
-    padding-right: .5rem;
-
     font-size: .8rem;
     font-weight: 500;
-    transition:  0.3s ease-out;
+    padding-right: .5rem;
     height: 60px !important;
+    transition:  0.3s ease-out;
     color: var(--clr-white) !important;
     &:hover {
       // color: #f2f5f7 !important;
@@ -34,18 +33,21 @@
   a.router-link-active {
     padding-right: .5rem;
     // letter-spacing: .5px;
-    border-left: 5px solid var(--clr-white);
     color: var(--clr-white) !important;
+    border-left: 5px solid var(--clr-newgreen);
     ::ng-deep {
       .mat-list-item-content {
         opacity: 1;
-        transition: 0.5s;
-        font-weight: lighter;
+        transition: 0.3s;
+        font-weight: bold;
         border-radius: 0 35px 35px 0;
-        background: var(--clr-tertiary) !important;
+        color: var(--clr-darkgreen) !important;
+        background-color: var(--clr-lightfontgreen);
         &:hover {
-          transition: 0.5s;
-          background:var(--clr-secondary) !important;
+          transition: 0.3s;
+          background-color: var(--clr-dbgreen);
+          color:var(--clr-white) !important;
+          border: 1px solid var(--clr-lightfontgreen);
         }
       }
     }
@@ -64,7 +66,7 @@
   margin: auto;
   img {     
     border-radius: 50%;
-    border: 5px solid rgb(124, 124, 124);    
+    border: 5px solid var(--clr-lightfontgreen);    
     width: inherit;
     height: inherit;
   }
@@ -73,13 +75,13 @@
 
 .fullname{
   text-align: center;
-  color: #fff;
+  color: var(--clr-lightfontgreen);
   padding: 0 .2em;
   p{
     margin: 0;
     font-weight: 600;
     font-size: .8rem;
-    color: white;
+    color: var(--clr-lightfontgreen);
   
   }
 }
@@ -130,7 +132,7 @@
   margin: auto;
   img {     
     border-radius: 50%;
-    border: 5px solid rgb(124, 124, 124);    
+    border: 5px solid var(--clr-lightgray);    
     width: inherit;
     height: inherit;
   }

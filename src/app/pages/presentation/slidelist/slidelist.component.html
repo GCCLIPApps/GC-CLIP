@@ -1,6 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav-content>
-    <mat-nav-list>
+<mat-nav-list class="sidenav-container">
 
       <div class="header">
         <div class="logo d-flex flex-direction-row justify-content-start" (click)="home()" matTooltip="Go back to home">
@@ -8,14 +6,13 @@
           <span >GC CLIP</span>
         </div>
         <div class="header text-center">
-          <button mat-raised-button class="add_slide" (click)="addSlide()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
+          <button mat-raised-button class="add_slide" (click)="addSlide()"  [disabled]="isDisabled" matTooltip="Adds slide in presentation">
             <mat-icon>add</mat-icon>
             <span>Add Slide</span> 
           </button>
         </div>
 
         <mat-divider></mat-divider>
-
       </div>
       
         <div cdkDropList
@@ -50,12 +47,12 @@
 
                    <!-- Quiz Competition -->
 
-                   <mat-icon *ngIf= "item.sType_fld === 'sa'" class="slide-type">table_rows</mat-icon>
-                   <h6 *ngIf= "item.sType_fld === 'sa'" class="small">Select Answer</h6>
+                   <mat-icon *ngIf= "item.sType_fld === 'quiz'" class="slide-type">table_rows</mat-icon>
+                   <h6 *ngIf= "item.sType_fld === 'quiz'" class="small">Select Answer</h6>
 
-                   <!-- <img mat-card-image  *ngIf= "item.sType_fld === 'sa'"  src="../../../../assets//status/selection.svg"  alt="Empty" class="slide-type"> -->
+                   <!-- <img mat-card-image  *ngIf= "item.sType_fld === 'quiz'"  src="../../../../assets//status/selection.svg"  alt="Empty" class="slide-type"> -->
 
-                   <!-- <p class="small" *ngIf="item.sType_fld == 'sa'"><small >Select Answer</small></p> -->
+                   <!-- <p class="small" *ngIf="item.sType_fld == 'quiz'"><small >Select Answer</small></p> -->
 
                    <!-- Popular Question -->
                    <mat-icon *ngIf= "item.sType_fld === 'qa'" class="slide-type">question_answer</mat-icon>
@@ -76,7 +73,7 @@
                 </mat-card-content>
               </mat-card>  
               
-              <!-- <button class="menu" mat-icon-button matRipple [matRippleDisabled]="ripple" #menuTrigger="matMenuTrigger"  [matMenuTriggerFor]="menu"  (click)="menuTrigger.openMenu()">
+              <!-- <button class="menu" mat-icon-button matRipple [matRippleDiquizbled]="ripple" #menuTrigger="matMenuTrigger"  [matMenuTriggerFor]="menu"  (click)="menuTrigger.openMenu()">
                 <mat-icon>more_vert</mat-icon>
              </button>
              <mat-menu #menu="matMenu">
@@ -96,9 +93,8 @@
           </ng-template>
         </mat-menu>
       
-    </mat-nav-list>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-nav-list>
+
 
 
 

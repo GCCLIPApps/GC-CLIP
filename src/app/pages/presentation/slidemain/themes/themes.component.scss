@@ -1,3 +1,37 @@
+.dialog-header{
+  margin: 0;
+  padding: 0;
+  
+  h1 {
+  color: var( --clr-darkgreen);
+  font-weight: 600;
+  font-size: 1.5rem;
+  
+  }
+}
+
+mat-divider{
+    width: 100%;
+    // padding-bottom: 1rem;
+    border-color: var(--clr-darkgreen);
+}
+
+.btn-close {
+  height: 23px;
+  width: 23px;
+  border: none;
+  color: var(--clr-black);
+  background-color: transparent;
+  mat-icon{
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      background-color: var(--clr-lightgray);
+
+  }
+}
+
+
 mat-card{
     width: 25vh;
     height: 15vh  !important;
@@ -9,14 +43,14 @@ mat-card{
         opacity: 0.8;
         cursor: pointer;
         transition: 0.3s;
-        border: .08rem solid  var(--clr-cardlist);
+        border: 1rem solid  var(--clr-darkgreen);
         background-color: var(--clr-gray) !important;
       }
 }
 
 .highlight {
 
-    border: .08rem solid    var(--clr-cardlist);
+    border: .08rem solid    var(--clr-lightfontgreen);
     background-color: rgba(187, 185, 185, 1)!important;    
 
   }

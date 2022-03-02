@@ -160,7 +160,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
       break;
 
       // Quiz Competition
-      case 'sa':
+      case 'quiz':
         this.getOptions();
         this.updateSlideType(msg);
       break;

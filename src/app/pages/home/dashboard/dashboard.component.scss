@@ -3,8 +3,9 @@
     margin: 2rem 2rem 0 2rem;
 
     .header>h1{
+        border-left: 5px solid var(--clr-fontgreen);
         font-size: 1.5rem;
-        color: var(--clr-third);
+        color: var(--clr-fontgreen);
         font-weight: 600;
     }
 
@@ -12,7 +13,7 @@
         width: 15%;
         border-radius: 5px;
         border-top-width: 5px;
-        border-color: var(--clr-third);
+        border-color: var(--clr-fontgreen);
     }
 
 
@@ -24,16 +25,21 @@
 
         button{
             color: var(--clr-white);
-            background-color: var(--clr-secondary);
+            background-color: var(--clr-darkbutton);
             span{
                 font-weight: lighter;
+            }
+
+            &:hover{
+                transition: .5s;
+                background-color: var(--clr-dbgreen);
             }
         }
 
         .search-input {
             display: flex;
             border-radius: 5px;
-            border: 2px solid var(--clr-third);
+            border: 2px solid var(--clr-newgreen);
             justify-content: flex-start;
             background-color: var(--clr-lightgray);
             input{
@@ -48,7 +54,6 @@
         height: 100%;
         border-radius: 5px;
         margin: 1.5rem 0 2rem 0;
-        box-shadow: 4px 4px 20px 4px var(--clr-gray);
 
     }
     
@@ -56,42 +61,45 @@
         color: var(--clr-dark);
     }
 
+    
     table{
         width: 100%;
+        margin: auto;
         table-layout: fixed;
 
         .Name_header{
-          width: 400px !important;
+            width: 400px !important;
+
         }
     }
 
     .mat-column-sName_fld{
-        margin: auto;
-        color: var(--clr-third);
+        color: var(--clr-dark);
         .name-header {
             transition: .5s;
+            
             overflow: hidden;
             margin-left: 1rem;
             white-space: nowrap !important; 
             text-overflow: ellipsis !important; 
             &:hover{
                 transition: .5s;
-                text-shadow: 1px 1px 1px black;
-                color: var(--clr-secondary);
+                color: var(--clr-fontgreen);
+                text-shadow: 0 0 4px 2px var(--clr-fontgreen);
             }
 
             span{
-                color: var(--clr-gray);
                 font-size: .8rem;
+                color: var(--clr-fontgreen);
             }
        
         }
         mat-icon{
             transition: .5s;
-            font-size: 2.5rem;
+            font-size: 2rem;
             &:hover{
                 transition: .5s;
-                color: var(--clr-secondary);
+                color: var(--clr-orange);
             }
         }
     }
@@ -99,6 +107,7 @@
     th, td{
         cursor: pointer;
         font-size: .9rem;
+        text-align: left;
         color: var(--clr-third);
     }
     td{
@@ -113,15 +122,15 @@
 
     .mat-header-cell {
         transition: .5s;
-        color: var(--clr-white); 
-        background:var(--clr-secondary);
+        font-weight: 600;
+        color: var(--clr-headgreen); 
+        background:var(--clr-lightfontgreen);
 
         tr.example-element-row:not(.example-expanded-row):active,:hover {
             transition: .5s;
             color: var(--clr-lightgray); 
         }
     }
-
 
     tr.example-element-row:not(.example-expanded-row):hover  {
         transition: .5s;
@@ -157,7 +166,7 @@
 }
 
 
-@media screen and (min-width: 0px) and (max-width: 1024px) {
+@media  screen and (max-width: 720px) {
     .wrapper{
         margin: 20px 0 0 0;
 
@@ -169,7 +178,7 @@
         }
     
         mat-divider{
-            width: 60%;
+            width: 70%;
             border-radius: 5px;
             border-top-width: 5px;
             border-color: var(--clr-third);

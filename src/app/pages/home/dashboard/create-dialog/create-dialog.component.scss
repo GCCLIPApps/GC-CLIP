@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     h1 {
-    color: var( --clr-third);
+    color: var( --clr-darkgreen);
     font-weight: 600;
     font-size: 1.5rem;
     
@@ -11,9 +11,9 @@
 }
 
 mat-divider{
-    padding-bottom: 1rem;
     width: 100%;
-    border-color:1px var(--clr-third);
+    // padding-bottom: 1rem;
+    border-color: var(--clr-darkgreen);
 }
 
 .btn-close {
@@ -45,7 +45,7 @@ mat-form-field{
 
 .success{
     color: var(--clr-white);
-    background-color: #00e640;
+    background-color: var(--clr-darkgreen);
     button{
         width: 100%;
     }

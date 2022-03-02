@@ -218,12 +218,11 @@
               }
             }
             &:hover {
-                opacity: 0.8;
-      
+                // opacity: 0.9;
                 cursor: pointer;
                 transition: 0.5s;
-                border: .03rem solid  var(--clr-cardlist);
-                background-color: #d2eaff !important;
+                border: .03rem solid  var(--clr-darkgreen);
+                background-color: var(--clr-lightgreen) !important;
             }
         }
     }
@@ -234,9 +233,10 @@
     // #2c3344
     // border: .01rem solid  #0a8dff;
     color: var(--clr-white);
-    border: .01rem solid  var(--clr-third);
-    background-color:  var(--clr-cardlist) !important;    // color: rgb(118, 118, 255);
-    .mat-icon,h6{
+    border: .01rem solid  var(--clr-dark);
+    background-color:  var(--clr-newgreen) !important;    // color: rgb(118, 118, 255);
+    .mat-icon,.small{
+      font-weight: bold;
       color: var(--clr-white);
     }
   }

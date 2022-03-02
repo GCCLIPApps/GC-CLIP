@@ -19,7 +19,7 @@
                         <!-- <img src="../../assets/App logo wbg.png" alt="" class="logo"> -->
                     </div>
                     <div class="welcome">
-                        <h3 >Welcome to <strong>GCCLIP</strong></h3>
+                        <h3 >Welcome to <strong>GC CLIP</strong></h3>
                     </div>
                         <div class="sec1">
                             <mat-card class="mat-elevation-z8">
@@ -61,19 +61,19 @@
                             <div class="text-center">
                                 <mat-checkbox color="primary" formControlName="rememberme"  [checked]="rememberme"> Remember Me</mat-checkbox>
                                 <br>
-                                <strong *ngIf="Error" style="color:red">Incorrect Email or Password</strong>    
+                                <strong *ngIf="Error" style="color:'var(--clr-warn)'">Incorrect Email or Password</strong>    
                             </div>
             
-                            <button type="submit" class="login-button btn btn-primary"  [disabled]="!loginForm.valid"  mat-raised-button >
+                            <button type="submit" class="login-button btn"  style="background:'var(--clr-darkgreen)'; color:var(--clr-lightfontgreen)" [disabled]="!loginForm.valid"  mat-raised-button >
                                 Login
                             </button>
                           </form>
                     </mat-card-content>
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <small  >No account yet? <a routerLink="/signup"><strong>Click Here</strong></a></small>
                         <br>
                         <small >Forget Password ? <a routerLink="/forgotpassword"><strong>Click Here</strong></a></small>
-                    </div>
+                    </div> -->
                 
                 </mat-card>
             </section>
