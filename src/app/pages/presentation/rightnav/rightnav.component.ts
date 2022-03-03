@@ -286,7 +286,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
   // console.log(contentForm)
   this.DisabledInput();
   
-  console.log("isextrapoints", this.toggleExtrapoints)
   this.contentData.emit({contentForm, newType, options: this.optionLists})
 }
 
