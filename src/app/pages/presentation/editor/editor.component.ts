@@ -124,6 +124,15 @@ export class EditorComponent implements OnInit {
         break;
 
       case 'quiz':
+              if (data.contentForm.isextrapoints){
+                this.myArrayData = {
+                  "heading_fld" : data.contentForm.heading,
+                  "subheading_fld" : data.contentForm.subheading,
+                  "image_fld": data.contentForm.image,
+                  "isextrapoints_fld": data.contentForm.isextrapoints,
+                  "timer_fld": data.contentForm.timer
+                }  
+              }else{
                 this.myArrayData = {
                   "heading_fld" : data.contentForm.heading,
                   "subheading_fld" : data.contentForm.subheading,
@@ -132,8 +141,10 @@ export class EditorComponent implements OnInit {
                   "isextrapoints_fld": data.contentForm.isextrapoints,
                   "timer_fld": data.contentForm.timer
                 }  
+              }
+              this.timerToMain(data.contentForm.timer)
 
-                this.timerToMain(data.contentForm.timer)
+
         break;
         
       default:

@@ -43,12 +43,12 @@
           &:hover{
             cursor: pointer;
             // transition: 0.3s;
-            border: 1px solid var(--clr-cardlist);
-            box-shadow: 0px 0px 5px var(--clr-cardlist);
+            border: 1px solid var(--clr-fontgreen);
+            box-shadow: 0px 0px 5px var(--clr-fontgreen);
           }
           &:focus-within{
-            border: 1px solid var(--clr-cardlist);
-            box-shadow: 0px 0px 5px var(--clr-cardlist);
+            border: 1px solid var(--clr-fontgreen);
+            box-shadow: 0px 0px 5px var(--clr-fontgreen);
           }
         }
         .timer-input{
@@ -142,7 +142,7 @@
                 opacity: 0.8;
                 cursor: pointer;
                 transition: 0.5s;
-                border: 2px solid  var(--clr-light);
+                border: 2px solid  var(--clr-fontgreen);
                 // background-color: #d2eaff !important;
              }
             }
