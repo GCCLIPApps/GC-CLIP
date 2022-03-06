@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
@@ -13,22 +13,37 @@ export class CreateDialogComponent implements OnInit {
   @Output() nameEmitter = new EventEmitter < string[] > ();  
 
   title: string = '';
+  isQuiz: string = '';
   Error: boolean = false;
-  constructor(private _ds: DataService,
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _ds: DataService,
     private _user: UserService,
     private dialogRef: MatDialogRef<CreateDialogComponent>,
-    private _route: Router) { }
+    private _route: Router) { 
+
+      if(data){
+        this.isQuiz = data.type
+      }
+
+    }
 
   ngOnInit(): void {
   }
 
   onSubmit(){
+    var isQuiz = 1;
+    if(this.isQuiz === 'Presentation'){
+      isQuiz = 0
+    }
+
     if(this.title){
     this._ds.processData1('slides/create/Presentation', 
     {instId: this._user.getUserID(), 
       sName_fld: this.title, 
       sTheme_fld: '#FFFFFF',
-      sColor_fld: '#1D2127'}, 2)?.subscribe((res: any)=>{
+      sColor_fld: '#1D2127',
+      isQuiz_fld: isQuiz}, 2)?.subscribe((res: any)=>{
 
       let load =  this._ds.decrypt(res.d)
  
