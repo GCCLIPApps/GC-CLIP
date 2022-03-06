@@ -40,6 +40,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ResponseviewerComponent } from './pages/presentation/editor/responseviewer/responseviewer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CreateOptionComponent } from './pages/home/dashboard/create-option/create-option.component';
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: { autoConnect: false} };
 
 
@@ -64,6 +65,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: { autoCo
     ConfirmationDialogComponent,
     ImageCropperComponent,
     ResponseviewerComponent,
+    CreateOptionComponent,
   ],
   imports: [
     BrowserModule,
