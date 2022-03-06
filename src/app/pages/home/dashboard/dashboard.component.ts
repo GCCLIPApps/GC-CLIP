@@ -7,8 +7,11 @@ import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { CreateOptionComponent } from './create-option/create-option.component';
   
 
 export interface Presentations {
@@ -44,6 +47,7 @@ export class DashboardComponent implements OnInit {
 
   
   constructor( 
+    private _bottomSheet: MatBottomSheet,
     private _snackBar: MatSnackBar, 
     private _route: Router, 
     private _ds: DataService, 
@@ -88,18 +92,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onCreate(){
-    const dialogConfig = this.matDialog.open(CreateDialogComponent, {
-      autoFocus: true,
-      disableClose: false
-    });
-
-    dialogConfig.afterClosed().subscribe((res: any) => {
-        if (res) {
-          console.log(res)
-          this.dataSource.data.push(res)
-          // this.table.renderRows();
-          }
-    });
+    this._bottomSheet.open(CreateOptionComponent)
+ 
   }
 
   openDeleteDialog(presId: number, index: number) {
