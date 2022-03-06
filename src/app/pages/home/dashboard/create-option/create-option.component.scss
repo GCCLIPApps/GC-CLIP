@@ -1,0 +1,22 @@
+.mat-list-item {
+    text-align: center;
+    ::ng-deep {
+      .mat-list-item-content {
+        transition: 0.3s;
+        font-weight: bold;
+        border-radius:35px;
+        color: var(--clr-darkgreen) !important;
+        &:hover {
+          transition: 0.3s;
+          color:var(--clr-white) !important;
+          background-color: var(--clr-dbgreen);
+          border-left: 5px solid var(--clr-newgreen);
+          border: 1px solid var(--clr-lightfontgreen);
+        }
+      }
+      .mat-icon {
+        margin-right: 1rem;
+      }
+    }
+  }
+  
