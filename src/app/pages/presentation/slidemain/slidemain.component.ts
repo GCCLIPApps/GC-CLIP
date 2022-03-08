@@ -35,6 +35,7 @@ export class SlidemainComponent implements OnInit {
   slideTimer: number
 
   showSpinner: boolean = false;
+  isQuiz: boolean = false;
 
   sImage: string = ''
   studentslists: any = [];
@@ -183,5 +184,9 @@ export class SlidemainComponent implements OnInit {
     this.slidePercent = percent.percent;
     this.totalSelectAnswerPage = slidelist.slidetype;
  
+  }
+
+  isquizStart($e: any){
+    this.isQuiz = $e
   }
 }
