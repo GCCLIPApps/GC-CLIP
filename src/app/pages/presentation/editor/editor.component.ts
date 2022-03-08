@@ -25,7 +25,8 @@ export class EditorComponent implements OnInit {
   @Output() toSlideMain : EventEmitter<any> = new EventEmitter<any>();
   @Output() Pace : EventEmitter<any> = new EventEmitter<any>();
   @Output() Timer : EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() quizStart: EventEmitter<any> = new EventEmitter<any>();
+  
   @Input() sTheme:string = this._user.getPresentationTheme();
   @Input() sColor: string = this._user.getPresentationFontColor();
   @Input() sImage: string = this._user.getPresentationFontColor();
@@ -219,6 +220,7 @@ export class EditorComponent implements OnInit {
 
     if(event.key === "Enter"){
       this.isPresssedEnter = true; 
+      this.quizStart.emit(this.isPresssedEnter);
       this.interval = setInterval(() =>{
         if(this.countDown > 0){
           this._socket.sendTimerCountdown( {countDown : this.countDown, room: this._user.getPresentationCode()})
