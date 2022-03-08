@@ -150,8 +150,10 @@
         }
         .add{
           width: 100% !important;
+          color: var(--clr-white);
+          background-color: var(--clr-darkbutton);          
           &:hover{
-            background-color: rgb(189, 189, 189) !important;
+            background-color: var(--clr-dbgreen);
           }
         }
 
