@@ -3,14 +3,17 @@
         <div class="header">
             <h1>My Library</h1>
         </div>
-
         <!-- <mat-divider></mat-divider> -->
+
+     
+
         <section class="search">
          
             <button mat-raised-button class="btn " (click)="onCreate()" matTooltip="Start your presentation">
-              <mat-icon>add</mat-icon>
+              <mat-icon class="mr-1">add</mat-icon>
               <span>Create</span>
             </button>
+          
 
               <div class="search-input">
                 <input matInput type="text"  (keyup)="applyFilter($event)" [(ngModel)]="value" autocomplete="off" placeholder="Search here">
@@ -22,89 +25,189 @@
         
         </section>
       
+        <!-- <section class="show-type">
+          <mat-form-field appearance="outline">
+            <mat-label>Choose a type</mat-label>
+            <mat-select [(value)]="">
+              <mat-option value="0">Quizzes</mat-option>
+              <mat-option value="1">Presentations</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </section> -->
 
         <section class="content">
-          <mat-card class="mat-elevation-z8" >
+
+          <mat-tab-group [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)">
+            <mat-tab label="Presentations">
+              <mat-card class="mat-elevation-z8" >
   
-            <mat-card-content>
-              <table mat-table [dataSource]="dataSource"  matSort>
-
-          
+                <mat-card-content>
+                  <table mat-table [dataSource]="dataSource"  matSort>
+    
               
-                <!-- Name Column -->
-                <ng-container matColumnDef="sName_fld">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header  class="Name_header" > Name </th>
-                  <td mat-cell *matCellDef="let element; let i = index"  (click)="openPresentation(element.id)">
-                    
-                    <div class="row">
-                      <div class="col-sm-1">
-                        <mat-icon >play_circle_filled</mat-icon>
-                      </div>
-                      <div class="col name-header">
-                        {{element.sName_fld}}  <span><br>({{element.PageCount}} Pages)</span>
-
-                      </div>
-                    </div>
-                    
- 
-                    
-                  </td>
-                 
-                </ng-container>
-              
-                <!-- Weight Column -->
-                <ng-container matColumnDef="Owner">
-                  <th mat-header-cell *matHeaderCellDef> Owner </th>
-                  <td mat-cell *matCellDef="let element"> {{Owner}}  </td>
-                </ng-container>
-              
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedOn">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified </th>
-                  <td mat-cell *matCellDef="let element"> {{element.updatedOn | date:'medium'}} </td>
-                </ng-container>
-              
-                <ng-container matColumnDef="createdOn">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
-                  <td mat-cell *matCellDef="let element"> {{element.createdOn | date:'medium'}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="Action">
-                  <th mat-header-cell *matHeaderCellDef >Action </th>
-                  <td mat-cell *matCellDef="let element; let i = index">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item class="action-warn" (click)="openDeleteDialog(element.id, i)">
-                        <mat-icon >delete</mat-icon>
-                        <span>Delete</span>
-                      </button>
-                      <button  mat-menu-item  class="action-primary" (click)="openPresentation(element.id)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
-                      </button>
-                    </mat-menu>
-                  </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr class="example-element-row" mat-row *matRowDef="let element; let i = index; columns: displayedColumns;"></tr>
-              </table>
-
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="sName_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header  class="Name_header" > Name </th>
+                      <td mat-cell *matCellDef="let element; let i = index"  (click)="openPresentation(element.id)">
+                        
+                        <div class="row">
+                          <div class="col-sm-1">
+                            <mat-icon >play_circle_filled</mat-icon>
+                          </div>
+                          <div class="col name-header">
+                            {{element.sName_fld}}  <span><br>({{element.PageCount}} Pages)</span>
+    
+                          </div>
+                        </div>
+                        
+     
+                        
+                      </td>
+                     
+                    </ng-container>
+                  
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="Owner">
+                      <th mat-header-cell *matHeaderCellDef> Owner </th>
+                      <td mat-cell *matCellDef="let element"> {{Owner}}  </td>
+                    </ng-container>
+                  
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="updatedOn">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified </th>
+                      <td mat-cell *matCellDef="let element"> {{element.updatedOn | date:'medium'}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="createdOn">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+                      <td mat-cell *matCellDef="let element"> {{element.createdOn | date:'medium'}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef >Action </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                          <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item class="action-warn" (click)="openDeleteDialog(element.id, i)">
+                            <mat-icon >delete</mat-icon>
+                            <span>Delete</span>
+                          </button>
+                          <button  mat-menu-item  class="action-primary" (click)="openPresentation(element.id)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                          </button>
+                        </mat-menu>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="example-element-row" mat-row *matRowDef="let element; let i = index; columns: displayedColumns;"></tr>
+                  </table>
+    
+         
+    
+                  <mat-paginator
+                  [pageSize]="7"
+                  [pageSizeOptions]="pageOption"
+                  aria-label="Select page">
+                  </mat-paginator>
+                  
+                  <ng-template #Empty>
+                    <img src="../../../../assets//status/undraw_empty_re_opql.svg" alt="Empty" class="empty-image">
+                  </ng-template>
+    
+                </mat-card-content>
+            </mat-card> 
+            </mat-tab>
      
 
-              <mat-paginator
-              [pageSize]="7"
-              [pageSizeOptions]="pageOption"
-              aria-label="Select page">
-              </mat-paginator>
+            <mat-tab label="Quizzes" >
+              <mat-card class="mat-elevation-z8" >
+  
+                <mat-card-content>
+                  <table mat-table [dataSource]="dataSource"  matSort>
+    
               
-              <ng-template #Empty>
-                <img src="../../../../assets//status/undraw_empty_re_opql.svg" alt="Empty" class="empty-image">
-              </ng-template>
-
-            </mat-card-content>
-        </mat-card>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="sName_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header  class="Name_header" > Name </th>
+                      <td mat-cell *matCellDef="let element; let i = index"  (click)="openPresentation(element.id)">
+                        
+                        <div class="row">
+                          <div class="col-sm-1">
+                            <mat-icon >play_circle_filled</mat-icon>
+                          </div>
+                          <div class="col name-header">
+                            {{element.sName_fld}}  <span><br>({{element.PageCount}} Pages)</span>
+    
+                          </div>
+                        </div>
+                        
+     
+                        
+                      </td>
+                     
+                    </ng-container>
+                  
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="Owner">
+                      <th mat-header-cell *matHeaderCellDef> Owner </th>
+                      <td mat-cell *matCellDef="let element"> {{Owner}}  </td>
+                    </ng-container>
+                  
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="updatedOn">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified </th>
+                      <td mat-cell *matCellDef="let element"> {{element.updatedOn | date:'medium'}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="createdOn">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+                      <td mat-cell *matCellDef="let element"> {{element.createdOn | date:'medium'}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef >Action </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                          <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item class="action-warn" (click)="openDeleteDialog(element.id, i)">
+                            <mat-icon >delete</mat-icon>
+                            <span>Delete</span>
+                          </button>
+                          <button  mat-menu-item  class="action-primary" (click)="openPresentation(element.id)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                          </button>
+                        </mat-menu>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="example-element-row" mat-row *matRowDef="let element; let i = index; columns: displayedColumns;"></tr>
+                  </table>
+    
+         
+    
+                  <mat-paginator
+                  [pageSize]="7"
+                  [pageSizeOptions]="pageOption"
+                  aria-label="Select page">
+                  </mat-paginator>
+                  
+                  <ng-template #Empty>
+                    <img src="../../../../assets//status/undraw_empty_re_opql.svg" alt="Empty" class="empty-image">
+                  </ng-template>
+    
+                </mat-card-content>
+            </mat-card> 
+            </mat-tab>  
+          </mat-tab-group>
+          
         </section>
   
     </div>
