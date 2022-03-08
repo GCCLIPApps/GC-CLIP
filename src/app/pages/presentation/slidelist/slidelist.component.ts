@@ -22,20 +22,25 @@ export class SlidelistComponent implements OnInit {
   @Output() totalSelectAnswerPage: EventEmitter<any> = new EventEmitter<any>();
   contextMenuPosition = { x: '0px', y: '0px' };
 
+  
   @Input() id: number;
   @Input() slideTimer: number;
+  @Input() isquizStart: boolean = false;
+
   @Input() sTheme:string = this._user.getPresentationTheme();
   @Input() sColor: string = this._user.getPresentationFontColor();
   @Input() sImage: string = this._user.getPresentationFontColor();
 
   newslideTimer: number;
   sType: string
-
+  
   fullname: string; 
   department: string;
   items: any = [];
   currentIndex: number = 0;
+
   lastslide: boolean = false
+
   oldIndex = 0;
   public currentlyClickedCardIndex: number = 0;
   public isDisabled: boolean = false;
@@ -83,7 +88,7 @@ export class SlidelistComponent implements OnInit {
     console.log(this.id, this.slideTimer)
     this._ds.processData1('slides/pres/bySlideId', this.id, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      // console.log(load)
+      console.log(load)
       this.items = load;
       this.slideSelector(load[0], 0);
       this._user.getSlideId();
@@ -147,7 +152,8 @@ export class SlidelistComponent implements OnInit {
   //  Next and Previous slide
   // Arrow Keys Event Return Progress Bar
   selectionChange(event:any) {
-
+    console.log(this.isquizStart)
+    // if(this.isquizStart && )
     if(event.key == "ArrowRight"){
       this.currentIndex++;
 
