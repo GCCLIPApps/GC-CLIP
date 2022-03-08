@@ -5,7 +5,7 @@
   [opened]="(isHandset$ | async) === false" >
     <!-- <mat-drawer mode="side" opened="true"> -->
       <!-- <app-main-nav></app-main-nav> -->
-      <app-slidelist (slidespercent)="slidesPercentage($event, $event)" [id]="id" [slideTimer]="slideTimer" [sTheme]="sTheme" [sColor]="sColor" ></app-slidelist>
+      <app-slidelist (slidespercent)="slidesPercentage($event, $event)" [id]="id" [isquizStart]="isQuiz" [slideTimer]="slideTimer" [sTheme]="sTheme" [sColor]="sColor" ></app-slidelist>
   </mat-sidenav>
     <mat-sidenav-content>
       <mat-toolbar class="header mat-elevation-z3 justify-content-between">
@@ -63,7 +63,7 @@
             </section>
 
             <div>
-              <app-editor (toSlideMain)="renderSpinner($event, $event)"  (Pace)="updateTitle($event)" (Timer)="countDowntime($event)" [slideListPercent]="slidePercent" [totalSelectAnswerPage]="totalSelectAnswerPage"  [sTheme]="sTheme" [sColor]="sColor" [sImage]="sImage"></app-editor>
+              <app-editor (quizStart)="isquizStart($event)" (toSlideMain)="renderSpinner($event, $event)"  (Pace)="updateTitle($event)" (Timer)="countDowntime($event)" [slideListPercent]="slidePercent" [totalSelectAnswerPage]="totalSelectAnswerPage"  [sTheme]="sTheme" [sColor]="sColor" [sImage]="sImage"></app-editor>
             </div>
           
           <!-- </div>
