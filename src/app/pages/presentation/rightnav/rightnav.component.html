@@ -317,7 +317,7 @@
                               </mat-list-item>
                           </mat-list> 
   
-                            <button mat-raised-button class="add btn btn-dark" (click)="addOptions()"  [disabled]="isDisabled" matTooltip="Adds slide in presentation">
+                            <button mat-raised-button [hidden]="optionLists.length >= 4" class="add btn" (click)="addOptions()"  [disabled]="isDisabled" matTooltip="Adds slide in presentation">
                               <mat-icon>add</mat-icon>
                               <strong>Add Another Option</strong> 
                             </button>
@@ -381,7 +381,7 @@
                             </mat-list-item>
                         </mat-list> 
 
-                          <button mat-raised-button class="add btn btn-dark" (click)="addOptions()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
+                          <button mat-raised-button class="add btn" [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
                             <mat-icon>add</mat-icon>
                             <strong>Add Another Option</strong> 
                           </button>
@@ -546,7 +546,7 @@
                             </mat-list-item>
                         </mat-list> 
             
-                          <button mat-raised-button class="add btn btn-dark" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
+                          <button mat-raised-button class="add btn " [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
                             <mat-icon>add</mat-icon>
                             <strong>Add Another Option</strong> 
                           </button>
@@ -644,7 +644,7 @@
                             </mat-list-item>
                         </mat-list> 
             
-                          <button mat-raised-button class="add btn btn-dark" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
+                          <button mat-raised-button class="add btn"  [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
                             <mat-icon>add</mat-icon>
                             <strong>Add Another Option</strong> 
                           </button>
