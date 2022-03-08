@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
 
   value: string = '';
   pageOption: number[] = [5, 10, 25, 100];
+  currentTabIndex = 0
   Owner : string = (this._user.getFullname() == this._user.getFullname()) ? "Me"  : this._user.getFullname();
 
 
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
     private _user: UserService, 
     private matDialog: MatDialog) {
 
-      this.getAllPresentation()
+      this.getAllPresentation(this.currentTabIndex)
      }
 
 
@@ -62,10 +63,10 @@ export class DashboardComponent implements OnInit {
    
   }
 
-  getAllPresentation(){
-    this._ds.processData1('slides/byUserId', this._user.getUserID(), 2)?.subscribe((res: any) => {
+  getAllPresentation(isQuiz: number){
+    this._ds.processData1(`slides/byUserId/${isQuiz}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-  
+      console.log(load)
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -120,7 +121,9 @@ export class DashboardComponent implements OnInit {
 }
 
  
-
+onTabChange(e: any) {
+  this.getAllPresentation(e.index)
+}
 
 openPresentation(id: string){
 
