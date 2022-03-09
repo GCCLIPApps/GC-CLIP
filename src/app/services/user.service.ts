@@ -42,6 +42,7 @@ export class UserService {
   private presCode: string;
   private presTheme: string;
   private presColor: string;
+  private presIsQuiz: number;
 
   // Presentation Pages
 
@@ -132,17 +133,19 @@ export class UserService {
   getPresentationId(): number { return this.presId }
   getPresentationCode(): string { return this.presCode }
   getPresentationName(): string { return this.presName }
+  getIsQuiz(): number { return this.presIsQuiz }
 
   getPresentationNewPace(): any {  return this.SubjectpresPace.next(this.presPace)};
   getPresentationPace(): any {return this.presPace}
   getPresentationTheme(): string { return this.presTheme }
   getPresentationFontColor(): string { return this.presColor}
 
-  setPresentation(id: number, code: string,sName: string, sPace: string){
+  setPresentation(id: number, code: string,sName: string, sPace: string, isQuiz: number){
     this.presId = id;
     this.presCode = code;
     this.presName = sName;
     this.presPace = sPace;
+    this.presIsQuiz = isQuiz
   }
 
   setPresPace(sPace: string){

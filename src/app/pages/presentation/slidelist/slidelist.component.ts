@@ -88,7 +88,7 @@ export class SlidelistComponent implements OnInit {
     console.log(this.id, this.slideTimer)
     this._ds.processData1('slides/pres/bySlideId', this.id, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      console.log(load)
+      // console.log(load)
       this.items = load;
       this.slideSelector(load[0], 0);
       this._user.getSlideId();
@@ -153,7 +153,7 @@ export class SlidelistComponent implements OnInit {
   // Arrow Keys Event Return Progress Bar
   selectionChange(event:any) {
     console.log(this.isquizStart)
-    // if(this.isquizStart && )
+    // if(this.isquizStart &&  this.items.[this.currentIndex] == '')
     if(event.key == "ArrowRight"){
       this.currentIndex++;
 
