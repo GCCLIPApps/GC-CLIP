@@ -8,6 +8,7 @@ import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
@@ -120,15 +121,55 @@ export class DashboardComponent implements OnInit {
     });
 }
 
- 
-onTabChange(e: any) {
-  this.getAllPresentation(e.index)
-}
+  
+  onTabChange(e: any) {
+    this.getAllPresentation(e.index)
+  }
 
-openPresentation(id: string){
+  openPresentation(id: string){
 
     this._route.navigate([]).then(result => {  window.open( `${this._user.webLink}editor?link=${btoa(this._user.webLink)}/${btoa(id)}`); });
 
+  }
+
+  exportResult(){
+    var data = [
+      {
+        name: "Test 1",
+        age: 13,
+        average: 8.2,
+        approved: true,
+        description: "using 'Content here, content here' "
+      },
+      {
+        name: 'Test 2',
+        age: 11,
+        average: 8.2,
+        approved: true,
+        description: "using 'Content here, content here' "
+      },
+      {
+        name: 'Test 4',
+        age: 10,
+        average: 8.2,
+        approved: true,
+        description: "using 'Content here, content here' "
+      },
+    ];
+
+    var options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'Your title',
+      useBom: true,
+      noDownload: false,
+      headers: ["Name", "Age", "Average","Approved","Description"]
+    };
+    
+    new ngxCsv(data, 'My Report',options);
   }
 
 }
