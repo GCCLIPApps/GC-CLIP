@@ -9,7 +9,6 @@ import { Subject, Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { SocketService } from 'src/app/services/socket.service';
-import { ThrowStmt } from '@angular/compiler';
 
 export interface Viewers {
   image_fld: string;
@@ -53,7 +52,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
 
   // PointsTimer
   points: number;
-  timer: number = 30;
   toggleExtrapoints: boolean = false;
 
   // Image
@@ -222,7 +220,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
   
   // Method for Options
   getOptions(){
-  
       this._ds.processData1('option/getOptions',this._user.getSlideId(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.optionLists = load;
@@ -262,7 +259,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
   removeOptions(id:number, index:number){
     // console.log(id, index)
     this._ds.processData1('option/removeOptions/id/'+id,'', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
       this.optionLists.splice(index, 1)
       this.DisabledInput();
       },err =>{
@@ -270,7 +266,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
       });
   }
 
-
+timer: number = 30;
  // Emits Data to Editor Page
  updateContent(type: any){
   let newType = type
@@ -401,4 +397,8 @@ uploadImage(){
   updatePace(pace:string){
     this.Pace.emit(pace)
   }
+
+
+ 
 }
+

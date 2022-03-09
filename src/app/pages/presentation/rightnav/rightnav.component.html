@@ -43,7 +43,7 @@
                   </mat-grid-list>
                 </div>
 
-                <div class="container">
+                <div class="container" *ngIf="this._user.getIsQuiz()">
                   <div class="card-body title">
                   <p>Quiz Competition</p>
                   </div>
@@ -91,7 +91,7 @@
                         </mat-card>
                     </mat-grid-tile>
 
-                      <mat-grid-tile>
+                      <mat-grid-tile *ngIf="!this._user.getIsQuiz()">
                         <mat-card (click)="selectType('poll')" [ngClass]="{'highlight':checkIfCardIsSelected('poll')}" class="card-type">
                           <mat-card-content>
                             <!-- <img mat-card-image src="../../../../assets//status/poll.svg" alt="Empty" class="slide-type"> -->
@@ -364,8 +364,22 @@
                           <span class="textlength">{{ 100 - heading.length }}</span>
 
                       </div>  
-                        <div class="header">
-                         Options
+                        <div class="header  ">
+                         Options 
+                         
+                 
+                          <mat-chip-list
+                          class="example-chip"
+                          cdkDropList 
+                          cdkDropListOrientation="horizontal">
+                          <mat-chip class="example-box" cdkDrag>
+                            <span>
+                          {{ optionLists.length +' of 4'}}
+                           </span>
+                          </mat-chip>
+                        </mat-chip-list>
+                   
+                    
                         </div>
                         <mat-list *ngFor="let optionlist of optionLists; let i = index">
                             <mat-list-item >
@@ -502,7 +516,7 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('quiz')">
+                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('poll')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  
@@ -600,7 +614,7 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('quiz')">
+                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  
@@ -775,9 +789,7 @@
                           </mat-form-field>
                          </div>
                         </div>
-    
-                
-    
+
                         <div class="header">
                           Language
                          </div>

@@ -90,7 +90,19 @@
              padding: 0rem !important;
         }
         .header{
-            margin: 1.5rem 0rem .5rem;
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 1.5rem 0rem .5rem;
+
+            mat-chip{
+              background-color: var(--clr-lightfontgreen);
+            }
+            span{
+              font-size: .8rem;
+              font-weight: 600;
+              color: var(--clr-fontgreen);
+            }
         }
         .settings{
           margin-bottom: 1rem;
