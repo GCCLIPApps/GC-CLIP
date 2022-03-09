@@ -30,6 +30,7 @@
     "hex-to-bin": "^1.0.1",
     "ngx-contextmenu": "^6.0.0",
     "ngx-cookie-service": "^13.1.2",
+    "ngx-csv": "^0.3.2",
     "ngx-image-cropper": "^5.0.1",
     "ngx-socket-io": "^4.1.0",
     "rxjs": "~6.6.0",
