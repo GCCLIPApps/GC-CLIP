@@ -9,6 +9,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { DatePipe } from '@angular/common';
 
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
@@ -132,44 +133,49 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  exportResult(){
-    var data = [
-      {
-        name: "Test 1",
-        age: 13,
-        average: 8.2,
-        approved: true,
-        description: "using 'Content here, content here' "
-      },
-      {
-        name: 'Test 2',
-        age: 11,
-        average: 8.2,
-        approved: true,
-        description: "using 'Content here, content here' "
-      },
-      {
-        name: 'Test 4',
-        age: 10,
-        average: 8.2,
-        approved: true,
-        description: "using 'Content here, content here' "
-      },
-    ];
+  exportResult(id: number){
+    console.log(id)
+    this._ds.processData1(`scores/getAllScores/${id}`, '', 2)?.subscribe((res: any) => {
+      let load = this._ds.decrypt(res.d);
 
-    var options = { 
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true, 
-      showTitle: true,
-      title: 'Your title',
-      useBom: true,
-      noDownload: false,
-      headers: ["Name", "Age", "Average","Approved","Description"]
-    };
+        this.generateExcel(load);
+
+      },err =>{
+        console.log('err', err)
+      });
+  }
+
+  datePipe: DatePipe = new DatePipe('en-PH');
+
+  generateExcel(load: any){
+    var data = [];
+    // var date = new Date()
+
+    for (var i = 0; i < load.length; i++){
+      var filteredData =  {
+        Lname: load[i].lname_fld,
+        Fname: load[i].fname_fld,
+        Mname: load[i].mname_fld,
+        TotalScore: load[i].totalscore_fld,
+        Quiz_Created_On:  this.datePipe.transform(load[0].createdOn, 'yyyy-MMM-dd')
+      }
+      data.push(filteredData)
+    }
     
-    new ngxCsv(data, 'My Report',options);
+
+        var options = { 
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalseparator: '.',
+          showLabels: true, 
+          showTitle: true,
+          title: load[0].sName_fld,
+          useBom: true,
+          noDownload: false,
+          headers: ["Lname", "Fname", "Mname","TotalScore", "Quiz Created On"]
+        };
+        
+      new ngxCsv(data, load[0].sName_fld,options);
   }
 
 }
