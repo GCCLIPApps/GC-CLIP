@@ -16,9 +16,18 @@ export class UserService {
   private keyString = new DataSchema();
 
   // User
-  public webLink = `${window.location.origin}/#/presentation/`;
+  // Localhost:5000 to Server
   public apiLink: string = `http://localhost:5000/${btoa('api').replace('=', '')}/`;
   public imageLink: string = `http://localhost:5000/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`
+  
+  // public apiLink: string = `http://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/`;
+  // public imageLink: string = `http://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`
+  
+  public webLink = `${window.location.origin}/#/presentation/`;
+
+
+
+
   private profilepic: string;
   private token: any;
   private empId: any;
