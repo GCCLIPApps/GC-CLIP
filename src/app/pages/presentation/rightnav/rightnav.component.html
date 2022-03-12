@@ -7,49 +7,63 @@
                 <div class="card-body title">
                 <p>Content Slides</p>
                 </div>
-                  <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
-                    <mat-grid-tile> 
+                <div class="row ">
+                  <div class="col-xl-6 col-lg-6 col-md-12">
+                  <!-- <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem"> -->
+                    <!-- <mat-grid-tile>  -->
                       
                       <mat-card (click)="selectType('heading')" [ngClass]="{'highlight':checkIfCardIsSelected('heading')}" class="card-type">
-                      <mat-card-content>
-                        <!-- <img mat-card-image src="../../../../assets//status/heading.svg" alt="Empty" class="slide-type"> -->
-                        <mat-icon class="slide-type">segment</mat-icon>
+                        <mat-card-content>
+
+                        <mat-icon class="slide-type">line_weight</mat-icon>
+
+                       <!-- <mat-card-title class=""> -->
+
                         <h6 class="small">Heading</h6>
-                      </mat-card-content>
+                      <!-- </mat-card-title> -->
+                        </mat-card-content>
                     </mat-card>
-                    </mat-grid-tile>
+                    </div>
+                    <!-- </mat-grid-tile>
 
-                    <mat-grid-tile>
-                      <mat-card (click)="selectType('paragraph')" [ngClass]="{'highlight':checkIfCardIsSelected('paragraph')}" class="card-type">
-                        <mat-card-content>
-                          <!-- <img mat-card-image src="../../../../assets//status/paragraph.svg" alt="Empty" class="slide-type"> -->
-                          <mat-icon class="slide-type">horizontal_split</mat-icon>
+                    <mat-grid-tile> -->
+                      <div class="col-xl-6 col-lg-6 col-md-6">
+                        <mat-card (click)="selectType('paragraph')" [ngClass]="{'highlight':checkIfCardIsSelected('paragraph')}" class="card-type">
+                          <mat-card-content>
+                            <!-- <img mat-card-image src="../../../../assets//status/paragraph.svg" alt="Empty" class="slide-type"> -->
+                            <mat-icon class="slide-type">horizontal_split</mat-icon>
+  
+                            <h6 class="small">Paragraph</h6>
+                          </mat-card-content>
+                        </mat-card>
+                      </div>
+                      
+                      <!-- <div class="row "> -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 pt-3">
+                      
+                          <mat-card (click)="selectType('bullets')" [ngClass]="{'highlight':checkIfCardIsSelected('bullets')}" class="card-type">
+                            <mat-card-content>
+                              <!-- <img mat-card-image src="../../../../assets//status/bullets.svg" alt="Empty" class="slide-type"> -->
+                              <mat-icon class="slide-type">format_list_bulleted</mat-icon>
 
-                          <h6 class="small">Paragraph</h6>
-                        </mat-card-content>
-                      </mat-card>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                      <mat-card (click)="selectType('bullets')" [ngClass]="{'highlight':checkIfCardIsSelected('bullets')}" class="card-type">
-                        <mat-card-content>
-                          <!-- <img mat-card-image src="../../../../assets//status/bullets.svg" alt="Empty" class="slide-type"> -->
-                          <mat-icon class="slide-type">format_list_bulleted</mat-icon>
-
-                          <h6 class="small">Bullets</h6>
-                        </mat-card-content>
-                      </mat-card>
-                    </mat-grid-tile>
-                  </mat-grid-list>
+                              <h6 class="small">Bullets</h6>
+                            </mat-card-content>
+                          </mat-card>
+                        <!-- </div> -->
+                      </div>  
+                    </div>  
+                    <!-- </mat-grid-tile>
+                  </mat-grid-list> -->
                 </div>
 
                 <div class="container" *ngIf="this._user.getIsQuiz()">
                   <div class="card-body title">
                   <p>Quiz Competition</p>
                   </div>
-                  <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
-                    <mat-grid-tile> 
-                      
+                  <!-- <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
+                    <mat-grid-tile>  -->
+                  <div class="row ">
+                    <div class="col-xl-6 col-lg-6 col-md-12">   
                       <mat-card (click)="selectType('quiz')" [ngClass]="{'highlight':checkIfCardIsSelected('quiz')}" class="card-type">
                         <mat-card-content>
                           <!-- <img mat-card-image src="../../../../assets//status/heading.svg" alt="Empty" class="slide-type"> -->
@@ -58,65 +72,81 @@
                           <h6 class="small">Select Answer</h6>
                         </mat-card-content>
                       </mat-card>
-                    </mat-grid-tile>
+                    </div>
+                    <!-- </mat-grid-tile>
+                      
+                    <mat-grid-tile> -->
+                    <div class="col-xl-6 col-lg-6 col-md-12">   
 
-                  </mat-grid-list>
+                      <mat-card (click)="selectType('id')" [ngClass]="{'highlight':checkIfCardIsSelected('id')}" class="card-type">
+                        <mat-card-content>
+                          <!-- <img mat-card-image src="../../../../assets//status/fillin.svg" alt="Empty" class="slide-type"> -->
+                          <mat-icon class="slide-type">mode_edit</mat-icon>
+
+                          <h6 class="small">Type Answer</h6>                                
+                        </mat-card-content>
+                      </mat-card>
+                    </div>  
+                <!-- </mat-grid-tile>
+                  </mat-grid-list> -->
+                  </div>
                 </div>
 
-                <div class="container">
+                <div class="container" *ngIf="!this._user.getIsQuiz()">
                   <div class="card-body title">
                     <p>Popular Question Types
                   </div>
-                  <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
+                  <!-- <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
                     <mat-grid-tile> 
-                      
-                      <mat-card (click)="selectType('qa')" [ngClass]="{'highlight':checkIfCardIsSelected('qa')}" class="card-type">
-                        <mat-card-content>
-                          <!-- <img mat-card-image src="../../../../assets//status/question.svg" alt="Empty" class="slide-type"> -->
-                          <mat-icon class="slide-type">question_answer</mat-icon>
-
-                          <h6 class="small">Q&A</h6>
-                        </mat-card-content>
-                      </mat-card>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <mat-card (click)="selectType('mc')" [ngClass]="{'highlight':checkIfCardIsSelected('mc')}" class="card-type">
-                          <mat-card-content>
-                            <!-- <img mat-card-image src="../../../../assets//status/selection.svg" alt="Empty" class="slide-type"> -->
-                            <mat-icon class="slide-type">bar_chart</mat-icon>
-
-                            <h6 class="small">Multiple Choice</h6>                            
-                          </mat-card-content>
-                        </mat-card>
-                    </mat-grid-tile>
-
-                      <mat-grid-tile *ngIf="!this._user.getIsQuiz()">
-                        <mat-card (click)="selectType('poll')" [ngClass]="{'highlight':checkIfCardIsSelected('poll')}" class="card-type">
-                          <mat-card-content>
-                            <!-- <img mat-card-image src="../../../../assets//status/poll.svg" alt="Empty" class="slide-type"> -->
-                            <mat-icon class="slide-type">poll</mat-icon>
-
-                            <h6 class="small">Poll</h6>
-                          </mat-card-content>
-                        </mat-card>
-                      </mat-grid-tile>
-
-                    
-                    </mat-grid-list>
-                </div>
-                      <!-- <div class="row row_2">
-                        <div class="col-md">
-                          <mat-card (click)="selectType('id')" [ngClass]="{'highlight':checkIfCardIsSelected('id')}" class="card-type">
+                       -->
+                       <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">   
+                          <mat-card (click)="selectType('qa')" [ngClass]="{'highlight':checkIfCardIsSelected('qa')}" class="card-type">
                             <mat-card-content>
-                              <img mat-card-image src="../../../../assets//status/fillin.svg" alt="Empty" class="slide-type">
-
-                              <p class="small"><small >Type Answer</small></p>                                
+                              <!-- <img mat-card-image src="../../../../assets//status/question.svg" alt="Empty" class="slide-type"> -->
+                              <mat-icon class="slide-type">question_answer</mat-icon>
+    
+                              <h6 class="small">Q&A</h6>
                             </mat-card-content>
                           </mat-card>
-                         </div>
-                      </div> -->
+                        </div>
 
+                        <div class="col-xl-6 col-lg-6 col-md-12 ">   
+                          <mat-card (click)="selectType('mc')" [ngClass]="{'highlight':checkIfCardIsSelected('mc')}" class="card-type">
+                            <mat-card-content>
+                              <!-- <img mat-card-image src="../../../../assets//status/selection.svg" alt="Empty" class="slide-type"> -->
+                              <mat-icon class="slide-type">bar_chart</mat-icon>
+  
+                              <h6 class="small">Multiple Choice</h6>                            
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 pt-3">   
+                          <mat-card (click)="selectType('poll')" [ngClass]="{'highlight':checkIfCardIsSelected('poll')}" class="card-type">
+                            <mat-card-content>
+                              <!-- <img mat-card-image src="../../../../assets//status/poll.svg" alt="Empty" class="slide-type"> -->
+                              <mat-icon class="slide-type">poll</mat-icon>
+  
+                              <h6 class="small">Poll</h6>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </div>
+                     
+                    <!-- </mat-grid-tile>
+
+                    <mat-grid-tile> -->
+                     
+                    <!-- </mat-grid-tile>
+
+                      <mat-grid-tile > -->
+                       
+                      <!-- </mat-grid-tile>
+
+                    
+                    </mat-grid-list> -->
+                </div>
+             
 
                     
                     <!-- <div class="container">
@@ -621,6 +651,17 @@
 
                         <div class="header">
                          Options
+
+                            <mat-chip-list
+                            class="example-chip"
+                            cdkDropList 
+                            cdkDropListOrientation="horizontal">
+                            <mat-chip class="example-box" cdkDrag>
+                              <span>
+                            {{ optionLists.length +' of 4'}}
+                              </span>
+                            </mat-chip>
+                          </mat-chip-list>
                         </div>
                         <mat-list *ngFor="let optionlist of optionLists; let i = index">
                             <mat-list-item >
