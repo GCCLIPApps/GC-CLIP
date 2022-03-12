@@ -10,23 +10,25 @@
 
 
     <div mat-dialog-content>
-        <div class="row gx-5">
         
-            <mat-list role="list">
-                <mat-list-item role="listitem">Item 1</mat-list-item>
-                <mat-list-item role="listitem">Item 2</mat-list-item>
-                <mat-list-item role="listitem">Item 3</mat-list-item>
-                <mat-list-item role="listitem">Item 1</mat-list-item>
-                <mat-list-item role="listitem">Item 2</mat-list-item>
-                <mat-list-item role="listitem">Item 3</mat-list-item>
-                <mat-list-item role="listitem">Item 1</mat-list-item>
-                <mat-list-item role="listitem">Item 2</mat-list-item>
-                <mat-list-item role="listitem">Item 3</mat-list-item>
-                <mat-list-item role="listitem">Item 1</mat-list-item>
-                <mat-list-item role="listitem">Item 2</mat-list-item>
-                <mat-list-item role="listitem">Item 3</mat-list-item>
+            <mat-list role="list" *ngFor="let response of responses">
+                <mat-list-item role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(response.isanswered_fld)}" >
+                    <h1 mat-line>{{response.response_fld}}</h1>
+                    <mat-chip-list mat-line 
+                    class="example-chip"
+                    cdkDropList 
+                    cdkDropListOrientation="horizontal">
+                    <mat-chip mat-line class="example-box" cdkDrag (click)="markAsAnswered(response.id, response.isanswered_fld)">
+                      <span>
+                        Mark as Read
+                      </span>
+                    </mat-chip>
+                  </mat-chip-list>
+            
+                    <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
+                </mat-list-item>
+           
               </mat-list>
         
-        </div>
     </div>
 </mat-dialog-content>
