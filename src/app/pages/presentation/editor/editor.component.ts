@@ -183,11 +183,11 @@ export class EditorComponent implements OnInit {
     this.Pace.emit(pace);
   }
   
-  showResponse(messge:any){
+  showResponse(message:any){
 
     const dialogRef = this.matDialog.open(ResponseviewerComponent,{
       data:{
-        msg: messge
+        msg: message
       }
     });
 
@@ -295,7 +295,7 @@ export class EditorComponent implements OnInit {
       this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
         let load = this._ds.decrypt(res.d);
         this.responseLists = load;
-        
+        console.log(load)
         // console.log(this.responseLists)
           // this._snackBar.open("Presentation Updated", '', {
           //   duration: 1000,
