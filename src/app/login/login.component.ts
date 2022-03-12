@@ -75,9 +75,9 @@ export class LoginComponent implements OnInit {
 
     this._ds.processData1('users', this.loginForm.value, 1)?.subscribe((res: any)=>{
       let load = this._ds.decrypt(res.d)
-      
-      this._cs.set(btoa('gcclipfaculty'), CryptoJS.AES.encrypt(JSON.stringify(load.uData), this.keyString.defaultmessage).toString());
+      // console.log(load)
 
+      this._cs.set(btoa('gcclipfaculty'), CryptoJS.AES.encrypt(JSON.stringify(load.uData), this.keyString.defaultmessage).toString());
       load = load.uData
       this._user.setUserLoggedIn(load.id, load.token, load.email, load.fname, load.mname, load.lname, load.status, load.dept, load.program, load.passwordchange, load.profile);
       
