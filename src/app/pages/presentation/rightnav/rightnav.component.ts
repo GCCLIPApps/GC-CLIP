@@ -163,6 +163,11 @@ export class RightnavComponent implements OnInit,OnDestroy {
         this.updateSlideType(msg);
       break;
 
+      case 'id':
+        this.contentTabs = msg;
+        this.currentTabIndex = 1
+      break;
+
       //Popular  Question type
       case 'qa':
         this.updateSlideType(msg);
@@ -177,11 +182,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
         this.getOptions();
         this.updateSlideType(msg);
       break;
-
-      case 'id':
-        this.contentTabs = msg;
-        this.currentTabIndex = 1
-      break;
       
       default:
         this.currentTabIndex = 0
@@ -189,6 +189,8 @@ export class RightnavComponent implements OnInit,OnDestroy {
         this.updateContent('')
     }
   }
+  
+  timer: number = 30;
 
   updateSlideType(type: string){
 
@@ -266,7 +268,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
       });
   }
 
-timer: number = 30;
+
  // Emits Data to Editor Page
  updateContent(type: any){
   let newType = type
