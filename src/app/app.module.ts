@@ -41,7 +41,7 @@ import { ResponseviewerComponent } from './pages/presentation/editor/responsevie
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CreateOptionComponent } from './pages/home/dashboard/create-option/create-option.component';
-const config: SocketIoConfig = { url: 'http://localhost:3001', options: { autoConnect: false} };
+const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', options: { autoConnect: false} };
 
 
 @NgModule({
