@@ -3,7 +3,6 @@
     width: 100% !important;
     background-color: var(--clr-white);
  }
-
 .mat-tab-group{
     height: 85vh;
     width: 100% !important;
@@ -36,10 +35,12 @@
             margin: auto;
           }
 
+        
+
           input,textarea{
             font-weight: normal;
-            // font-size: 1rem;
           }
+
           .mat-button{
             padding: 0;
             width: 10px !important;
@@ -64,20 +65,38 @@
         
         .option-input{
           display: flex;
-          flex-direction: row;
           height: 2.5rem;
           margin-bottom: 1rem;
-          width: 100% !important;
-          mat-checkbox,img{
+          flex-direction: row;
+
+
+          .check-box,img{
             margin: auto;
           }
+
+          .close-button{
+            padding: 0;
+            margin: auto;
+
+            &:hover{
+              transition: .5s;
+              cursor: pointer;
+              font-size: 1rem;
+              color: var(--clr-darkgreen);
+            }
+          }
+
           .option-holder{
             width: auto !important;            
             margin: 0 1rem;
+
+            input{
+              min-width: 290px !important;
+              width: 100% !important;
+             }
             }    
           }
 
-          text-align: left;
           p{
             
              font-size: .9rem;
@@ -94,19 +113,28 @@
              padding: 0rem !important;
         }
         .header{
-            display: flex;
-            justify-content: space-between;
             margin: auto;
-            padding: 1.5rem 0rem .5rem;
+            display: flex;
+            font-weight: 600;
+            padding: 1rem 0rem .5rem;
+            justify-content: space-between;
 
-            mat-chip{
-              background-color: var(--clr-lightfontgreen);
-            }
             span{
-              font-size: .8rem;
-              font-weight: 600;
+              text-align: left;
               color: var(--clr-fontgreen);
             }
+
+            mat-chip{
+              margin: auto;
+              background-color: var(--clr-lightfontgreen);
+              span{
+                margin: auto;
+                font-size: .8rem;
+                font-weight: 600;
+                color: var(--clr-fontgreen);
+              }
+            }
+         
         }
         .settings{
           margin-bottom: 1rem;
@@ -158,7 +186,8 @@
                 opacity: 0.8;
                 cursor: pointer;
                 transition: 0.5s;
-                border: 2px solid  var(--clr-fontgreen);
+                border: 1px solid var(--clr-fontgreen);
+                box-shadow: 0px 0px 5px var(--clr-fontgreen);
                 // background-color: #d2eaff !important;
              }
             }
@@ -175,10 +204,11 @@
 
         .card_image{
           display: flex;
+          transition: 0.5s;
           flex-direction: row;
           // align-items: center;
           justify-content: flex-start;   
-          border: .01rem solid rgb(155, 155, 155);
+          border: .01rem solid var(--clr-gray);
 
           .open-image{
             display: flex;
@@ -210,11 +240,9 @@
             width: 150px;
           }
             &:hover {
-              opacity: 0.8;
               cursor: pointer;
-              transition: 0.5s;
-              border: .01rem solid  #0a8dff;
-              background-color: #d2eaff !important;
+              border: 1px solid var(--clr-fontgreen);
+              background-color: var(--clr-lightfontgreen);
           }
         }
 
