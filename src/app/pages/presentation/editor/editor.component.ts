@@ -106,57 +106,50 @@ export class EditorComponent implements OnInit {
     this.type = type.newType;
     console.log(this.type)
 
-    switch (this.type) {
-      case 'qa':
-  
-              if(this.responseLists.length){
-                this.status =  ""
-                this.smallParagraph = "";
-              }else{
-                this.status =  "No Response from the audience!"
-                this.smallParagraph = "Incoming question will show up here so that you can answer them one by one";
-              }
 
-              this.myArrayData = {
-                "heading_fld" : data.contentForm.heading,
-                "subheading_fld" : data.contentForm.subheading,
-                "image_fld": data.contentForm.image,
-              }  
-        break;
+    if(this.type == 'qa'){
+        if(this.responseLists.length){
+          this.status =  ""
+          this.smallParagraph = "";
+        }else{
+          this.status =  "No Response from the audience!"
+          this.smallParagraph = "Incoming question will show up here so that you can answer them one by one";
+        }
 
-      case 'quiz':
-              if (data.contentForm.isextrapoints){
-                this.myArrayData = {
-                  "heading_fld" : data.contentForm.heading,
-                  "subheading_fld" : data.contentForm.subheading,
-                  "image_fld": data.contentForm.image,
-                  "isextrapoints_fld": data.contentForm.isextrapoints,
-                  "timer_fld": data.contentForm.timer
-                }  
-              }else{
-                this.myArrayData = {
-                  "heading_fld" : data.contentForm.heading,
-                  "subheading_fld" : data.contentForm.subheading,
-                  "image_fld": data.contentForm.image,
-                  "points_fld": data.contentForm.point,
-                  "isextrapoints_fld": data.contentForm.isextrapoints,
-                  "timer_fld": data.contentForm.timer
-                }  
-              }
-              this.timerToMain(data.contentForm.timer)
+        this.myArrayData = {
+          "heading_fld" : data.contentForm.heading,
+          "subheading_fld" : data.contentForm.subheading,
+          "image_fld": data.contentForm.image,
+        }  
+    }else if(this.type == 'quiz' || this.type == 'identification'){
+        if (data.contentForm.isextrapoints){
+          this.myArrayData = {
+            "heading_fld" : data.contentForm.heading,
+            "subheading_fld" : data.contentForm.subheading,
+            "image_fld": data.contentForm.image,
+            "isextrapoints_fld": data.contentForm.isextrapoints,
+            "timer_fld": data.contentForm.timer
+          }  
+        }else{
+          this.myArrayData = {
+            "heading_fld" : data.contentForm.heading,
+            "subheading_fld" : data.contentForm.subheading,
+            "image_fld": data.contentForm.image,
+            "points_fld": data.contentForm.point,
+            "isextrapoints_fld": data.contentForm.isextrapoints,
+            "timer_fld": data.contentForm.timer
+          }  
+        }
+        this.timerToMain(data.contentForm.timer)
 
-
-        break;
-        
-      default:
-              this.myArrayData = {
-                "heading_fld" : data.contentForm.heading,
-                "subheading_fld" : data.contentForm.subheading,
-                "image_fld": data.contentForm.image,
-              }  
-        break;
+    }else{
+          this.myArrayData = {
+            "heading_fld" : data.contentForm.heading,
+            "subheading_fld" : data.contentForm.subheading,
+            "image_fld": data.contentForm.image,
+          }  
     }
-
+   
       this.heading = data.contentForm.heading;
       this.subheading = data.contentForm.subheading;
       this.image =  data.contentForm.image ;
