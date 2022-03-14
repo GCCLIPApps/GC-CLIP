@@ -35,6 +35,8 @@ export class RightnavComponent implements OnInit,OnDestroy {
   SubjectslideId: Subscription;
   SubjectpresPace: Subscription;
 
+  loadingBar: boolean = false;
+
   currentTabIndex = 1
   contentTabs: string = '';
   items: any;
@@ -138,7 +140,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   
   selectType(msg: string){
     this.currentlyClickedCardIndex = msg;
-
+  
     switch (msg){
       // Content Slides
       case 'heading':
@@ -163,9 +165,9 @@ export class RightnavComponent implements OnInit,OnDestroy {
         this.updateSlideType(msg);
       break;
 
-      case 'id':
-        this.contentTabs = msg;
-        this.currentTabIndex = 1
+      case 'identification':
+        this.getOptions();
+        this.updateSlideType(msg);
       break;
 
       //Popular  Question type
@@ -193,12 +195,13 @@ export class RightnavComponent implements OnInit,OnDestroy {
   timer: number = 30;
 
   updateSlideType(type: string){
+    this.loadingBar = true;
 
     this._ds.processData1('slides/pres/'+this._user.getSlideId(),{sType_fld: type}, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.currentTabIndex = 1
       this.contentTabs = type;
-      
+
       if(load['id']){
         this.heading = 'Slide with heading',this.subheading = '';
         this._user.setContentDetails(load['id'])
@@ -213,6 +216,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
       }
       
       this.updateContent(type);
+      this.loadingBar = false;
 
       },err =>{
         console.log('err', this._ds.decrypt(err.d))
