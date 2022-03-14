@@ -1,3 +1,6 @@
+mat-card{
+    background-color: var(--clr-darkgreen);
+}
 .wrapper{
 
     margin: 2rem 2rem 0 2rem;
@@ -71,15 +74,7 @@
 
         height: 100% !important;
     }
-    
-    mat-card{
-        // padding: 1rem;
-        height: 100%;
-        border-radius: 5px;
-        margin: 1.5rem 0 2rem 0;
 
-    }
-    
     th.mat-sort-header-sorted {
         position: sticky;
         color: var(--clr-dark);
