@@ -78,7 +78,7 @@
                     <mat-grid-tile> -->
                     <div class="col-xl-6 col-lg-6 col-md-12">   
 
-                      <mat-card (click)="selectType('id')" [ngClass]="{'highlight':checkIfCardIsSelected('id')}" class="card-type">
+                      <mat-card (click)="selectType('identification')" [ngClass]="{'highlight':checkIfCardIsSelected('identification')}" class="card-type">
                         <mat-card-content>
                           <!-- <img mat-card-image src="../../../../assets//status/fillin.svg" alt="Empty" class="slide-type"> -->
                           <mat-icon class="slide-type">mode_edit</mat-icon>
@@ -189,7 +189,10 @@
           
             </mat-tab>
             <mat-tab label="Content" [disabled]="istabDisable">
-              <div class="container">
+
+              <mat-progress-bar mode="indeterminate" *ngIf="loadingBar"></mat-progress-bar>
+
+              <div class="container" *ngIf="!loadingBar">
                 <div class="card-body title">
                   <div class="heading" *ngIf="contentTabs == 'heading'">
              
@@ -340,7 +343,11 @@
                                </div>
                               
                      
-                              <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"><mat-icon>highlight_off</mat-icon></button>
+                              <!-- <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"><mat-icon>highlight_off</mat-icon></button>
+                               -->  
+                               <div class="close-button my-auto"  (click)="removeOptions(optionlist.id,i)" >
+                                <mat-icon>highlight_off</mat-icon>
+                              </div>
                              </div>
 
                                  
@@ -382,21 +389,24 @@
                     </div>
                   </div>
                   
-                 
+
                 <div class="card-body title">
-                  <div class="sa" *ngIf="contentTabs == 'quiz'" >
+                  <div class="sa" *ngIf="contentTabs == 'quiz' || contentTabs == 'identification'" >
                     <mat-card-content>
                       <div class="header">
                         Your Question
                       </div>
                       <div class="head-input">
-                          <input matInput #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
+                          <input matInput #message maxlength="100" *ngIf="contentTabs == 'identification'" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('identification')">
+
+                          <input matInput #message maxlength="100" *ngIf="contentTabs == 'quiz'"  placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
                           <span class="textlength">{{ 100 - heading.length }}</span>
 
                       </div>  
-                        <div class="header  ">
-                         Options 
-                         
+                        <div class="header">
+                         <span *ngIf="contentTabs == 'quiz'"> Options</span>  
+                         <span *ngIf="contentTabs == 'identification'">    Correct Answer</span>  
+
                  
                           <mat-chip-list
                           class="example-chip"
@@ -414,21 +424,26 @@
                         <mat-list *ngFor="let optionlist of optionLists; let i = index">
                             <mat-list-item >
 
-                              <div class="option-input">
-                                <mat-checkbox  class="example-margin"  matTooltip="Mark option as correct answer" [(ngModel)]="optionlist.isCorrect_fld"  [disabled]="isDisabled" [checked]="optionlist.isCorrect_fld" (change)="isCorrect(optionlist.id, contentTabs, $event)" color="primary"></mat-checkbox>
+                              <div class="option-input ">
+                                <mat-checkbox  class="check-box"  *ngIf="contentTabs == 'quiz'"   matTooltip="Mark option as correct answer" [(ngModel)]="optionlist.isCorrect_fld"  [disabled]="isDisabled" [checked]="optionlist.isCorrect_fld" (change)="isCorrect(optionlist.id, contentTabs, $event)" color="primary"></mat-checkbox>
                                 <div class="option-holder">
                                   <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                                   <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
                                 </div>
-                              <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"><mat-icon>highlight_off</mat-icon></button>
+                              <!-- <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"> -->
+                                <div class="close-button"  (click)="removeOptions(optionlist.id,i)" >
+                                  <mat-icon>highlight_off</mat-icon>
+                                </div>
+              
+                              <!-- </button> -->
                              </div>
                             </mat-list-item>
                         </mat-list> 
 
-                          <button mat-raised-button class="add btn" [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled" matTooltip="Adds slide in presentation">
-                            <mat-icon>add</mat-icon>
-                            <strong>Add Another Option</strong> 
-                          </button>
+                        <button mat-raised-button class="add btn"  [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
+                          <mat-icon>add</mat-icon>
+                          <strong>Add Another Answer</strong> 
+                        </button>
                     
                           <div class="header">
                             Image
@@ -464,7 +479,9 @@
                                     <span class="item">Seconds to answer</span>    
     
                                     <div class="timer-input">
-                                      <input matInput #message type="number" max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('quiz')">
+                                      <input matInput #message type="number"  *ngIf="contentTabs == 'identification'"  max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('identification')">
+
+                                      <input matInput #message type="number"  *ngIf="contentTabs == 'quiz'"  max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('quiz')">
                   
                                     </div>  
                                   </div>
@@ -472,22 +489,28 @@
                                     <span class="item">Set Points</span>    
   
                                     <div class="timer-input">
-                                      <input matInput #message type="number" max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('quiz')">
+
+                                      <input matInput #message type="number" *ngIf="contentTabs == 'identification'"  max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('identification')">
+
+                                      <input matInput #message type="number"  *ngIf="contentTabs == 'quiz'" max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('quiz')">
                   
                                     </div>  
                                   </div>
                                 </div>
                             
-                                  <mat-slide-toggle color="primary"
-                                  class="example-margin" [(ngModel)]="toggleExtrapoints" style="color: #808080;"  (change)="updateContent('quiz')">
+                                  <mat-slide-toggle color="primary" *ngIf="contentTabs == 'identification'"
+                                  class="check-box" [(ngModel)]="toggleExtrapoints" style="color: #808080;"  (change)="updateContent('identification')">
+                                
+                                  Extra points for fast answer
+                                  </mat-slide-toggle>
+
+                                  <mat-slide-toggle color="primary" *ngIf="contentTabs == 'quiz'"
+                                  class="check-box" [(ngModel)]="toggleExtrapoints" style="color: #808080;"  (change)="updateContent('quiz')">
                                 
                                   Extra points for fast answer
                                   </mat-slide-toggle>
                               </div>
 
-                            
-                 
-                        
                     </mat-card-content>
                   </div>
                 </div>
@@ -731,28 +754,19 @@
                             </mat-card>
 
 
-                            <!-- <div class="header">
+                            <div class="header">
                               Result layout
-                            </div> -->
-                          
-                            <!-- <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
-                              <mat-grid-tile>
-                                <mat-card  class="card-type">
-                                  <mat-card-content>
-                                    <mat-icon class="slide-type">segment</mat-icon>
-                                    <h6 class="small">Heading</h6>
-                                  </mat-card-content>
+                            </div>
+                            <div class="row ">
+                              <div class="col-xl-6 col-lg-6 col-md-12">
+                                <mat-card>
+                                  
                                 </mat-card>
-                              </mat-grid-tile> -->
-                              <!-- <mat-grid-tile>2</mat-grid-tile>
-                              <mat-grid-tile>3</mat-grid-tile>
-                              <mat-grid-tile>4</mat-grid-tile> -->
-                            <!-- </mat-grid-list> -->
+                              </div>
+                            </div>
                     </mat-card-content>
                   </div>
                 </div>
-
-                <p *ngIf="contentTabs == 'id'">Identification</p>
               </div>
 
             </mat-tab>
@@ -835,7 +849,7 @@
                           Language
                          </div>
                         <mat-slide-toggle color="primary"
-                        class="example-margin" [(ngModel)]="toggleLanguagechecked">
+                        class="check-box" [(ngModel)]="toggleLanguagechecked">
                         Always use English
                          </mat-slide-toggle >
                       </mat-expansion-panel>
