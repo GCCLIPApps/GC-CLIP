@@ -90,7 +90,7 @@ export class SlidemainComponent implements OnInit {
   getPresentation(){
     this._ds.processData1('slides/'+this.id,'', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      console.log(load)
+      
       this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld);
       console.log(this._user.getPresentationPace())
 
