@@ -98,7 +98,7 @@
                       </div>
                   </ng-container>
                   
-                  <ng-container *ngIf="type === 'quiz'">
+                  <ng-container *ngIf="type === 'quiz' || type === 'identification'">
         
                       <div class="multiplechoice-holder"  >
       
@@ -118,6 +118,10 @@
                                 <ng-template #notCorrect>
                                   <mat-icon  class="mat-icon" [ngStyle]="{'color':'var(--clr-warn)'}">close</mat-icon>
                                 </ng-template>
+                                </div>
+
+                                <div *ngIf="type === 'identification'">
+                                  <mat-icon class="mat-icon" [ngStyle]="{'color':'var(--clr-success)'}">check</mat-icon>
                                 </div>
                                    <p >{{item.choice_fld}}</p> 
         
@@ -227,7 +231,7 @@
                     </div>
                 </ng-container>
                 
-                <ng-container *ngIf="type === 'quiz'">
+                <ng-container *ngIf="type == 'quiz'  || type == 'identification'">
 
                   <ng-container *ngIf="!isPresssedEnter">
                     <div class="multiplechoice-header">
@@ -243,7 +247,7 @@
                   </ng-container>
                   
              
-                  <ng-container *ngIf="type == 'quiz'  && showSlide"  (keydown)="pressKey($event)">
+                  <ng-container *ngIf="showSlide"  (keydown)="pressKey($event)">
       
                     <div class="multiplechoice-holder"  >
 
@@ -320,7 +324,7 @@
                   <mat-icon >favorite</mat-icon>
                 </button>
 
-                <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf="type == 'mc' || type == 'quiz' || type == 'poll'">
+                <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf="type == 'mc' || type == 'quiz' || type == 'poll' || type == 'identification'">
                   <!-- <mat-icon *ngIf="!this.responseLists.length" matBadgeColor="warn">account_circle</mat-icon> -->
                   <mat-icon [matBadge]="this.responseLists.length" matBadgeSize="small" >account_circle</mat-icon>
                 </button>
