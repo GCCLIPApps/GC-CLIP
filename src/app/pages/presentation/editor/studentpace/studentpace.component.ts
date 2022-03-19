@@ -39,9 +39,7 @@ export class StudentpaceComponent implements OnInit {
   studentFinalResults: any = []
   isStudentdone: boolean = true;
   responseLists:  any =[];
-  studentslists: any = [{
-    name: 'sadsadsa'
-  }]
+  studentslists: any = []
   chart: any = [];
   viewresult: any
   elem: any;
