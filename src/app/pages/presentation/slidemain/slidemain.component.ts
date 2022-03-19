@@ -43,7 +43,7 @@ export class SlidemainComponent implements OnInit {
 
   email: string = this._user.getEmail();
   profilepic = this._user.getProfileImage();
-
+  pace = this._user.getPresentationPace();
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
     map(result => result.matches),
@@ -70,7 +70,9 @@ export class SlidemainComponent implements OnInit {
             // console.log(params['link'])
             let url = params['link'];
             url = url.split("/").pop()
+         
             this.id = Number(atob(url));
+           
             this.getPresentation();
           });
           }
@@ -110,7 +112,7 @@ export class SlidemainComponent implements OnInit {
     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
       this.studentslists.push(data)
 
-      this._snackBar.open(this.studentslists[this.studentslists.length - 1]['user'] + ' Joined the room', '', {
+      this._snackBar.open(this.studentslists[this.studentslists.length - 1]['name'] + ' Joined the room', '', {
         duration: 3000,
       });
     }) 
@@ -129,13 +131,13 @@ export class SlidemainComponent implements OnInit {
     })
   }
   
-  updateTitle(pace:string){
+  updateTitle(pace:number){
     this.showSpinner = true;
     this._ds.processData1('slides/update/'+this._user.getPresentationId(),
     {sName_fld: this.presentationName, 
       sTheme_fld: this.sTheme, 
       sColor_fld: this.sColor, 
-      sPace_fld: pace}, 2)?.pipe(finalize(() => this.showSpinner = false))?.subscribe((res: any) => {
+      sPace_fld: pace || this._user.getPresentationPace()}, 2)?.pipe(finalize(() => this.showSpinner = false))?.subscribe((res: any) => {
     
       let load = this._ds.decrypt(res.d);
       this._user.setPresentationTheme(load.sTheme_fld,load.sColor_fld);
@@ -172,7 +174,7 @@ export class SlidemainComponent implements OnInit {
       this.sTheme = result.backgroundColor;
       this.sColor = result.color;
       this.sImage = result.backgroundImage
-      this.updateTitle('');
+      this.updateTitle(this._user.getPresentationPace());
     });
   }
   

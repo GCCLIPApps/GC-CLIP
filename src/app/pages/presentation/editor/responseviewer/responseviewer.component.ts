@@ -8,39 +8,56 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./responseviewer.component.scss']
 })
 export class ResponseviewerComponent implements OnInit {
+  currentTabIndex = 0
+  responses: any [] =[];
+  questions: any;
+  answeres:any;
+  sColor: string =   this._user.getPresentationFontColor()
+  sTheme: string =  this._user.getPresentationTheme()
 
-  responses: any;
   constructor(   @Inject(MAT_DIALOG_DATA) public data: any,
     private _ds: DataService, 
     public _user: UserService) { 
-    if(this.data.msg){
-      this.responses = this.data.msg;
-      console.log(this.responses)
-    }
   }
-
-  ngOnInit(): void {
   
+  ngOnInit(): void {
+    this.getQuestions(0);
     
   }
+  onTabChange(e: any) {
+    this.getQuestions(e.index);
+  }
+
+  getQuestions(isAnswered: number){
+    this._ds.processData1(`response/getQuestions/${isAnswered}`,this._user.getSlideId(), 2)?.subscribe((res: any) => {
+      let load = this._ds.decrypt(res.d);
+      console.log(load)
+
+      if(isAnswered){
+        this.answeres = load;
+      }else{
+        this.questions = load
+      }
+      this.getResponse()
+      },err =>{
+        console.log('err', err)
+      });
+  }
 
 
-  markAsAnswered(id: number ,status: number){
+
+  markAsAnswered(id: number ,status: number, index: number){
     if(status == 0){
+      this.questions.splice(index, 1);
       status = 1
     }else{
+      this.answeres.splice(index, 1);
       status = 0
     }
    
     this._ds.processData1('response/markAnswered/'+id, status, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-
-      for (var i = 0; i <= this.responses.length; i++){
-        if (this.responses[i].id == id){
-          this.responses[i].isanswered_fld = status;
-            break;
-        }
-      }
+      this.getResponse()
 
         },err =>{
  
@@ -51,6 +68,18 @@ export class ResponseviewerComponent implements OnInit {
 
   public checkIfCardIsSelected(cardIndex: number): boolean {
     return cardIndex === 1;
+  }
+
+
+  getResponse(){
+      this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
+        let load = this._ds.decrypt(res.d);
+        this.responses = load;
+
+          },err =>{
+            console.log('err', err)
+          });
+
   }
 
 }

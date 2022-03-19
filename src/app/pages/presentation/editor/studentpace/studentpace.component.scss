@@ -1,0 +1,153 @@
+.students-card {
+    margin: .5rem;
+    transition: .5s;
+    width: 220px;
+    height: 80px;
+    border-radius: 25px;
+    box-shadow: 0 9px var(--clr-gray);
+    p{
+        font-size: 1rem;
+    }
+    &:hover{
+        opacity: .8;
+        transform: translate(0px, 5px);
+        -webkit-transform: translate(0px, 5px);
+        box-shadow: 0px 1px 0px 0px;
+        background-color: var(--clr-lightfontgreen);
+        box-shadow: 0 9px var(--clr-lightfontgreen);
+    }
+
+  }
+  
+  .students-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+
+.mat-toolbar.header {
+    top: 0;
+    z-index: 100;
+    position: sticky;
+    opacity: 1;
+    margin-bottom: 1rem;
+    background-color: var(--clr-white);
+}
+mat-sidenav-content {
+    height: 100vh !important;
+    background: var(--clr-dbgreen) !important;
+}
+
+.start-button{
+    height: 60px;
+    transition: .5s;
+    font-weight: 600;
+    font-size: 1.5rem;
+    width: 200px !important;
+    color: var(--clr-white);
+    
+    // background-color: var(--clr-dbgreen);
+    box-shadow: 0 9px var(--clr-gray);
+    &:hover{
+    transform: scale(1.1) perspective(1px);
+    background-color: var(--clr-lightfontgreen);          
+    }
+    &:active {
+        transform: translate(0px, 5px);
+        -webkit-transform: translate(0px, 5px);
+        box-shadow: 0px 1px 0px 0px;
+      }
+    background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+    background-size: 1800% 1800%;
+  
+  -webkit-animation: rainbow 18s ease infinite;
+  -z-animation: rainbow 18s ease infinite;
+  -o-animation: rainbow 18s ease infinite;
+    animation: rainbow 18s ease infinite;
+  
+  @-webkit-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-moz-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-o-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @keyframes rainbow { 
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+}
+
+
+.finish-button{
+    height: 60px;
+    transition: .5s;
+    font-weight: 600;
+    font-size: 1.5rem;
+    width: 200px !important;
+    color: var(--clr-white);
+    
+    // background-color: var(--clr-dbgreen);
+    box-shadow: 0 9px var(--clr-gray);
+    &:hover{
+    transform: scale(1.1) perspective(1px);
+    background-color: var(--clr-lightfontgreen);          
+    }
+    &:active {
+        transform: translate(0px, 5px);
+        -webkit-transform: translate(0px, 5px);
+        box-shadow: 0px 1px 0px 0px;
+      }
+    background-size: 1800% 1800%;
+  
+  -webkit-animation: rainbow 18s ease infinite;
+  -z-animation: rainbow 18s ease infinite;
+  -o-animation: rainbow 18s ease infinite;
+    animation: rainbow 18s ease infinite;
+  
+  @-webkit-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-moz-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-o-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @keyframes rainbow { 
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+}
+.waitingPlayers {
+    font-size: 2rem;
+    animation: mymove 5s infinite;
+}
+
+@keyframes mymove {
+    50% {font-size: 3rem;}
+}
+
+.countDown {
+    font-size: 4rem;
+    animation: counting 1s infinite;
+}
+@keyframes counting {
+    50% {font-size: 6rem;}
+}

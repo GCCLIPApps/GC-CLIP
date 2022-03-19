@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  webLink: `${window.location.origin}/#/presentation/`,
+  apiLink: `http://localhost:4230/${btoa('api').replace('=', '')}/`,
+  imageLink: `http://localhost:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`,
+  socket: `http://localhost:4231`,
 };
 
 /*

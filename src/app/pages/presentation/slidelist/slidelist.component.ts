@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener, Input, Output, EventEmitter} from '@angular/core';
+import { Animations } from 'src/app/animation';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
 import { SocketService } from 'src/app/services/socket.service';
@@ -11,10 +12,14 @@ import { ConfirmationDialogComponent } from '../../home/dashboard/confirmation-d
 
 import { Router } from '@angular/router';
 
+
+var animates = new Animations()
+
 @Component({
   selector: 'app-slidelist',
   templateUrl: './slidelist.component.html',
-  styleUrls: ['./slidelist.component.scss']
+  styleUrls: ['./slidelist.component.scss'],
+  animations: [animates.listAnimation]
 })
 export class SlidelistComponent implements OnInit { 
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
@@ -66,22 +71,6 @@ export class SlidelistComponent implements OnInit {
  
 
   this.getSlidelist();
-  }
-
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    // clearTimeout(this.emitters())
-  }
-
-  ngOnChanges(changes: any): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    // this.slideTimer = changes.slideTimer.currentValue;
-    
-  }
-
-  showMessage(message: any) {
   }
 
   getSlidelist(){
@@ -152,36 +141,37 @@ export class SlidelistComponent implements OnInit {
   //  Next and Previous slide
   // Arrow Keys Event Return Progress Bar
   selectionChange(event:any) {
-    console.log(this.isquizStart)
-    // if(this.isquizStart &&  this.items.[this.currentIndex] == '')
-    if(event.key == "ArrowRight"){
-      this.currentIndex++;
 
-        if(this.currentIndex == this.items.length){
-            this.currentIndex = 0;
-            this.percent -=  this.min * this.items.length;
-            console.log('This is the last slide')
-          this._socket.sendData({sdId: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
-        }
-          this.slideSelector(this.items[this.currentIndex], this.currentIndex);
-          this.percent += this.min;
-        
-    }
-      if(event.key == "ArrowLeft"){
-        this.currentIndex--;
-
-          if(this.currentIndex < 0){
-            this.currentIndex = this.items.length - 1;
-            this.percent = this.min * this.items.length;
-
-            this._socket.sendData({slideDetail: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
-          }else{
-            this.percent -= this.min;
-            // this.slideSelector(this.items[this.currentIndex = 0], this.currentIndex = 0)
+    // if(this._user.getPresentationPace() == 0){
+      if(event.key == "ArrowRight"){
+        this.currentIndex++;
+  
+          if(this.currentIndex == this.items.length){
+              this.currentIndex = 0;
+              this.percent -=  this.min * this.items.length;
+              console.log('This is the last slide')
+            this._socket.sendData({sdId: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
           }
-          this.slideSelector(this.items[this.currentIndex], this.currentIndex);
-    }
-    this.slidespercent.emit({percent: this.percent})
+            this.slideSelector(this.items[this.currentIndex], this.currentIndex);
+            this.percent += this.min;
+          
+      }
+        if(event.key == "ArrowLeft"){
+          this.currentIndex--;
+  
+            if(this.currentIndex < 0){
+              this.currentIndex = this.items.length - 1;
+              this.percent = this.min * this.items.length;
+  
+              this._socket.sendData({slideDetail: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
+            }else{
+              this.percent -= this.min;
+              // this.slideSelector(this.items[this.currentIndex = 0], this.currentIndex = 0)
+            }
+            this.slideSelector(this.items[this.currentIndex], this.currentIndex);
+      }
+      this.slidespercent.emit({percent: this.percent})
+    // }
   }
 
   

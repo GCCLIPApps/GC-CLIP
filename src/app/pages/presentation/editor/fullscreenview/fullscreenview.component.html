@@ -1,0 +1,194 @@
+ <mat-card id="presentSlide" *ngIf="!(this._user.getIsQuiz() && this._user.getPresentationPace())" [style.background-color]="sTheme" [style.color]="sColor" class="Presentation">
+
+          <!-- <div class="list-of-students" >
+            <div class="row" *ngFor="let item of studentslists">
+              <div class="col">{{item.user}}</div>
+            </div>
+          </div> -->
+
+          <div  class="instructorPace p-1 d-flex flex-wrap align-items-center justify-content-center flex-column" [@listAnimation]="this.presentationData">
+      
+                <mat-card-content>
+  
+             
+  
+                  <div class="" *ngIf="!isCardloading">
+                               
+                    <ng-container *ngIf="!type">
+                      <div class="content-holder">
+                        <h2 class="card-head"> Select Type</h2>
+                      </div>
+                      
+                    </ng-container>
+                    
+                    <ng-container  *ngIf="type == 'qa'">
+                      <div class="question-holder">
+
+                        <h2  class="card-question">{{this.presentationData.heading_fld}}</h2>
+                        <h5 class="question-status"  *ngIf="totalNo">{{status}}</h5>
+                        <p  *ngIf="type == 'qa' && totalNo">{{smallParagraph}}</p>
+        
+                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                        <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                      
+                      </div>
+                    </ng-container>
+                    
+              
+                    <ng-container *ngIf="type == 'bullets'  || type == 'poll'" >
+                      <div class="bullet-holder"  >
+      
+                        <div>
+                          <h2 class="bullet-header" >{{this.presentationData.heading_fld}}</h2>
+                        </div>
+                        
+                        <div class="bulletlists" *ngFor="let item of showOptions; let i = index" >
+                        
+                          <div class="bulletlist-holder" *ngIf="type == 'bullets' ">
+                            <mat-icon>arrow_forward</mat-icon>
+                            {{item.choice_fld}}
+                          </div>       
+           
+                        <div  *ngFor="let pollslist of pollslists">
+                          <div class="bulletlist-holder" *ngIf=" type == 'poll'">
+                            <div class="text-center" > 
+  
+                            <mat-spinner *ngIf="isSpinner"></mat-spinner>
+  
+                             </div>
+                            <span class="mr-2">{{i + 1 }}.</span>
+                           <p>{{item.choice_fld}}  ---- <span *ngIf="item.choice_fld === pollslist.choice_fld">{{pollslists[i].totalpoll_fld}}
+
+
+                            
+                           </span> </p> 
+                    
+                          </div>
+
+                        </div>
+       
+                        </div>
+                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                        <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                      </div>
+                      
+                    </ng-container>
+                    
+              
+    
+                    <ng-container *ngIf="type == 'mc' " >
+        
+                      <div class="multiplechoice-holder"  >
+      
+                        <div class="multiplechoice-header">
+                          <h2  >{{this.presentationData.heading_fld}}</h2>
+                        </div>
+                     
+      
+                        <div class="optionlists d-flex">
+               
+                          <div class="optionlists-holder" *ngFor="let item of showOptions; let i = index" >
+                            
+                              <div *ngIf="type == 'mc'">
+                                <img *ngIf="item.image_fld && type == 'mc'" [src]="this._user.imageLink+item.image_fld" class="option_image" >
+    
+                                <p >{{item.choice_fld}}</p> 
+                              </div>
+                 
+
+                               
+                 
+                          </div>
+                         
+                        </div>
+                      
+                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                        <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="type === 'quiz' || type === 'identification'">
+          
+                        <div class="multiplechoice-holder"  >
+        
+                          <div class="multiplechoice-header">
+                            <h2  >{{this.presentationData.heading_fld}}</h2>
+                          </div>
+                       
+        
+                          <div class="optionlists d-flex">
+                 
+                            <div class="optionlists-holder" *ngFor="let item of showOptions" >
+                         
+                                  <div *ngIf=" type == 'quiz'">  
+                                    <div *ngIf="item.isCorrect_fld; else notCorrect">
+                                    <mat-icon class="mat-icon" [ngStyle]="{'color':'var(--clr-success)'}">check</mat-icon>
+                                  </div>
+                                  <ng-template #notCorrect>
+                                    <mat-icon  class="mat-icon" [ngStyle]="{'color':'var(--clr-warn)'}">close</mat-icon>
+                                  </ng-template>
+                                  </div>
+  
+                                  <div *ngIf="type === 'identification'">
+                                    <mat-icon class="mat-icon" [ngStyle]="{'color':'var(--clr-success)'}">check</mat-icon>
+                                  </div>
+                                     <p >{{item.choice_fld}}</p> 
+          
+                   
+                            </div>
+                           
+                          </div>
+                        
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                          </div>
+  
+                    </ng-container>
+                  
+              
+                      <ng-container *ngIf="type == 'heading' || type == 'paragraph'">
+                        <div class="content-holder" >
+                          <h2 class="card-head"> {{this.presentationData.heading_fld}}</h2>
+                          <h6  class="card-paragraph" *ngIf="type == 'paragraph'">{{this.presentationData.subheading_fld}}</h6>
+                          <p class="card-subhead" *ngIf="type == 'heading'">{{this.presentationData.subheading_fld}}</p>
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                        </div>
+                        
+                      </ng-container>
+    
+                  </div>
+       
+           
+                  </mat-card-content>
+              </div>
+              <mat-card-actions >
+
+                <div  class="d-flex flex-nowrap justify-content-end g-5 pb-1">
+
+                <button mat-mini-fab [style.background-color]="sTheme" [style.color]="sColor"  *ngIf="type == 'heading' || type == 'paragraph' || type ==  'bullets'" >
+                  <mat-icon >favorite</mat-icon>
+                </button>
+
+                  <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf="type == 'mc' || type == 'quiz' || type == 'poll' || type == 'identification'">
+                    <!-- <mat-icon *ngIf="!this.responseLists.length" matBadgeColor="warn">account_circle</mat-icon> -->
+                    <!-- <mat-icon  *ngIf="responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >forum</mat-icon> -->
+                    <mat-icon  *ngIf="responseLists[0].totalResponse == 0"  matBadgeSize="small" >forum</mat-icon>
+                    <mat-icon  *ngIf="responseLists[0].totalResponse"  [matBadge]="responseLists[0].totalResponse" matBadgeSize="small" >forum</mat-icon>
+                  </button>
+  
+  
+                  <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf=" type == 'qa' " (click)="showResponse(responseLists, $event)">
+                    <!-- <mat-icon *ngIf="!this.responseLists.length" matBadgeColor="warn">account_circle</mat-icon> -->
+                    <!-- <mat-icon  *ngIf="responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >forum</mat-icon> -->
+                    <mat-icon  *ngIf="responseLists[0].totalResponse == 0"  matBadgeSize="small" >forum</mat-icon>
+                    <mat-icon  *ngIf="responseLists[0].totalResponse"  [matBadge]="responseLists[0].totalResponse" matBadgeSize="small" >forum</mat-icon>
+                  </button>
+              
+              </div>
+
+              <footer >
+                <mat-progress-bar mode="determinate" value="{{percent}}" color="primary"></mat-progress-bar>
+              </footer>
+             </mat-card-actions>
+        </mat-card>

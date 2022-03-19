@@ -1,5 +1,5 @@
 export class DataSchema{
-    defaultmessage: string = 'Youcanthackme123';
+    defaultmessage: string = '06X4itpARm63UCSn7j1r';
   
     genHexString(len: any) {
         const hex = '0123456789abcdef';

@@ -1,34 +1,65 @@
-<div class="dialog-header d-flex justify-content-between">
-    <h1 mat-dialog-title>Your responses</h1>
-
-    <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
-</div>
-
+<mat-card [style.background-color]="sTheme" [style.color]="sColor" >
+  
 <mat-dialog-content class="mat-typography">
-
-   
-
-
     <div mat-dialog-content>
+
+      <mat-tab-group headerPosition="below" [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)">
+        <mat-tab label="Questions"  [style.color]="sColor" > 
+            <ng-template mat-tab-label>
+              <mat-icon class="presentation">live_help</mat-icon>
+              <p  style="margin: auto;">Questions <sup>{{this.responses[0].totalQuestion}}</sup> </p>
+            </ng-template>
+
+          <mat-list role="list"  *ngFor="let question of questions; let i = index" >
+            <mat-list-item role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(question.isanswered_fld)}" [style.color]="sColor">
+                <h1 mat-line>{{question.response_fld}}</h1>
+                <mat-chip-list mat-line 
+                class="example-chip"
+                cdkDropList 
+                cdkDropListOrientation="horizontal">
+                <mat-chip mat-line class="example-box" cdkDrag (click)="markAsAnswered(question.id, question.isanswered_fld, i)">
+                  <span>
+                    Mark as Read
+                  </span>
+                </mat-chip>
+              </mat-chip-list>
         
-            <mat-list role="list" *ngFor="let response of responses">
-                <mat-list-item role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(response.isanswered_fld)}" >
-                    <h1 mat-line>{{response.response_fld}}</h1>
-                    <mat-chip-list mat-line 
-                    class="example-chip"
-                    cdkDropList 
-                    cdkDropListOrientation="horizontal">
-                    <mat-chip mat-line class="example-box" cdkDrag (click)="markAsAnswered(response.id, response.isanswered_fld)">
-                      <span>
-                        Mark as Read
-                      </span>
-                    </mat-chip>
-                  </mat-chip-list>
-            
-                    <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
-                </mat-list-item>
-           
-              </mat-list>
+                <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
+            </mat-list-item>
         
+       
+          </mat-list>
+        </mat-tab>
+
+        <mat-tab label="Answered"  [style.color]="sColor" >
+            <ng-template mat-tab-label>
+              <mat-icon class="presentation">question_answer</mat-icon>
+              <p  style="margin: auto;">Answered <sup>{{this.responses[0].totalAnswered}}</sup> </p>
+            </ng-template>
+
+          <mat-list role="list"  *ngFor="let answer of answeres; let i = index">
+              
+            <mat-list-item role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(answer.isanswered_fld)}"  [style.color]="sColor" >
+                <h1 mat-line>{{answer.response_fld}}</h1>
+              
+                <mat-chip-list mat-line 
+                class="example-chip"
+                cdkDropList 
+                cdkDropListOrientation="horizontal">
+                <mat-chip mat-line class="example-box" cdkDrag (click)="markAsAnswered(answer.id, answer.isanswered_fld, i)">
+                  <span>
+                    Mark as Read
+                  </span>
+                </mat-chip>
+              </mat-chip-list>
+        
+                <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
+            </mat-list-item>
+       
+          </mat-list>
+
+        </mat-tab>
+      </mat-tab-group>    
     </div>
 </mat-dialog-content>
+</mat-card>

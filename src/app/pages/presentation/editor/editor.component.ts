@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input, HostListener } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, HostListener, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
@@ -8,6 +8,11 @@ import { SlidemainComponent } from '../slidemain/slidemain.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseviewerComponent } from './responseviewer/responseviewer.component';
 
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { FullscreenviewComponent } from './fullscreenview/fullscreenview.component';
+import { StudentpaceComponent } from './studentpace/studentpace.component';
+import { InstructorpaceComponent } from './instructorpace/instructorpace.component';
+import { Router } from '@angular/router';
 
 export interface Presentations {
   sName_fld: string;
@@ -22,6 +27,10 @@ export interface Presentations {
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
+
+
+  @ViewChild(FullscreenviewComponent) fullscreencomponent: FullscreenviewComponent
+
   @Output() toSlideMain : EventEmitter<any> = new EventEmitter<any>();
   @Output() Pace : EventEmitter<any> = new EventEmitter<any>();
   @Output() Timer : EventEmitter<any> = new EventEmitter<any>();
@@ -33,6 +42,8 @@ export class EditorComponent implements OnInit {
   @Input() totalSelectAnswerPage: any;
   @Input() slideListPercent: any;
 
+
+
   percent: number;
 
   Owner : string = this._user.getFullname();
@@ -42,7 +53,7 @@ export class EditorComponent implements OnInit {
   isPresented: boolean = false;
   isLastSlide: boolean = false;
   checkId: number;
-  responseLists: any = [];;
+  responseLists: any = 0;
   countDown: number;
   slideTimer: number;
   totalPages: number;
@@ -54,29 +65,31 @@ export class EditorComponent implements OnInit {
   subheading: string;
   paragraph: string;
   image: any;
-  status: string = '';
-  smallParagraph: string =''
+  status: string = ""
+  smallParagraph: string = ""
   showOptions: any;
   selectedImage: any;
   type: string;
+
+
+  fullscreenRef: any;
+  presentationData: any
+
+  // Component
+  component: any ;
+
   constructor(
     private matDialog: MatDialog,
     public _socket: SocketService,
     private _snackBar: MatSnackBar,
+    private _router: Router,
     private _ds: DataService, 
     public _user: UserService) { }
     
   ngOnInit():void {
-    this._socket.socketConnect();
-    this.elem = document.getElementById("presentSlide");
-    
-    this._socket._socket.fromEvent('recieved-student-response').subscribe(data =>{
-      this.responseLists.push(data)
-      
-      // this.getResponse();
-    });
-
-
+    if(!this._user.getIsQuiz()){
+      this._socket.socketConnect();    
+    }
   }
   
   ngAfterViewInit(): void {
@@ -100,19 +113,22 @@ export class EditorComponent implements OnInit {
       this.percent = this.slideListPercent;
   }
   
+    
+
+
+  toFullscreenview:any[];
+
   //Fetch Data rom RightNav 
   getcontentFrom(data:any, type: any, newOption: any){
+ 
 
     this.type = type.newType;
-    console.log(this.type)
+    if(this.type == 'qa' || this.type == 'poll'|| this.type == 'mc'){
+      console.log
+      this.getResponse();
 
-
-    if(this.type == 'qa'){
-        if(this.responseLists.length){
-          this.status =  ""
-          this.smallParagraph = "";
-        }else{
-          this.status =  "No Response from the audience!"
+        if(this.responseLists == '0'){
+          this.status =   "No response from the audience!"
           this.smallParagraph = "Incoming question will show up here so that you can answer them one by one";
         }
 
@@ -122,6 +138,10 @@ export class EditorComponent implements OnInit {
           "image_fld": data.contentForm.image,
         }  
     }else if(this.type == 'quiz' || this.type == 'identification'){
+
+
+       this.getResponse();
+
         if (data.contentForm.isextrapoints){
           this.myArrayData = {
             "heading_fld" : data.contentForm.heading,
@@ -157,13 +177,32 @@ export class EditorComponent implements OnInit {
       this.showOptions = newOption.options;
 
 
- 
-    this.getResponse();
     this.updateContent();
- 
+    
     if(this.isPresented){
-         this.sendtoSocket();
+      this.sendtoSocket();
+
+      this.fullscreenRef.componentInstance.presentationData =  this.myArrayData
+      this.fullscreenRef.componentInstance.showOptions =  this.showOptions
+      this.fullscreenRef.componentInstance.type =  this.type
+      this.fullscreenRef.componentInstance.percent =  this.percent
+      this.fullscreenRef.componentInstance.status =  this.status
+      this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
     }
+  }
+
+  getResponse(){
+    // this.modalSubscription =  this._user.SubjectslideId?.subscribe((data) => {
+      this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
+        let load = this._ds.decrypt(res.d);
+        this.responseLists = load;
+        console.log(this.responseLists)
+
+      
+          },err =>{
+            console.log('err', err)
+          });
+    // });
   }
 
 
@@ -176,26 +215,6 @@ export class EditorComponent implements OnInit {
     this.Pace.emit(pace);
   }
   
-  showResponse(message:any){
-
-    const dialogRef = this.matDialog.open(ResponseviewerComponent,{
-      data:{
-        msg: message
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-          // this.dataSource.data.splice(index, 1);
-          // this.dataSource._updateChangeSubscription();
-          // this._snackBar.open("Presentation Deleted", '', {
-          //   duration: 2000,
-          // });
-      }
-    });
-  }
-
- 
   @HostListener('window:keydown.esc', ['$event'],)
   @HostListener('window:keydown.enter', ['$event'],)
 
@@ -244,25 +263,41 @@ export class EditorComponent implements OnInit {
   }
 
   openFullscreen() {
-    if(!this.isPresented){
-      this.isPresented = true;
-      this.isPresssedEnter = false;
-      this._socket.createRoom(this._user.getPresentationCode());
-      this.sendtoSocket();
-
-      if (this.elem.requestFullscreen) {
-        this.elem.requestFullscreen();
-      } else if (this.elem.mozRequestFullScreen) {
-        /* Firefox */
-        this.elem.mozRequestFullScreen();
-      } else if (this.elem.webkitRequestFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.elem.webkitRequestFullscreen();
-      } else if (this.elem.msRequestFullscreen) {
-        /* IE/Edge */
-        this.elem.msRequestFullscreen();
+    console.log(this._user.getPresentationPace())
+    if(this._user.getIsQuiz() && this._user.getPresentationPace() == 1){
+      this._router.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa(this._user.webLink)}/start`])
+    }else{
+      if (this._user.getIsQuiz() && this._user.getPresentationPace() == 0){
+        this.component = InstructorpaceComponent;
+      }else{
+        this.component = FullscreenviewComponent
       }
+
+
+      this.isPresented = true
+      this.fullscreenRef = this.matDialog.open(this.component,{
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        panelClass: 'my-custom-dialog-class'
+      });
+      this.fullscreenRef.componentInstance.presentationData = this.myArrayData
+      this.fullscreenRef.componentInstance.showOptions =  this.showOptions
+      this.fullscreenRef.componentInstance.type =  this.type
+      this.fullscreenRef.componentInstance.percent =  this.percent
+      this.fullscreenRef.componentInstance.status =  this.status
+      this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
+      this.sendtoSocket();
+  
+      this.fullscreenRef.componentInstance.isPressExit.subscribe((result :any) => {
+        if (result) {
+          this.isPresented = false
+        }
+      });
     }
+
+
   }
 
   isCardloading = false;
@@ -282,22 +317,7 @@ export class EditorComponent implements OnInit {
           console.log('err', err)
         });
   }
-  
-  getResponse(){
-    // this.modalSubscription =  this._user.SubjectslideId?.subscribe((data) => {
-      this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
-        let load = this._ds.decrypt(res.d);
-        this.responseLists = load;
-        console.log(load)
-        // console.log(this.responseLists)
-          // this._snackBar.open("Presentation Updated", '', {
-          //   duration: 1000,
-          // });
-          },err =>{
-            console.log('err', err)
-          });
-    // });
-  }
+
 
   sendtoSocket(){
     if(!(this.type === 'heading' || this.type === 'paragraph' || this.type === 'qa')){

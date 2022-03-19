@@ -45,7 +45,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   currentlyClickedCardIndex: any;
   step: number = 0;
   
-  isPaceTo: string;
+  isPaceTo: number;
   viewers: any = [];
 
   // Content Variables
@@ -228,6 +228,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   getOptions(){
       this._ds.processData1('option/getOptions',this._user.getSlideId(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
+      console.log(load)
       this.optionLists = load;
       this.DisabledInput();
       },err =>{

@@ -18,7 +18,7 @@
         <div cdkDropList
         [cdkDropListData]="items"
         class="example-list"
-        (cdkDropListDropped)="drop($event)">
+        (cdkDropListDropped)="drop($event)" [@listAnimation]="items.length">
           <mat-list-item class="example-box"  [disabled]="isDisabled" *ngFor="let item of items; let i = index;" (keydown.arrowleft)="selectionChange($event)" 
           (keydown.arrowright)="selectionChange($event)" [ngClass]="{'highlight':checkIfCardIsClicked(i)}" (click)="slideSelector(item, i)" (click)="progressIndex(i)" [disabled]="i===currentlyClickedCardIndex"  cdkDrag>
           
@@ -65,7 +65,7 @@
                    <h6 *ngIf= "item.sType_fld === 'mc'" class="small">Multiple Choice</h6>
 
                    <mat-icon *ngIf= "item.sType_fld === 'poll'" class="slide-type">poll</mat-icon>
-                   <h6 *ngIf= "item.sType_fld === 'poll'" class="small">Multiple Choice</h6>
+                   <h6 *ngIf= "item.sType_fld === 'poll'" class="small">Poll</h6>
 
                    <!-- <img mat-card-image  *ngIf= "item.sType_fld === 'qa'" src="../../../../assets//status/question.svg" alt="Empty" class="slide-type">
                    <img mat-card-image  *ngIf= "item.sType_fld === 'mc'"  src="../../../../assets//status/selection.svg"  alt="Empty" class="slide-type"> -->

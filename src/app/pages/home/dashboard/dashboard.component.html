@@ -36,16 +36,17 @@
         </section> -->
 
         <section class="content">
-
+          <mat-card class="mat-elevation-z8" >
+   
           <mat-tab-group [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)">
             <mat-tab label="Presentations">
-              <mat-card class="mat-elevation-z8" >
+              <ng-template mat-tab-label>
+                <p  style="margin: auto;">Presentations <sup>{{listOfPres}}</sup> </p>
+              </ng-template>
   
-                <mat-card-content>
-                  <table mat-table [dataSource]="dataSource"  matSort>
-    
-              
-                  
+  
+                  <table mat-table [dataSource]="dataSource"  matSort [@listAnimation]="forAnimation.length">
+
                     <!-- Name Column -->
                     <ng-container matColumnDef="sName_fld">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header  class="Name_header" > Name </th>
@@ -118,19 +119,17 @@
                     <img src="../../../../assets//status/undraw_empty_re_opql.svg" alt="Empty" class="empty-image">
                   </ng-template>
     
-                </mat-card-content>
-            </mat-card> 
+  
             </mat-tab>
-     
+         
 
             <mat-tab label="Quizzes" >
-              <mat-card class="mat-elevation-z8" >
-  
-                <mat-card-content>
-                  <table mat-table [dataSource]="dataSource"  matSort>
+              <ng-template mat-tab-label>
+                <p  style="margin: auto;">Quizzes <sup>{{listofQuiz}}</sup> </p>
+              </ng-template>
+      
+                  <table mat-table [dataSource]="dataSource"  matSort [@listAnimation]="forAnimation.length">
     
-              
-                  
                     <!-- Name Column -->
                     <ng-container matColumnDef="sName_fld">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header  class="Name_header" > Name </th>
@@ -145,9 +144,7 @@
     
                           </div>
                         </div>
-                        
-     
-                        
+                                 
                       </td>
                      
                     </ng-container>
@@ -187,10 +184,17 @@
 
                           <mat-divider></mat-divider>
 
-                          <button  mat-menu-item class="add_slide" (click)="exportResult(element.id)" matTooltip="Adds slide in presentation">
+                          <button  mat-menu-item class="add_slide" (click)="exportResult(element.id)" matTooltip="Excel Result">
                             <mat-icon>file_download</mat-icon>
                             <span>Export results</span> 
                           </button>
+
+                          
+                          <button  mat-menu-item class="add_slide" (click)="gotoResult(element.id)" matTooltip="View Result">
+                            <mat-icon>preview</mat-icon>
+                            <span>Go to results</span> 
+                          </button>
+
                         </mat-menu>
                       </td>
                     </ng-container>
@@ -210,11 +214,9 @@
                     <img src="../../../../assets//status/undraw_empty_re_opql.svg" alt="Empty" class="empty-image">
                   </ng-template>
     
-                </mat-card-content>
-            </mat-card> 
             </mat-tab>  
           </mat-tab-group>
-          
+        </mat-card> 
         </section>
   
     </div>

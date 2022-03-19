@@ -5,7 +5,7 @@ import { SocketService } from './socket.service';
 import * as CryptoJS from 'crypto-js';
 import { CookieService } from 'ngx-cookie-service';
 import { DataSchema } from '../data-schema';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +16,9 @@ export class UserService {
   private keyString = new DataSchema();
 
   // User
-  // Localhost:5000 to Server
-  public apiLink: string = `http://localhost:5000/${btoa('api').replace('=', '')}/`;
-  public imageLink: string = `http://localhost:5000/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`
-  
-  // public apiLink: string = `http://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/`;
-  // public imageLink: string = `http://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`
-  
-  public webLink = `${window.location.origin}/#/presentation/`;
-
-
-
+  public apiLink: string = environment.apiLink
+  public imageLink: string = environment.imageLink
+  public webLink: string = environment.webLink
 
   private profilepic: string;
   private token: any;
@@ -47,7 +39,7 @@ export class UserService {
   // Presentation
   private presId: number;
   private presName: string;
-  private presPace: string;
+  private presPace: number;
   private presCode: string;
   private presTheme: string;
   private presColor: string;
@@ -67,7 +59,6 @@ export class UserService {
   private ContentId: number;
 
   constructor(private _cs: CookieService, private _router: Router, private _socket: SocketService) { 
-    console.log(this.webLink)
 
   }
 
@@ -145,11 +136,11 @@ export class UserService {
   getIsQuiz(): number { return this.presIsQuiz }
 
   getPresentationNewPace(): any {  return this.SubjectpresPace.next(this.presPace)};
-  getPresentationPace(): any {return this.presPace}
+  getPresentationPace(): number {return this.presPace}
   getPresentationTheme(): string { return this.presTheme }
   getPresentationFontColor(): string { return this.presColor}
 
-  setPresentation(id: number, code: string,sName: string, sPace: string, isQuiz: number){
+  setPresentation(id: number, code: string,sName: string, sPace: number, isQuiz: number){
     this.presId = id;
     this.presCode = code;
     this.presName = sName;
@@ -157,7 +148,7 @@ export class UserService {
     this.presIsQuiz = isQuiz
   }
 
-  setPresPace(sPace: string){
+  setPresPace(sPace: number){
     this.presPace = sPace
   }
   
@@ -190,4 +181,13 @@ export class UserService {
   setContentDetails(id: number){
     this.ContentId = id
   }
+
+  studentsLists: any = []
+
+  setNoStudents(student: any){
+    this.studentsLists = student
+  }
+  
+  getNoStudents():any { return this.studentsLists}
+
 }

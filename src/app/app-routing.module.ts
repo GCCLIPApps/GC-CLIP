@@ -7,6 +7,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
 import { MainComponent } from './pages/home/main/main.component';
 import { EditorComponent } from './pages/presentation/editor/editor.component';
+import { StudentpaceComponent } from './pages/presentation/editor/studentpace/studentpace.component';
 import { SlidemainComponent } from './pages/presentation/slidemain/slidemain.component';
 
 
@@ -14,11 +15,10 @@ import { SlidemainComponent } from './pages/presentation/slidemain/slidemain.com
 import { AuthGuard } from './services/auth.service';
 
 const routes: Routes = [
-  // {path: '', redirectTo: '', pathMatch: 'full'},
-  {path: '', component: LoginComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'forgotpassword', component: ForgotpasswordComponent},
-
     { path: 'main', component: MainComponent,
       canActivate: [AuthGuard],
       children:[
@@ -36,6 +36,8 @@ const routes: Routes = [
             {path: '', redirectTo: '', pathMatch: 'full'},
 
       ]},
+    {path: 'quiz/:code/:link/start', component: StudentpaceComponent},
+
 ];
 
 @NgModule({

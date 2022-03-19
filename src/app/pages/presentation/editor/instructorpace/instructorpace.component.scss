@@ -1,0 +1,176 @@
+#presentSlide{
+    width: 100% !important;
+    min-height: 50vh !important; 
+}
+
+.container-fluid {
+    // padding-left: 0 !important;
+    // padding-right: 0 !important;
+    // border-radius: 25px;
+}
+::ng-deep.my-custom-dialog-class mat-dialog-container {
+    padding: 0 !important;
+    background: var(--clr-dark) !important;
+ }
+
+.studentPace{
+
+    width: 100% !important;
+    min-height: 400px !important;
+    height: 100% !important; 
+
+    text-size-adjust: auto;
+    word-wrap: break-word;
+    overflow-y: auto;
+    // display: flex; 
+    // flex-wrap: wrap;
+    // align-items: center;
+    // flex-direction: column; 
+    // justify-content: center;
+
+    .multiplechoice-holder{
+        // text-align: left;
+    
+        .optionlists{
+       
+            // display: flex;
+            // flex-direction: row;
+            margin-top: 3rem;
+            justify-content: space-around;            
+        }
+        .optionlists-holder{
+            padding-top: 2rem;
+            justify-content: space-between;  
+            text-align: center;
+
+                mat-divider{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 60%; 
+                    
+                
+                    border-top-width: 5px;
+                }
+                p{
+                    // font-weight: 600;
+                    margin: 0 1rem 0 1rem;
+                }
+                .mat-icon{
+                    font-weight: bolder;
+                    font-size: 100px;
+                    height: 100px ;
+                    width: 100px ;
+                }
+        }
+    
+   
+    }
+
+    .progress-bar{
+        position: absolute;
+        bottom: 0px;
+    }
+
+    .option_image{
+        margin: 1rem;
+        width: 9vw !important;
+        height: 15vh !important;
+    }
+    .img-thumbnail{
+        padding: 0;
+        border: none;
+        // width: 100%;
+        // min-width: 0;
+        // max-width:50%;
+        // max-height: 50%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .big-image{
+        padding: 0;
+        border: none;
+        min-width: 0;
+        max-width: 40%;
+        max-height: 300px;
+        text-align: center;
+    }
+    h2{
+        font-weight: 600;
+    }
+
+}
+
+.example-header-image {
+  
+    background-size: cover;
+  }
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+.players-list{
+    z-index: 10;
+    overflow:auto;
+    padding: 0 !important;
+    border-radius: 0px;
+    scrollbar-width: thin;
+    height: 40vh !important;
+    
+    .mat-card{
+        border-radius: 25px;
+        margin-bottom: 1rem;
+        background: linear-gradient(to bottom,var(--clr-fontgreen) 0%,#ffffff 90%);
+    }
+}
+.control-card{
+    text-align: center;
+    align-items: center;
+    border-radius: 0px;
+    justify-content: center;
+    height: 100vh !important;
+
+    .card-to-play{
+        height: 200px;
+        border-radius: 25px;
+        background: linear-gradient(to top, #00DBB0 0%,#00FF9D 90%);
+
+        p{
+            margin-top: 3rem;
+            font-size: 1.5rem;
+        }
+        .card{
+            margin: auto;
+            background-color: var(--clr-fontgreen);
+            h1{
+            }
+        }
+    }
+    .code-button{
+        height: 60px;
+        font-weight: 600;
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        width: 200px !important;
+        color: var(--clr-dbgreen);
+        background-color: var(--clr-white);
+        box-shadow: 0 9px var(--clr-darkbutton);
+    }
+ 
+    .start-button{
+        height: 60px;
+        font-weight: 600;
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        width: 200px !important;
+        color: var(--clr-white);
+        background-color: var(--clr-dbgreen);
+        box-shadow: 0 9px var(--clr-gray);
+        &.start-button:hover{
+        transition: .5s;
+        background-color: var(--clr-darkbutton);          
+        }
+    }
+}

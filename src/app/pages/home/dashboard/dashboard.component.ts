@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { Animations } from 'src/app/animation';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -22,17 +23,19 @@ export interface Presentations {
   createdOn: string;
 }
 
+var animates = new Animations()
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [animates.listAnimation]
 })
 export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['sName_fld', 'Owner', 'updatedOn', 'createdOn', 'Action'];
   dataSource: MatTableDataSource<Presentations>;
 
-
+  
   @ViewChild(CreateDialogComponent) createdPresent: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,8 +45,9 @@ export class DashboardComponent implements OnInit {
   currentTabIndex = 0
   Owner : string = (this._user.getFullname() == this._user.getFullname()) ? "Me"  : this._user.getFullname();
 
-
-
+  listofQuiz: number
+  listOfPres: number;
+  forAnimation: any;
 
   // @ViewChild(MatTable) table: MatTable<Presentations>;
 
@@ -68,10 +72,17 @@ export class DashboardComponent implements OnInit {
   getAllPresentation(isQuiz: number){
     this._ds.processData1(`slides/byUserId/${isQuiz}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      console.log(load)
+      this.forAnimation = load
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      if(isQuiz == 0){
+        this.listOfPres = load.length
+      }else{
+        this.listofQuiz = load.length
+
+      }
 
       
       },err =>{
@@ -153,10 +164,9 @@ export class DashboardComponent implements OnInit {
 
     for (var i = 0; i < load.length; i++){
       var filteredData =  {
-        Lname: load[i].lname_fld,
-        Fname: load[i].fname_fld,
-        Mname: load[i].mname_fld,
+        FullName: load[i].lname_fld +' '+load[i].fname_fld +' '+ load[i].mname_fld,
         TotalScore: load[i].totalscore_fld,
+        TotalPoints: load[i].totalpoints_fld,
         Quiz_Created_On:  this.datePipe.transform(load[0].createdOn, 'yyyy-MMM-dd')
       }
       data.push(filteredData)
@@ -172,10 +182,15 @@ export class DashboardComponent implements OnInit {
           title: load[0].sName_fld,
           useBom: true,
           noDownload: false,
-          headers: ["Lname", "Fname", "Mname","TotalScore", "Quiz Created On"]
+          headers: ["FullName", "TotalScore", "TotalPoints","Quiz Created On"]
         };
         
       new ngxCsv(data, load[0].sName_fld,options);
+  }
+
+  gotoResult(id: number){
+    this._route.navigate([`/quiz/${btoa(String(id))}/${btoa('finalResult')}/start`])
+
   }
 
 }

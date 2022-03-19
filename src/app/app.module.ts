@@ -41,7 +41,11 @@ import { ResponseviewerComponent } from './pages/presentation/editor/responsevie
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CreateOptionComponent } from './pages/home/dashboard/create-option/create-option.component';
-const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', options: { autoConnect: false} };
+import { FullscreenviewComponent } from './pages/presentation/editor/fullscreenview/fullscreenview.component';
+import { StudentpaceComponent } from './pages/presentation/editor/studentpace/studentpace.component';
+import { InstructorpaceComponent } from './pages/presentation/editor/instructorpace/instructorpace.component';
+// const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', options: { autoConnect: false} };
+const config: SocketIoConfig = { url: environment.socket, options: { autoConnect: false} };
 
 
 @NgModule({
@@ -66,6 +70,9 @@ const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', opt
     ImageCropperComponent,
     ResponseviewerComponent,
     CreateOptionComponent,
+    FullscreenviewComponent,
+    StudentpaceComponent,
+    InstructorpaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,13 +90,18 @@ const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', opt
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
     
   ],
   providers: [CookieService, Title,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    FullscreenviewComponent,
+    StudentpaceComponent,
+    InstructorpaceComponent,
+  ]
 })
 export class AppModule { }

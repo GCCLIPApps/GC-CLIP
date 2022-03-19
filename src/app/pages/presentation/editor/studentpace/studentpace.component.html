@@ -1,0 +1,85 @@
+<mat-sidenav-container class="sidenav-container">
+
+      <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false"  c>
+        <!-- <mat-drawer mode="side" opened="true"> -->
+          <!-- <app-main-nav></app-main-nav> -->
+      </mat-sidenav>
+      <mat-sidenav-content >
+        <mat-toolbar class="header mat-elevation-z3 justify-content-between">
+          <button matTooltip="Exit room"
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+           (click)="returnpage()">
+            <mat-icon aria-label="Side nav toggle icon">keyboard_return</mat-icon>
+          </button>
+          <div class="row mr-2 ml-auto">
+            <button mat-button  class="theme_code btn"  [cdkCopyToClipboard]="sCode" (click)="copypaste()"  matTooltip="Room Code">
+              <mat-icon class="play-image-icon">content_copy</mat-icon>
+              <span>{{sCode}}</span>
+            </button>
+          </div>
+        </mat-toolbar>
+      <div class="container-fluid page" >
+
+        <div class="d-flex justify-content-center mb-4"  @fadeAnimation>
+          <button mat-raised-button *ngIf="!isStart && !setStart" (click)="isStarted()" class="start-button" [matTooltip]="startWarning">START</button>          
+        </div>
+
+        <!-- <div class="d-flex justify-content-start mb-4"  @fadeAnimation>
+          <button mat-raised-button *ngIf="setStart" (click)="isStarted()" class="finish-button" [matTooltip]="startWarning" [style.background-color]="sTheme" [style.color]="sColor">FINISH</button>          
+        </div> -->
+
+        <div class="students-lists mt-3 d-flex justify-content-around mb-5"  >
+          <button mat-fab  [style.background-color]="sTheme" [style.color]="sColor">
+            <mat-icon [matBadge]="this.studentslists.length" matBadgeSize="medium" >account_circle</mat-icon>
+          </button>
+        </div>
+
+        <div class="pulsate mt-3 d-flex align-items-center justify-content-center  mb-3" @fadeAnimation>
+          
+          <div class="waitingPlayers"  *ngIf="!studentslists.length && isStudentdone ">Waiting for players...</div>
+          <div class="countDown" *ngIf="isStart && !setStart" >{{countDown}}</div>
+
+          <div class="waitingPlayers" *ngIf="!studentFinalResults.length && !countDown">Waiting for students to finish...</div>
+    
+        </div>
+
+
+        <div class="card-container row d-flex justify-content-start"  @fadeAnimation *ngIf="!isStart && studentslists.length && !studentFinalResults.length">
+          <div class="col-xl-2 col-lg-3 col-md-6" *ngFor="let item of studentslists" @listAnimation>
+            <mat-card class="students-card "   [style.background-color]="sTheme" [style.color]="sColor" >
+              <mat-card-header>
+                <div mat-card-avatar class="students-header-image"></div>
+                <mat-card-title><p >{{item.name}}</p></mat-card-title>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </div> 
+
+        <div  >
+          <div class="card-container row d-flex justify-content-start"   *ngIf="studentFinalResults.length">
+            <div class="col-xl-2 col-lg-3 col-md-6" *ngFor="let studentFinalResult of studentFinalResults" >
+              <mat-card class="students-card "   [style.background-color]="sTheme" [style.color]="sColor" >
+                <mat-card-header>
+                  <div mat-card-avatar class="students-header-image"></div>
+                  <mat-card-title><p>{{studentFinalResult.fname_fld}} {{studentFinalResult.mname_fld}} {{studentFinalResult.lname_fld}}</p></mat-card-title>
+                  <mat-card-subtitle><p [style.color]="sColor">{{studentFinalResult.totalpoints_fld + ' Points'}}</p></mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div> 
+
+
+          <!-- <canvas @fadeAnimation [hidden]="!setStart" id="myChart" style="width:100%;max-width:90vw" ></canvas> -->
+
+        </div>
+
+
+       
+      </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

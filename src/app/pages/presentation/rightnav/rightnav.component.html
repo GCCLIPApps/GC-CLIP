@@ -121,6 +121,7 @@
                             </mat-card-content>
                           </mat-card>
                         </div>
+
                         <div class="col-xl-6 col-lg-6 col-md-12 pt-3">   
                           <mat-card (click)="selectType('poll')" [ngClass]="{'highlight':checkIfCardIsSelected('poll')}" class="card-type">
                             <mat-card-content>
@@ -560,7 +561,7 @@
                     </div>
                   </div>
 
-               <div class="card-body title">
+                <div class="card-body title">
                   <div class="mc" *ngIf="contentTabs == 'poll'">
                     <mat-card-content>
                       <div class="header">
@@ -569,51 +570,60 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('poll')">
+                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  
 
                         <div class="header">
                          Options
+
+                            <mat-chip-list
+                            class="example-chip"
+                            cdkDropList 
+                            cdkDropListOrientation="horizontal">
+                            <mat-chip class="example-box" cdkDrag>
+                              <span>
+                            {{ optionLists.length +' of 4'}}
+                              </span>
+                            </mat-chip>
+                          </mat-chip-list>
                         </div>
                         <mat-list *ngFor="let optionlist of optionLists; let i = index">
                             <mat-list-item >
-                             
+                              
                               <div class="option-input">
-
-                                  <div class="option-holder">
-                                    <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld"   (change)="updateOption(optionlist.id, contentTabs,$event)">
-                            
-                                    <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
-                                  </div>
-                                
-                                  
-                                  <div >
-                                    <!-- <input hidden type="file" id="optionUpload" class="form-control-file" (change)="fileChanged($event, '1')" aria-describedby="fileHelpId" accept="image/png, image/jpeg"> -->
-                                    
-              
-                                    <button matSuffix mat-button [matMenuTriggerFor]="menu"  *ngIf="optionlist.image_fld" style="padding: 0;" >
-                                      <img mat-card-image [src]="this._user.imageLink + optionlist.image_fld" alt="" style="height: 40px; width: 50px;" >
-                                    </button>
-
-                                    <mat-menu #menu="matMenu">
-                                       <button matSuffix mat-menu-item  (click)="openCropper(optionlist.id)"  [disabled]="isDisabled"><mat-icon>image</mat-icon>Edit</button>
-                                        <button matSuffix mat-menu-item (click)="removeOptionImage(optionlist.id)"  [disabled]="isDisabled"><mat-icon>delete_forever</mat-icon>Delete</button>
-                                    </mat-menu>
-                                    
-
-                                    <button matSuffix mat-button *ngIf="!optionlist.image_fld" (click)="openCropper(optionlist.id)"  [disabled]="isDisabled"><mat-icon>image</mat-icon></button>
-                                    <!-- Delete the Row Option -->
-                                    <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"><mat-icon>delete_forever</mat-icon></button>
-                                  </div>
-
+                                <div class="option-holder">
+                                 <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                               
+                                 <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
+                                </div>
+                               
                       
+                            
+                                <button matSuffix mat-button [matMenuTriggerFor]="menu"  *ngIf="optionlist.image_fld" style="padding: 0;" >
+                                  <img mat-card-image [src]="this._user.imageLink + optionlist.image_fld" alt="" style="height: 40px; width: 50px;" >
+                                </button>
+
+                                <mat-menu #menu="matMenu">
+                                   <button matSuffix mat-menu-item  (click)="openCropper(optionlist.id)"  [disabled]="isDisabled"><mat-icon>image</mat-icon>Edit</button>
+                                    <button matSuffix mat-menu-item (click)="removeOptionImage(optionlist.id)"  [disabled]="isDisabled"><mat-icon>delete_forever</mat-icon>Delete</button>
+                                </mat-menu>
+
+                    
+                                <div class="close-button mr-3" *ngIf="!optionlist.image_fld" (click)="openCropper(optionlist.id)"  >
+                                  <mat-icon>image</mat-icon>
+                                </div>
+
+                                <div class="close-button "  (click)="removeOptions(optionlist.id,i)" >
+                                 <mat-icon>highlight_off</mat-icon>
                                </div>
+                              </div>
+
                             </mat-list-item>
                         </mat-list> 
             
-                          <button mat-raised-button class="add btn " [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
+                          <button mat-raised-button class="add btn"  [hidden]="optionLists.length >= 4" (click)="addOptions()" [disabled]="isDisabled"  matTooltip="Adds slide in presentation">
                             <mat-icon>add</mat-icon>
                             <strong>Add Another Option</strong> 
                           </button>
@@ -644,16 +654,17 @@
                               </mat-card-content>
                             </mat-card>
 
+
                             <div class="header">
                               Result layout
                             </div>
-
-                            <mat-grid-list cols="3" rowHeight="3:2" gutterSize="1rem">
-                              <mat-grid-tile>1</mat-grid-tile>
-                              <mat-grid-tile>2</mat-grid-tile>
-                              <mat-grid-tile>3</mat-grid-tile>
-                              <mat-grid-tile>4</mat-grid-tile>
-                            </mat-grid-list>
+                            <div class="row ">
+                              <div class="col-xl-6 col-lg-6 col-md-12">
+                                <mat-card>
+                                  
+                                </mat-card>
+                              </div>
+                            </div>
                     </mat-card-content>
                   </div>
                 </div>
@@ -688,8 +699,36 @@
                         </div>
                         <mat-list *ngFor="let optionlist of optionLists; let i = index">
                             <mat-list-item >
-                             
+                              
                               <div class="option-input">
+                                <div class="option-holder">
+                                 <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                               
+                                 <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
+                                </div>
+                               
+                      
+                            
+                                <button matSuffix mat-button [matMenuTriggerFor]="menu"  *ngIf="optionlist.image_fld" style="padding: 0;" >
+                                  <img mat-card-image [src]="this._user.imageLink + optionlist.image_fld" alt="" style="height: 40px; width: 50px;" >
+                                </button>
+
+                                <mat-menu #menu="matMenu">
+                                   <button matSuffix mat-menu-item  (click)="openCropper(optionlist.id)"  [disabled]="isDisabled"><mat-icon>image</mat-icon>Edit</button>
+                                    <button matSuffix mat-menu-item (click)="removeOptionImage(optionlist.id)"  [disabled]="isDisabled"><mat-icon>delete_forever</mat-icon>Delete</button>
+                                </mat-menu>
+
+                    
+                                <div class="close-button mr-3" *ngIf="!optionlist.image_fld" (click)="openCropper(optionlist.id)"  >
+                                  <mat-icon>image</mat-icon>
+                                </div>
+
+                                <div class="close-button "  (click)="removeOptions(optionlist.id,i)" >
+                                 <mat-icon>highlight_off</mat-icon>
+                               </div>
+                              </div>
+
+                              <!-- <div class="option-input">
 
                                   <div class="option-holder">
                                     <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld"   (change)="updateOption(optionlist.id, contentTabs,$event)">
@@ -698,27 +737,21 @@
                                   </div>
                                 
                                   
-                                  <div >
+                                  <div > -->
                                     <!-- <input hidden type="file" id="optionUpload" class="form-control-file" (change)="fileChanged($event, '1')" aria-describedby="fileHelpId" accept="image/png, image/jpeg"> -->
                                     
               
-                                    <button matSuffix mat-button [matMenuTriggerFor]="menu"  *ngIf="optionlist.image_fld" style="padding: 0;" >
-                                      <img mat-card-image [src]="this._user.imageLink + optionlist.image_fld" alt="" style="height: 40px; width: 50px;" >
-                                    </button>
-
-                                    <mat-menu #menu="matMenu">
-                                       <button matSuffix mat-menu-item  (click)="openCropper(optionlist.id)"  [disabled]="isDisabled"><mat-icon>image</mat-icon>Edit</button>
-                                        <button matSuffix mat-menu-item (click)="removeOptionImage(optionlist.id)"  [disabled]="isDisabled"><mat-icon>delete_forever</mat-icon>Delete</button>
-                                    </mat-menu>
                                     
 
-                                    <button matSuffix mat-button *ngIf="!optionlist.image_fld" (click)="openCropper(optionlist.id)"  [disabled]="isDisabled"><mat-icon>image</mat-icon></button>
                                     <!-- Delete the Row Option -->
-                                    <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"><mat-icon>delete_forever</mat-icon></button>
-                                  </div>
+                                    <!-- <div class="close-button my-auto"  (click)="removeOptions(optionlist.id,i)" >
+                                      <mat-icon>highlight_off</mat-icon>
+                                    </div>                                 
+                                  
+                                  </div> -->
 
                       
-                               </div>
+                               <!-- </div> -->
                             </mat-list-item>
                         </mat-list> 
             
@@ -806,13 +839,13 @@
                          <p>Presentation pace</p> 
                           
                           <div class="low-header-card">
-                            <mat-card (click)=" this.updatePace('0')"  [ngClass]="{'highlight': isPaceTo == '0'}" >  
+                            <mat-card (click)=" this.updatePace('0')"  [ngClass]="{'highlight': isPaceTo == 0}" >  
                               <mat-card-content>
                                 Presenters Pace
                               </mat-card-content>
                             </mat-card>
 
-                            <mat-card (click)=" this.updatePace('1')" [ngClass]="{'highlight': isPaceTo == '1'}" > 
+                            <mat-card (click)=" this.updatePace('1')" [ngClass]="{'highlight': isPaceTo == 1}" > 
                               <mat-card-content>
                                 Students Pace
                               </mat-card-content>
