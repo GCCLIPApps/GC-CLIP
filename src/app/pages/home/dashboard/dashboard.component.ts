@@ -11,6 +11,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DatePipe } from '@angular/common';
+import pptxgen from "pptxgenjs";
 
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
@@ -48,7 +49,7 @@ export class DashboardComponent implements OnInit {
   listofQuiz: number
   listOfPres: number;
   forAnimation: any;
-
+  interval: any;
   // @ViewChild(MatTable) table: MatTable<Presentations>;
 
 
@@ -61,32 +62,57 @@ export class DashboardComponent implements OnInit {
     private _user: UserService, 
     private matDialog: MatDialog) {
 
-      this.getAllPresentation(this.currentTabIndex)
      }
 
 
   ngOnInit(): void {
-   
+    this.getAllQuiz()
+    this.getAllPresentation();
   }
 
-  getAllPresentation(isQuiz: number){
-    this._ds.processData1(`slides/byUserId/${isQuiz}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
+  onTabChange(e: any) {
+    if(e.index == 0){
+      this.interval = setTimeout(() => {
+        this.getAllPresentation();
+      }, 200)
+    }
+    if(e.index == 1){
+      this.interval = setTimeout(() => {
+        this.getAllQuiz()
+      }, 200)
+    }
+  }
+
+  getAllPresentation(){
+    this._ds.processData1(`slides/byUserId/${0}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.forAnimation = load
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
-      if(isQuiz == 0){
-        this.listOfPres = load.length
-      }else{
-        this.listofQuiz = load.length
-
-      }
+      this.listOfPres = load.length
+  
 
       
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
+      });
+  }
+
+  getAllQuiz(){
+    this._ds.processData1(`slides/byUserId/${1}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
+      let load = this._ds.decrypt(res.d);
+      this.forAnimation = load
+      this.dataSource = new MatTableDataSource(load); 
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.listofQuiz = load.length
+
+
+      
+      },err =>{
+        // console.log('err', err)
       });
   }
 
@@ -126,6 +152,7 @@ export class DashboardComponent implements OnInit {
       if (confirmed) {
           this.dataSource.data.splice(index, 1);
           this.dataSource._updateChangeSubscription();
+          this._snackBar.ngOnDestroy();
           this._snackBar.open("Presentation Deleted", '', {
             duration: 2000,
           });
@@ -133,10 +160,6 @@ export class DashboardComponent implements OnInit {
     });
 }
 
-  
-  onTabChange(e: any) {
-    this.getAllPresentation(e.index)
-  }
 
   openPresentation(id: string){
 
@@ -145,14 +168,14 @@ export class DashboardComponent implements OnInit {
   }
 
   exportResult(id: number){
-    console.log(id)
+    // console.log(id)
     this._ds.processData1(`scores/getAllScores/${id}`, '', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
 
         this.generateExcel(load);
 
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
 
@@ -172,7 +195,6 @@ export class DashboardComponent implements OnInit {
       data.push(filteredData)
     }
     
-
         var options = { 
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -189,8 +211,24 @@ export class DashboardComponent implements OnInit {
   }
 
   gotoResult(id: number){
-    this._route.navigate([`/quiz/${btoa(String(id))}/${btoa('finalResult')}/start`])
+    this._route.navigate([`/quiz/${btoa(String(id))}/${btoa('finalResult')}/result`])
+  }
 
+  generatePptx(pres: any){
+    console.log(pres)
+    let pptx = new pptxgen();
+
+    // // 2. Add a Slide
+    let slide = pptx.addSlide();
+
+    // // 3. Add one or more objects (Tables, Shapes, Images, Text and Media) to the Slide
+    let textboxText = pres.sName_fld;
+    let textboxOpts = { x: 1, y: 1,  color: pres.sColor_fld.replace(/\#\w\w+\s?/g, ''),
+    background: pres.sTheme_fld.replace(/\#\w\w+\s?/g, ''),fontSize: 18  };
+    slide.addText(textboxText, textboxOpts);
+
+    // // 4. Save the Presentation
+    pptx.writeFile({ fileName: textboxText });
   }
 
 }

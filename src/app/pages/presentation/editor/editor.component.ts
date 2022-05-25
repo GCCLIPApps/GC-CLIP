@@ -32,10 +32,12 @@ export class EditorComponent implements OnInit {
   @ViewChild(FullscreenviewComponent) fullscreencomponent: FullscreenviewComponent
 
   @Output() toSlideMain : EventEmitter<any> = new EventEmitter<any>();
-  @Output() Pace : EventEmitter<any> = new EventEmitter<any>();
+  @Output() PaceandAssign : EventEmitter<any> = new EventEmitter<any>();
+  
   @Output() Timer : EventEmitter<any> = new EventEmitter<any>();
   @Output() quizStart: EventEmitter<any> = new EventEmitter<any>();
   
+
   @Input() sTheme:string = this._user.getPresentationTheme();
   @Input() sColor: string = this._user.getPresentationFontColor();
   @Input() sImage: string = this._user.getPresentationFontColor();
@@ -53,7 +55,7 @@ export class EditorComponent implements OnInit {
   isPresented: boolean = false;
   isLastSlide: boolean = false;
   checkId: number;
-  responseLists: any = 0;
+  responseLists: any = [];
   countDown: number;
   slideTimer: number;
   totalPages: number;
@@ -70,11 +72,11 @@ export class EditorComponent implements OnInit {
   showOptions: any;
   selectedImage: any;
   type: string;
-
+  studentslists: any = []
 
   fullscreenRef: any;
   presentationData: any
-
+  replay: any;
   // Component
   component: any ;
 
@@ -87,9 +89,7 @@ export class EditorComponent implements OnInit {
     public _user: UserService) { }
     
   ngOnInit():void {
-    if(!this._user.getIsQuiz()){
-      this._socket.socketConnect();    
-    }
+  
   }
   
   ngAfterViewInit(): void {
@@ -103,7 +103,7 @@ export class EditorComponent implements OnInit {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     if(this.isPresented){
-      this._socket.leaveRoom(this._user.getPresentationCode())
+      this._socket.leaveRoom(this._user.getPresentationCode(), this._user.getFullname())
     }
   }
 
@@ -124,9 +124,10 @@ export class EditorComponent implements OnInit {
 
     this.type = type.newType;
     if(this.type == 'qa' || this.type == 'poll'|| this.type == 'mc'){
-      console.log
-      this.getResponse();
-
+      
+    
+        this.getResponse();
+        
         if(this.responseLists == '0'){
           this.status =   "No response from the audience!"
           this.smallParagraph = "Incoming question will show up here so that you can answer them one by one";
@@ -140,7 +141,6 @@ export class EditorComponent implements OnInit {
     }else if(this.type == 'quiz' || this.type == 'identification'){
 
 
-       this.getResponse();
 
         if (data.contentForm.isextrapoints){
           this.myArrayData = {
@@ -176,18 +176,12 @@ export class EditorComponent implements OnInit {
       this.selectedImage = data.contentForm.selectedImage
       this.showOptions = newOption.options;
 
-
     this.updateContent();
-    
+    console.log(this.isPresented)
     if(this.isPresented){
       this.sendtoSocket();
+      this.sendDatatoModals(status);
 
-      this.fullscreenRef.componentInstance.presentationData =  this.myArrayData
-      this.fullscreenRef.componentInstance.showOptions =  this.showOptions
-      this.fullscreenRef.componentInstance.type =  this.type
-      this.fullscreenRef.componentInstance.percent =  this.percent
-      this.fullscreenRef.componentInstance.status =  this.status
-      this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
     }
   }
 
@@ -196,24 +190,35 @@ export class EditorComponent implements OnInit {
       this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
         let load = this._ds.decrypt(res.d);
         this.responseLists = load;
-        console.log(this.responseLists)
+        // console.log(this.responseLists)
 
       
           },err =>{
-            console.log('err', err)
+            // console.log('err', err)
           });
     // });
   }
 
 
+  getOptions(){
+    this._ds.processData1('poll/getPolls',this._user.getSlideId(), 2)?.subscribe((res: any) => {
+    let load = this._ds.decrypt(res.d);
+    // console.log(load)
+    this.fullscreenRef.componentInstance.showOptions = load;
+    },err =>{
+      // console.log('err', this._ds.decrypt(err.d))
+    });
+  }
   timerToMain(timer: number){
     this.slideTimer = timer
-    console.log(this.slideTimer)
+    // console.log(this.slideTimer)
   }
 
-  updatePace(pace:number){
-    this.Pace.emit(pace);
+  updatePaceandAssignto(paceAssignto:any){
+    // console.log(paceAssignto)
+    this.PaceandAssign.emit(paceAssignto);
   }
+
   
   @HostListener('window:keydown.esc', ['$event'],)
   @HostListener('window:keydown.enter', ['$event'],)
@@ -262,19 +267,53 @@ export class EditorComponent implements OnInit {
 
   }
 
-  openFullscreen() {
-    console.log(this._user.getPresentationPace())
+  openFullscreen(status: string) {
+    // console.log(this._user.getPresentationPace())
     if(this._user.getIsQuiz() && this._user.getPresentationPace() == 1){
-      this._router.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa(this._user.webLink)}/start`])
+
+      // if(this._user.getIsStarted()){
+
+      //  this._router.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa('finalResult')}/result`])
+
+      // }else{
+        if(status === 'replay'){
+          this._router.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa(status)}/start`])
+
+        }else{
+        this._router.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa(String(this._user.getIsStarted()))}/start`])
+
+        }
+
+      // }
     }else{
-      if (this._user.getIsQuiz() && this._user.getPresentationPace() == 0){
+
+      if(this._user.getIsQuiz() && this._user.getPresentationPace() == 0){
+
         this.component = InstructorpaceComponent;
+
       }else{
         this.component = FullscreenviewComponent
       }
-
-
+      this.sendDatatoModals(status);
       this.isPresented = true
+    } 
+  }
+
+  sendDatatoModals(status: string){
+
+    if(this.isPresented){
+      console.log('this works')
+
+      this.sendtoSocket();
+      this.fullscreenRef.componentInstance.presentationData = this.myArrayData
+      this.fullscreenRef.componentInstance.showOptions =  this.showOptions
+      this.fullscreenRef.componentInstance.type =  this.type
+      this.fullscreenRef.componentInstance.percent =  this.percent
+      this.fullscreenRef.componentInstance.status =  this.status
+      this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
+    }else{
+
+
       this.fullscreenRef = this.matDialog.open(this.component,{
         maxWidth: '100vw',
         maxHeight: '100vh',
@@ -282,22 +321,37 @@ export class EditorComponent implements OnInit {
         width: '100%',
         panelClass: 'my-custom-dialog-class'
       });
+      
+  
+  
+      
+      this.sendtoSocket();
       this.fullscreenRef.componentInstance.presentationData = this.myArrayData
       this.fullscreenRef.componentInstance.showOptions =  this.showOptions
       this.fullscreenRef.componentInstance.type =  this.type
       this.fullscreenRef.componentInstance.percent =  this.percent
       this.fullscreenRef.componentInstance.status =  this.status
       this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
-      this.sendtoSocket();
+  
   
       this.fullscreenRef.componentInstance.isPressExit.subscribe((result :any) => {
         if (result) {
           this.isPresented = false
         }
       });
+  
+
     }
+ 
 
-
+    if(this.type=='poll'){
+      this.interval = setInterval(() =>{ 
+        this.getOptions()
+        // console.log('fullscreen response', this.responseLists)
+      }, 3000);
+    }else{
+      clearInterval(this.interval)
+    }
   }
 
   isCardloading = false;
@@ -314,7 +368,7 @@ export class EditorComponent implements OnInit {
   
         },err =>{
           this.isCardloading = false;
-          console.log('err', err)
+          // console.log('err', err)
         });
   }
 
@@ -339,6 +393,4 @@ export class EditorComponent implements OnInit {
         optionData: null})
      }
   }
-
-
 }

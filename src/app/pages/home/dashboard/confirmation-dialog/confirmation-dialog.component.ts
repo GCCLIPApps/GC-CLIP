@@ -45,7 +45,7 @@ export class ConfirmationDialogComponent implements OnInit {
         let load = this._ds.decrypt(res.d);
         this.dialogRef.close(true);
         },err =>{
-          console.log('err', err)
+          // console.log('err', err)
         });
   }
 
@@ -54,7 +54,7 @@ export class ConfirmationDialogComponent implements OnInit {
       let load = this._ds.decrypt(res.d);
       this.dialogRef.close(true);
       },err =>{
-        console.log('err', this._ds.decrypt(err.d))
+        // console.log('err', this._ds.decrypt(err.d))
       });
   }
 }

@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   
-  noImage: string = 'https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg'
+  noImage: string = 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=612x612&w=0&h=MOvSM2M1l_beQ4UzfSU2pfv4sRjm0zkpeBtIV-P71JE='
   private keyString = new DataSchema();
 
   // User
@@ -22,7 +22,7 @@ export class UserService {
 
   private profilepic: string;
   private token: any;
-  private empId: any;
+  private empId: string;
   private email: string;
   private fname: string;
   private mname: string;
@@ -44,10 +44,13 @@ export class UserService {
   private presTheme: string;
   private presColor: string;
   private presIsQuiz: number;
+  private presIsStarted: number;
+  private presisassigned: number;
 
   // Presentation Pages
 
   SubjectpresPace : Subject<any> = new Subject<any>();
+
   SubjectslideId : Subject<number> = new Subject<number>();
 
   private SlideId: number;
@@ -62,16 +65,16 @@ export class UserService {
 
   }
 
-  getUserID(): number { return this.empId || this.session()[0] };
+  getUserID(): string { return this.empId || this.session()[0] };
   getToken(): string { return this.token || this.session()[1] };
   getEmail(): string { return this.email};
   getFullname(): string {return this.fname+' '+this.mname+' '+ this.lname};
   getProfileImage(): string {return this.profilepic}
   getStatus(): number {return this.status};
-  getDept(): string {return this.dept +' / '+ this.program};
+  getDept(): string {return this.dept};
   getPasswordChange(): number {return this.passwordchange};
 
-  setUserLoggedIn(id:number, token: string, email:string, fname:string, mname: string, lname:string, status: number, dept: string, program: string,passwordchange: number, image: string){
+  setUserLoggedIn(id:string, token: string, email:string, fname:string, mname: string, lname:string, status: number, dept: string, program: string,passwordchange: number, image: string){
     
     this.empId = id ;
     this.token = token;
@@ -107,6 +110,7 @@ export class UserService {
     this.passwordchange = JSON.parse(userData).passwordchange;
 
     if(JSON.parse(userData).profile){
+        // this.profilepic = this.noImage
       this.profilepic = this.imageLink + JSON.parse(userData).profile;
     }else{
       this.profilepic = this.noImage;
@@ -118,11 +122,14 @@ export class UserService {
   }
 
   setUserLogout(){
-    this.setUserLoggedIn(0,'','','','','',0,'','',0,'');
+    this._router.navigate(['']);
+    this.setUserLoggedIn('','','','','','',0,'','',0,'');
     this._cs.set(btoa('gcclipstatus'), '')
     this._cs.set(btoa('gcclipfaculty'), '')
-    this._router.navigate(['']);
     this._socket.socketDisconnect();
+    window.location.reload();
+
+
   }
 
   isUserLoggedIn(): any { 
@@ -134,22 +141,30 @@ export class UserService {
   getPresentationCode(): string { return this.presCode }
   getPresentationName(): string { return this.presName }
   getIsQuiz(): number { return this.presIsQuiz }
+  getIsStarted(): number { return this.presIsStarted }
 
-  getPresentationNewPace(): any {  return this.SubjectpresPace.next(this.presPace)};
+
+  getPresentationNewPaceandisAssigned(): any {  return this.SubjectpresPace.next(this.presPace)};
   getPresentationPace(): number {return this.presPace}
   getPresentationTheme(): string { return this.presTheme }
   getPresentationFontColor(): string { return this.presColor}
+  getPresentationAssignto(): any { return this.presisassigned}
 
-  setPresentation(id: number, code: string,sName: string, sPace: number, isQuiz: number){
+  setPresentation(id: number, code: string,sName: string, sPace: number, isQuiz: number, isStarted: number, isassigned: number){
     this.presId = id;
     this.presCode = code;
     this.presName = sName;
     this.presPace = sPace;
     this.presIsQuiz = isQuiz
+    this.presIsStarted = isStarted;
+    this.presisassigned = isassigned == 1 ? 1 : 0
   }
 
   setPresPace(sPace: number){
     this.presPace = sPace
+  }
+  setPresAssignto(isAssign: number){
+    this.presisassigned = isAssign
   }
   
   setPresentationTheme(sTheme: string, sColor: string){

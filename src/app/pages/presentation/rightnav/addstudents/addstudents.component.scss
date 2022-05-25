@@ -1,0 +1,81 @@
+.dialog-header{
+    margin: 0;
+    padding: 0;
+    
+   
+
+    .addstudents-header{
+      h1 {
+        margin-left: 1rem;
+        font-size: 1.5rem;
+        font-weight: lighter;
+        color: var( --clr-darkgreen);
+        }
+      mat-icon{
+        font-size: 30px;
+        // color: var(--clr-darkgreen) !important;
+        // background-color: var(--clr-lightfontgreen);
+      }
+    }
+  }
+  
+  mat-divider{
+      width: 100%;
+      // padding-bottom: 1rem;
+      border-color: var(--clr-darkgreen);
+  }
+  
+  .btn-close {
+    height: 23px;
+    width: 23px;
+    border: none;
+    color: var(--clr-black);
+    background-color: transparent;
+    mat-icon{
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        background-color: var(--clr-lightgray);
+  
+    }
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+  .header-card {
+    margin: 0% !important;
+    max-width: 100% !important;
+    .mat-card-avatar{
+      margin-left: 0 !important;
+      
+    }
+    mat-card-title.fullname{
+      padding: 0 !important;
+      margin: 0 !important;
+
+      font-size: 1rem;
+    }
+    p.domainemail{
+      color: var(--clr-gray);
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 3px;
+}
+
+.mat-tab-group{
+    height: 50vh;
+}
+
+.confirm{
+  background-color: var(--clr-newgreen);
+  color:var(--clr-white);
+  &:hover{
+      background-color: var(--clr-darkgreen);
+
+  }
+}

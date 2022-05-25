@@ -66,15 +66,11 @@ export class SlidelistComponent implements OnInit {
     }
 
   ngOnInit(): void {
-  // this.fullname = this._user.getFullname();
-  // this.department = this._user.getDept();
- 
-
-  this.getSlidelist();
+    this.getSlidelist();
   }
 
   getSlidelist(){
-    console.log(this.id, this.slideTimer)
+    // console.log(this.id, this.slideTimer)
     this._ds.processData1('slides/pres/bySlideId', this.id, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       // console.log(load)
@@ -85,7 +81,7 @@ export class SlidelistComponent implements OnInit {
       this.percent = this.min;
       this.slidespercent.emit({percent: this.percent, slidetype: this.items})
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
 
 
@@ -107,12 +103,12 @@ export class SlidelistComponent implements OnInit {
       this. progressIndex(length);
       this._user.setSlideDetails(load.id, load.sNo_fld,load.sType_fld);
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
 
   updateIndex(index: any){
-    console.log(index)
+    // console.log(index)
   }
 
 
@@ -141,7 +137,7 @@ export class SlidelistComponent implements OnInit {
   //  Next and Previous slide
   // Arrow Keys Event Return Progress Bar
   selectionChange(event:any) {
-
+    console.log('arrows are working')
     // if(this._user.getPresentationPace() == 0){
       if(event.key == "ArrowRight"){
         this.currentIndex++;
@@ -149,7 +145,7 @@ export class SlidelistComponent implements OnInit {
           if(this.currentIndex == this.items.length){
               this.currentIndex = 0;
               this.percent -=  this.min * this.items.length;
-              console.log('This is the last slide')
+              // console.log('This is the last slide')
             this._socket.sendData({sdId: this._user.getSlideId(),index: this.currentIndex, room: this._user.getPresentationCode()})
           }
             this.slideSelector(this.items[this.currentIndex], this.currentIndex);
@@ -209,7 +205,7 @@ export class SlidelistComponent implements OnInit {
 
 
   openDeleteDialog(item:any, index: number) {
-    console.log(item)
+    // console.log(item)
     const dialogRef = this.matDialog.open(ConfirmationDialogComponent,{
       data:{
         item: item,

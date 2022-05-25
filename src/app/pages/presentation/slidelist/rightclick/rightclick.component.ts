@@ -15,7 +15,7 @@ export class RightclickComponent implements OnInit {
   }
 
   showMessage(message: any) {
-    console.log(message);
+    // console.log(message);
   }
 
 }

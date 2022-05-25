@@ -26,7 +26,9 @@ export class ThemesComponent implements OnInit {
 
   tiles: Tile[] = [
     {name: 'GC CLIP Light',  backgroundColor: '#FFFFFF', color: '#1D2127'},
-    {name: 'GC CLIP Nature', backgroundColor: '#48C9B0',color: '#FFFFFF'},
+    {name: 'GC CLIP Soaring', backgroundColor: '#f5a925',color: '#FFFFFF'},
+    {name: 'GC CLIP Tortoise', backgroundColor: '#075773',color: '#FFFFFF'},
+    // {name: 'GC CLIP Nature', backgroundColor: '#48C9B0',color: '#FFFFFF'},
     {name: 'GC CLIP Lavender', backgroundColor: '#AF7AC5', color: '#FFFFFF'},
     {name: 'GC CLIP Dark', backgroundColor: '#1D2127', color: '#FFFFFF'},
     {name: 'GC CLIP Black Denim', backgroundColor: '#242a37 ', color:'#FFFFFF'}

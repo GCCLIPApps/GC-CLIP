@@ -1,0 +1,45 @@
+.example-full-width, button {
+    width: 100%;
+  }
+
+  .dialog-header{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    .header{
+        margin-bottom: 1rem !important;
+        h1 {
+            color: var( --clr-darkgreen);
+            font-weight: 600;
+            font-size: 1.5rem;
+            
+        }
+        span{
+           
+            font-size: .9rem !important;
+
+        }
+    }
+    
+}
+
+mat-divider{
+    width: 100%;
+    // padding-bottom: 1rem;
+    border-color: var(--clr-darkgreen);
+}
+
+.btn-close {
+    height: 23px;
+    width: 23px;
+    border: none;
+    color: var(--clr-black);
+    background-color: transparent;
+    mat-icon{
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        background-color: var(--clr-lightgray);
+
+    }
+}

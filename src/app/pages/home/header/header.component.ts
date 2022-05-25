@@ -23,5 +23,6 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
       this._user.setUserLogout();
+
   }
 }

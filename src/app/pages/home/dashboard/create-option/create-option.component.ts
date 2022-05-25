@@ -28,7 +28,7 @@ export class CreateOptionComponent implements OnInit {
 
     dialogConfig.afterClosed().subscribe((res: any) => {
         if (res) {
-          console.log(res)
+          // console.log(res)
           // this.dataSource.data.push(res)
           // this.table.renderRows();
           }

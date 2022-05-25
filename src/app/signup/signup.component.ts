@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.signupForm.value);
+    // console.log(this.signupForm.value);
     this._ds.processData1('users/Register', this.signupForm.value, 1)?.subscribe((res:any)=>{
 
       this._snackBar.open("You are now Registered", "", {
@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
       this._router.navigate(['/login']);
 
     },err =>{
-      console.log('err', err)
+      // console.log('err', err)
     });
     }
 

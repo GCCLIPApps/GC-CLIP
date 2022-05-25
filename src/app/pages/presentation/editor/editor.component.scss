@@ -1,11 +1,11 @@
 #presentSlide{
     width: 100% !important;
-    height: 100% !important; 
+    height: auto !important; 
 }
 .slide, .presentationSlide{
     max-width: 100%;
     min-height: 400px !important;
-    height: 95% !important; 
+    height: auto !important; 
 
     text-size-adjust: auto;
     word-wrap: break-word;

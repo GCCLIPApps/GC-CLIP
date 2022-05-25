@@ -1,0 +1,114 @@
+
+.mat-toolbar{
+    background-color: var(--clr-darkgreen);
+}
+
+.mat-card{
+    padding: 0 !important;
+    height: 100% !important;
+    border-radius: 25px !important;
+
+    .cardAnalyticholder{
+        border-radius: 25px !important;
+        color: white;
+        padding: 1.5rem;
+        background-color:var(--clr-darkgreen) !important;
+      }
+    .subtitle{
+        font-size: .9rem;
+        color: var(--clr-gray);
+        display: flex;
+        align-items: center;
+        mat-icon{
+            margin-right:  5px;
+        }
+    }
+}
+
+.studentno{
+    button.mat-fab{
+        color: var(--clr-dark) !important;
+        background-color: var(--clr-gray) !important;
+    }
+    p{
+        font-weight: 600;
+        margin-top: .5rem;
+        color: var(--clr-lightfontgreen);
+    }
+}
+
+
+mat-tab-body-content{
+    height: 100% !important;
+    
+}
+
+  mat-tab-group {
+    border-radius: 25px !important;
+
+      min-height: 50vh !important;
+      background-color: white;
+      mat-card{
+          height: 100% !important;
+      }
+  }
+.students-card{
+    padding: 1rem !important;
+}
+.result{
+    .mat-tab-label {
+        padding: .5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+    /* Styles for the active tab label */
+    .mat-tab-label.mat-tab-label-active {
+        font-weight: 700;
+    }
+    
+    /* Styles for the ink bar */
+    .mat-ink-bar {
+        background-color: green;
+    }
+    
+}
+
+.mat-table{
+  background-color:transparent!important;  
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 25px !important;
+}
+table tr:last-child td /*To remove the last border*/
+{
+  border-bottom:0 solid
+}
+th, td{
+    cursor: pointer;
+    text-align: left;
+    color: var(--clr-third);
+}
+td{
+    margin: auto;
+    padding: 1rem;
+}
+
+.mat-header-cell {
+    transition: .5s;
+    font-weight: 600;
+    color: var(--clr-headgreen); 
+    background:var(--clr-lightfontgreen);
+
+    tr.example-element-row:not(.example-expanded-row):active,:hover {
+        transition: .5s;
+        color: var(--clr-lightgray); 
+    }
+}
+
+tr.example-element-row:not(.example-expanded-row):hover  {
+    transition: .5s;
+    background: var(--clr-lightgray);
+}

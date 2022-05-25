@@ -53,9 +53,9 @@ $admin-portal-theme: mat.define-light-theme((
     --clr-third: #334e5c;
 
     --clr-orange: #f3541f;
-    --clr-white: #ffff;
+    --clr-white: rgb(255, 255, 255);
     --clr-lightgreen: #edffff;
-    --clr-darkgreen: #1ab492;
+    --clr-darkgreen: #1da286;
     --clr-newgreen: #2fd3ae;
     --clr-headgreen: #0fac8a;
     --clr-dbgreen: #2ed4ae;
@@ -80,13 +80,47 @@ html, body { height: 100%; }
    
 
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-    // font-family: 'Saira Semi Condensed', sans-serif;
-    // mat-grid-tile {
-    //     padding: 0;
-    //     border-radius: 5px;
-    //     background: rgb(206, 206, 206);
-    //     border: .01rem solid rgb(155, 155, 155);
-    // }
 
 
- 
+    .search-input {
+      display: flex;
+      border-radius: 5px;
+      border: 2px solid var(--clr-gray);
+      justify-content: flex-start;
+      background-color: var(--clr-lightgray);
+      input{
+          padding-left: 10px;
+          color: var(--clr-dark);
+      }
+
+      button{
+        background-color: var(--clr-darkbutton);
+      }
+  }
+  
+  ::ng-deep.mat-snack-bar-container {
+    // background: var(--clr-dark) !important;
+  }
+  ::ng-deep .mat-simple-snackbar {
+    justify-content: center!important;
+    color: var(--clr-lightfontgreen) !important;
+    font-family: 'Quattrocento Sans';
+  }
+
+  .mat-simple-snackbar {
+    font-family: 'Quattrocento Sans';
+    justify-content: center!important;
+    color: var(--clr-lightfontgreen) !important;
+  }
+  
+  .snackbar-error {
+    background-color: red;
+  }
+  
+  .snackbar-success {
+    background: var(--clr-dark) !important;
+  }
+  
+  .snackbar-info {
+    color: var(--clr-lightfontgreen) !important;
+  }

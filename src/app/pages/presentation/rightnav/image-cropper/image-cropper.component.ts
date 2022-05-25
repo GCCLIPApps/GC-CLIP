@@ -50,7 +50,7 @@ export class ImageCropperComponent implements OnInit,AfterViewInit {
 
   imageLoaded() {
       this.showCropper = true;
-      console.log('Image loaded');
+      // console.log('Image loaded');
   }
 
   submitImage(){

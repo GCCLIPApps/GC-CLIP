@@ -64,7 +64,7 @@
                          
                         <div class="bulletlist-holder" *ngIf="type == 'poll' ">
                           <span class="mr-2">{{i + 1 }}</span>
-                          {{item.choice_fld}}
+                          {{item.pollchoice_fld}}
                         </div>
 
                       </div>
@@ -162,7 +162,7 @@
             
          
               
-            <app-fullscreenview hidden [presentationData]="myArrayData" [showOptions]="showOptions" [type]="type" [selectedImage]="selectedImage"
+            <app-fullscreenview hidden  [presentationData]="myArrayData" [showOptions]="showOptions" [type]="type" [selectedImage]="selectedImage"
              [isPresented]="isPresented" [smallParagraph]="smallParagraph"  [status]="status" [sTheme]="sTheme" [sColor]="sColor"
              [responseLists]="responseLists" [isCardloading]="isCardloading" [percent]="percent"></app-fullscreenview>
       
@@ -186,16 +186,17 @@
                 <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf="type == 'mc' || type == 'quiz' || type == 'poll' || type == 'identification'">
                   <!-- <mat-icon *ngIf="!this.responseLists.length" matBadgeColor="warn">account_circle</mat-icon> -->
                   <!-- <mat-icon  *ngIf="responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >forum</mat-icon> -->
+                  <!-- <mat-icon  *ngIf="!responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >account_circle</mat-icon> -->
 
-                  <mat-icon *ngIf="this.responseLists"  [matBadge]="this.responseLists[0].totalResponse" matBadgeSize="small" >account_circle</mat-icon>
+                  <mat-icon matBadgeSize="small" >account_circle</mat-icon>
                 </button>
 
 
                 <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf=" type == 'qa' ">
                   <!-- <mat-icon *ngIf="!this.responseLists.length" matBadgeColor="warn">account_circle</mat-icon> -->
-                  <!-- <mat-icon  *ngIf="responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >forum</mat-icon> -->
+                  <!-- <mat-icon  *ngIf="!responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >forum</mat-icon> -->
 
-                  <mat-icon  *ngIf="this.responseLists[0].totalResponse"  [matBadge]="this.responseLists[0].totalResponse" matBadgeSize="small" >forum</mat-icon>
+                  <!-- <mat-icon  *ngIf="this.responseLists[0].totalResponse"  [matBadge]="this.responseLists[0].totalResponse" matBadgeSize="small" >forum</mat-icon> -->
                 </button>
 
               </div>
@@ -210,7 +211,7 @@
         </div>
 
         <div class="right_nav">
-          <app-rightnav (contentData)="getcontentFrom($event, $event, $event)" (Pace)="updatePace($event)"></app-rightnav>
+          <app-rightnav (contentData)="getcontentFrom($event, $event, $event)" (Pace)="updatePaceandAssignto($event)" ></app-rightnav>
         </div> 
 </section>
  

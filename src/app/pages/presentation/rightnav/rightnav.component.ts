@@ -9,6 +9,7 @@ import { Subject, Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { SocketService } from 'src/app/services/socket.service';
+import { AddstudentsComponent } from './addstudents/addstudents.component';
 
 export interface Viewers {
   image_fld: string;
@@ -22,10 +23,10 @@ export interface Viewers {
   templateUrl: './rightnav.component.html',
   styleUrls: ['./rightnav.component.scss']
 })
-export class RightnavComponent implements OnInit,OnDestroy {
+export class RightnavComponent implements OnInit{
   @Output() contentData: EventEmitter<any> = new EventEmitter<any>();
   @Output() Pace: EventEmitter<any> = new EventEmitter<any>();
-  // @ViewChild(MatAccordion) accordion: MatAccordion;
+  @Output() Assignto: EventEmitter<any> = new EventEmitter<any>();
 
   displayedColumns: string[] = ['image_fld', 'emailadd_fld'];
   dataSource = new MatTableDataSource<Viewers>();
@@ -34,6 +35,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
 
   SubjectslideId: Subscription;
   SubjectpresPace: Subscription;
+  SubjectpresAssign: Subscription;
 
   loadingBar: boolean = false;
 
@@ -45,6 +47,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   currentlyClickedCardIndex: any;
   step: number = 0;
   
+  toggleisAssignedto: string ;
   isPaceTo: number;
   viewers: any = [];
 
@@ -54,7 +57,8 @@ export class RightnavComponent implements OnInit,OnDestroy {
 
   // PointsTimer
   points: number;
-  toggleExtrapoints: boolean = false;
+  timer: number = 30;
+  toggleExtrapoints: boolean = true;
 
   // Image
   newImage: any;
@@ -67,24 +71,20 @@ export class RightnavComponent implements OnInit,OnDestroy {
   optionLists: any;
   optionImage: any;
  
+
   constructor(
     @Optional() public MatDialogRef: MatDialogRef<ImageCropperComponent>,
-    private _socket: SocketService,
     private matDialog: MatDialog,
-    private _snackBar: MatSnackBar, 
     public _user: UserService, 
     private _ds: DataService) { }
     
-  
     ngOnInit():void {
- 
+
       this.SubjectslideId =  this._user.SubjectslideId?.subscribe((data) => {
       this._ds.processData1('slides/pres/byOneSlideId', {sdId: data}, 2)?.subscribe((res: any) => {
         let load = this._ds.decrypt(res.d);
-        console.log(load, this.isPaceTo = this._user.getPresentationPace())
         this.contentTabs = load[0]["sType_fld"];
        
-    
         if(this.contentTabs == '' && load[0]["sNo_fld"] == ''){
           this.currentTabIndex = 0
           this.selectType(this.contentTabs);
@@ -93,22 +93,23 @@ export class RightnavComponent implements OnInit,OnDestroy {
         }
    
         },err =>{
-          console.log('err', err)
+          // console.log('err', err)
         });     
       });
 
       this.SubjectpresPace = this._user.SubjectpresPace?.subscribe((data) => {
-        this.isPaceTo = data
+
+        this.isPaceTo = data;
+
       })
+
+ 
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-  }
+ 
 
-  ngOnDestroy(){
-    this.SubjectpresPace.unsubscribe();
-    this.SubjectslideId.unsubscribe();
   }
 
   DisabledInput(){
@@ -140,7 +141,7 @@ export class RightnavComponent implements OnInit,OnDestroy {
   
   selectType(msg: string){
     this.currentlyClickedCardIndex = msg;
-  
+
     switch (msg){
       // Content Slides
       case 'heading':
@@ -192,10 +193,11 @@ export class RightnavComponent implements OnInit,OnDestroy {
     }
   }
   
-  timer: number = 30;
 
   updateSlideType(type: string){
     this.loadingBar = true;
+
+    this.toggleisAssignedto = this._user.getPresentationAssignto()   
 
     this._ds.processData1('slides/pres/'+this._user.getSlideId(),{sType_fld: type}, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
@@ -219,39 +221,57 @@ export class RightnavComponent implements OnInit,OnDestroy {
       this.loadingBar = false;
 
       },err =>{
-        console.log('err', this._ds.decrypt(err.d))
+        // console.log('err', this._ds.decrypt(err.d))
       });
   }
 
   
   // Method for Options
   getOptions(){
-      this._ds.processData1('option/getOptions',this._user.getSlideId(), 2)?.subscribe((res: any) => {
+      let path = 'option/getOptions'
+      if(this.currentlyClickedCardIndex == 'poll'){
+        path = 'poll/getPolls'
+      }
+      
+      this._ds.processData1(path,this._user.getSlideId(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      console.log(load)
+      // console.log(load)
       this.optionLists = load;
       this.DisabledInput();
       },err =>{
-        console.log('err', this._ds.decrypt(err.d))
+        // console.log('err', this._ds.decrypt(err.d))
       });
   }
 
   addOptions(){
-    this._ds.processData1('option/addOptions',this._user.getSlideId(), 2)?.subscribe((res: any) => {
+
+    let path = 'option/addOptions'
+    if(this.currentlyClickedCardIndex == 'poll'){
+      path = 'poll/addPolls'
+    }
+
+    this._ds.processData1(path,this._user.getSlideId(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.optionLists.push({id: load})
       this.DisabledInput();
       },err =>{
-        console.log('err', this._ds.decrypt(err.d))
+        // console.log('err', this._ds.decrypt(err.d))
       });
   } 
 
   updateOption(id:any, type:any,optionTitle: any){
     this.Options = optionTitle.target.value;
-    this._ds.processData1('option/updateOptions/'+id,{option:  this.Options}, 2)?.subscribe((res: any) => {
+
+    let path = `option/updateOptions/${id}`
+    let option = {option:  this.Options}
+    if(this.currentlyClickedCardIndex == 'poll'){
+      path = `poll/updatePolls/${id}`
+    }
+
+    this._ds.processData1(path, option, 2)?.subscribe((res: any) => {
       this.DisabledInput();
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
 
@@ -259,17 +279,23 @@ export class RightnavComponent implements OnInit,OnDestroy {
     this._ds.processData1('option/updateOptions/'+id,{isCorrect: isCorrect.checked}, 2)?.subscribe((res: any) => {
       this.DisabledInput();
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       })
   }
 
   removeOptions(id:number, index:number){
-    // console.log(id, index)
-    this._ds.processData1('option/removeOptions/id/'+id,'', 2)?.subscribe((res: any) => {
+
+    let path = `option/removeOptions/id/${id}`
+
+    if(this.currentlyClickedCardIndex == 'poll'){
+      path = `poll/removePolls/id/${id}`
+    }
+
+    this._ds.processData1(path,'', 2)?.subscribe((res: any) => {
       this.optionLists.splice(index, 1)
       this.DisabledInput();
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
 
@@ -293,7 +319,6 @@ export class RightnavComponent implements OnInit,OnDestroy {
 }
 
 // Image Function
-
 openCropper(id:any){
   
   let dialogConfig = this.matDialog.open(ImageCropperComponent,{
@@ -332,7 +357,7 @@ updateOptionImage(id:any){
 
   fd.append('image', this.newImage);
   
-  console.log(id, fd.get('image'))
+  // console.log(id, fd.get('image'))
   this._ds.processData1('upload/option/'+id, fd , 3)?.subscribe((res: any) => {
     let load = this._ds.decrypt(res.d);
     this.DisabledInput();
@@ -345,13 +370,13 @@ updateOptionImage(id:any){
     }
     this.updateContent(this.contentTabs);
     },err =>{
-      console.log('err', err)
+      // console.log('err', err)
     });
 }
 
 
 removeOptionImage(id:number){
-  console.log(id)
+  // console.log(id)
   this._ds.processData1('option/updateOptions/'+id,'', 2)?.subscribe((res: any) => {
     this.DisabledInput();
 
@@ -363,7 +388,7 @@ removeOptionImage(id:number){
     }
 
     },err =>{
-      console.log('err', err)
+      // console.log('err', err)
     })
 }
 
@@ -375,7 +400,7 @@ uploadImage(){
     this.image = load;
     this.updateContent(this.contentTabs);
     },err =>{
-      console.log('err', err)
+      // console.log('err', err)
     });
 }
 
@@ -385,7 +410,7 @@ uploadImage(){
       this.DisabledInput();
       this.updateContent(this.contentTabs);
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
 
@@ -397,15 +422,20 @@ uploadImage(){
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.sort = this.sort;
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });``
   }
 
-  updatePace(pace:string){
-    this.Pace.emit(pace)
+  updatePace(pace:number){
+  
+    this.Pace.emit({pace: pace, toggleAssign: this.toggleisAssignedto })
   }
 
-
+  openAddStudents(){
+    let dialogConfig = this.matDialog.open(AddstudentsComponent,{
+      width: '40%', height:'auto',
+    });
+  }
  
 }
 

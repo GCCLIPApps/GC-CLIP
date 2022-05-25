@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   webLink: `${window.location.origin}/#/presentation/`,
-  apiLink: `http://localhost:4230/${btoa('api').replace('=', '')}/`,
-  imageLink: `http://localhost:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`,
-  socket: `http://localhost:4231`,
+  apiLink: `https://localhost:4230/${btoa('api').replace('=', '')}/`,
+  imageLink: `https://localhost:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`,
+  socket: `https://localhost:4231`,
 };
 
 /*

@@ -43,10 +43,10 @@ mat-card{
             margin-right: 1rem;
         }
         span{
-            color: var(--clr-lightgray);
+            font-size: .8rem;
             margin-right: 1rem;
             font-weight: lighter;
-
+            color: var(--clr-lightgray);
         }
     }
     .play{      
@@ -79,6 +79,15 @@ mat-card{
     }
 
 }
+
+::ng-deep.mat-snack-bar-container {
+    background: var(--clr-dark) !important;
+  }
+  ::ng-deep .mat-simple-snackbar {
+    justify-content: center!important;
+    color: var(--clr-lightfontgreen) !important;
+    font-family: 'Quattrocento Sans';
+  }
 
 
 input{

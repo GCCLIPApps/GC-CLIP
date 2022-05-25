@@ -33,17 +33,22 @@ export class CreateDialogComponent implements OnInit {
 
   onSubmit(){
     var isQuiz = 1;
+    var sPace = 1
     if(this.isQuiz === 'Presentation'){
       isQuiz = 0
+      sPace = 0
     }
 
     if(this.title){
-    this._ds.processData1('slides/create/Presentation', 
+
+      this._ds.processData1('slides/create/Presentation', 
     {instId: this._user.getUserID(), 
       sName_fld: this.title, 
       sTheme_fld: '#FFFFFF',
       sColor_fld: '#1D2127',
-      isQuiz_fld: isQuiz}, 2)?.subscribe((res: any)=>{
+      sPace_fld: sPace,
+      isQuiz_fld: isQuiz
+    }, 2)?.subscribe((res: any)=>{
 
       let load =  this._ds.decrypt(res.d)
  
@@ -51,7 +56,7 @@ export class CreateDialogComponent implements OnInit {
       this.dialogRef.close(load);
 
     }, err =>{
-      console.log('err', err)
+      // console.log('err', err)
     });
     }
   }

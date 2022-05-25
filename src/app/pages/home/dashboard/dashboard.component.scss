@@ -1,5 +1,7 @@
-mat-card{
-    background-color: var(--clr-darkgreen);
+.mat-card,.mat-tab-group{
+    // border-radius: 25px;
+    padding: 0 !important;
+    // background-color: var(--clr-darkgreen);
 }
 .wrapper{
 
@@ -43,7 +45,7 @@ mat-card{
         .search-input {
             display: flex;
             border-radius: 5px;
-            border: 2px solid var(--clr-newgreen);
+            border: 2px solid var(--clr-gray);
             justify-content: flex-start;
             background-color: var(--clr-lightgray);
             input{
@@ -64,6 +66,7 @@ mat-card{
     }
 
     ::ng-deep.mat-tab-label,.mat-tab-label-active{
+        border-radius: 25px !important;
         font-weight: 600;
         color:var(--clr-dark);   
     }

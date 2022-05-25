@@ -46,7 +46,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @NgModule({
   exports: [
       A11yModule,
@@ -95,6 +95,9 @@ import { MatTreeModule } from '@angular/material/tree';
       OverlayModule,
       PortalModule,
       ScrollingModule,
+  ],providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ]
 })
 export class MaterialModule {}

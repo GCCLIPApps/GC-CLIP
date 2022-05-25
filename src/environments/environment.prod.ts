@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  webLink: `${window.location.origin}/app/gcclip/#/presentation/`,
-  apiLink: `http://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/`,
-  imageLink: `http://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`,
-  socket: `http://gordoncollegeccs.edu.ph:4231`,
+  webLink: `https://gordoncollegeccs.edu.ph/projects/gcclip/dist/instructor/#/presentation/`,
+  apiLink: `https://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/`,
+  imageLink: `https://gordoncollegeccs.edu.ph:4230/${btoa('api').replace('=', '')}/${btoa('uploads').replace('=', '')}/`,
+  socket: `https://gordoncollegeccs.edu.ph:4231`,
 };

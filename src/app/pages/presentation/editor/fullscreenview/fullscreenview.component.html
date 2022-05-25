@@ -49,21 +49,22 @@
                             {{item.choice_fld}}
                           </div>       
            
-                        <div  *ngFor="let pollslist of pollslists">
+                       
                           <div class="bulletlist-holder" *ngIf=" type == 'poll'">
-                            <div class="text-center" > 
-  
-                            <mat-spinner *ngIf="isSpinner"></mat-spinner>
-  
-                             </div>
+                    
                             <span class="mr-2"></span>
-                           <p><span *ngIf="item.choice_fld === pollslist.choice_fld">{{i + 1 }}.{{item.choice_fld}}  ----  {{pollslists[i].totalpoll_fld}}
+                           <p><span *ngIf="item.choice_fld">{{i + 1 }}.{{item.choice_fld}}
                             
                            </span> </p> 
-                    
+                           <p><span *ngIf="item.pollchoice_fld">{{i + 1 }}.{{item.pollchoice_fld}}  ----  {{item.totalpoll_fld}}
+                            
+                          </span> </p> 
+
+
+                     
                           </div>
 
-                        </div>
+              
        
                         </div>
                         <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
@@ -171,8 +172,8 @@
                   <button mat-mini-fab  [style.background-color]="sTheme" [style.color]="sColor"  *ngIf="type == 'mc' || type == 'quiz' || type == 'poll' || type == 'identification'">
                     <!-- <mat-icon *ngIf="!this.responseLists.length" matBadgeColor="warn">account_circle</mat-icon> -->
                     <!-- <mat-icon  *ngIf="responseLists.length"  [matBadge]="responseLists.length" matBadgeSize="small" >forum</mat-icon> -->
-                    <mat-icon  *ngIf="responseLists[0].totalResponse == 0"  matBadgeSize="small" >forum</mat-icon>
-                    <mat-icon  *ngIf="responseLists[0].totalResponse"  [matBadge]="responseLists[0].totalResponse" matBadgeSize="small" >forum</mat-icon>
+                    <!-- <mat-icon  *ngIf="responseLists[0].totalResponse == 0"  matBadgeSize="small" >forum</mat-icon> -->
+                    <!-- <mat-icon  *ngIf="responseLists[0].totalResponse"  [matBadge]="responseLists[0].totalResponse" matBadgeSize="small" >forum</mat-icon> -->
                   </button>
   
   

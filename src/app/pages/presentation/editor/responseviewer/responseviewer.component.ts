@@ -14,35 +14,55 @@ export class ResponseviewerComponent implements OnInit {
   answeres:any;
   sColor: string =   this._user.getPresentationFontColor()
   sTheme: string =  this._user.getPresentationTheme()
-
+  interval:any;
   constructor(   @Inject(MAT_DIALOG_DATA) public data: any,
     private _ds: DataService, 
     public _user: UserService) { 
   }
   
   ngOnInit(): void {
-    this.getQuestions(0);
-    
+    this.getQuestions();
+    this.getAnsweres()
   }
   onTabChange(e: any) {
-    this.getQuestions(e.index);
+    if(e.index == 0){
+      this.interval = setTimeout(() => {
+        this.getQuestions();
+      }, 200)
+    }
+    if(e.index == 1){
+      this.interval = setTimeout(() => {
+        this.getAnsweres()
+      }, 200)
+    }
   }
 
-  getQuestions(isAnswered: number){
-    this._ds.processData1(`response/getQuestions/${isAnswered}`,this._user.getSlideId(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
-      console.log(load)
+  getQuestions(){
+    this._ds.processData1(`response/getQuestions/${0}`,this._user.getSlideId(), 2)?.subscribe((res: any) => {
+      this.questions = this._ds.decrypt(res.d);
 
-      if(isAnswered){
-        this.answeres = load;
-      }else{
-        this.questions = load
-      }
+
+   
+     
       this.getResponse()
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
+
+  getAnsweres(){
+    this._ds.processData1(`response/getQuestions/${1}`,this._user.getSlideId(), 2)?.subscribe((res: any) => {
+      this.answeres = this._ds.decrypt(res.d);
+
+    
+     
+  
+      this.getResponse()
+      },err =>{
+        // console.log('err', err)
+      });
+  }
+
 
 
 
@@ -61,7 +81,7 @@ export class ResponseviewerComponent implements OnInit {
 
         },err =>{
  
-          console.log('err', err)
+          // console.log('err', err)
         });
   }
 
@@ -77,7 +97,7 @@ export class ResponseviewerComponent implements OnInit {
         this.responses = load;
 
           },err =>{
-            console.log('err', err)
+            // console.log('err', err)
           });
 
   }

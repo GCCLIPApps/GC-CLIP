@@ -11,7 +11,7 @@
             </ng-template>
 
           <mat-list role="list"  *ngFor="let question of questions; let i = index" >
-            <mat-list-item role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(question.isanswered_fld)}" [style.color]="sColor">
+            <mat-list-item role="listitem" *ngIf="questions.length" [ngClass]="{'highlight':checkIfCardIsSelected(question.isanswered_fld)}" [style.color]="sColor">
                 <h1 mat-line>{{question.response_fld}}</h1>
                 <mat-chip-list mat-line 
                 class="example-chip"
@@ -27,8 +27,18 @@
                 <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
             </mat-list-item>
         
-       
+        
           </mat-list>
+
+          <mat-card *ngIf="!questions.length"  [style.background-color]="sTheme" [style.color]="sColor">
+            <mat-card-content class="text-center">
+              <h2> No question yet from the audience
+              </h2>
+              <h4>
+                New questions will be listed here
+              </h4>
+            </mat-card-content>
+          </mat-card>
         </mat-tab>
 
         <mat-tab label="Answered"  [style.color]="sColor" >
@@ -39,7 +49,7 @@
 
           <mat-list role="list"  *ngFor="let answer of answeres; let i = index">
               
-            <mat-list-item role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(answer.isanswered_fld)}"  [style.color]="sColor" >
+            <mat-list-item  *ngIf="answeres.length" role="listitem" [ngClass]="{'highlight':checkIfCardIsSelected(answer.isanswered_fld)}"  [style.color]="sColor" >
                 <h1 mat-line>{{answer.response_fld}}</h1>
               
                 <mat-chip-list mat-line 
@@ -55,9 +65,19 @@
         
                 <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
             </mat-list-item>
-       
           </mat-list>
 
+          
+          <mat-card *ngIf="!answeres.length" [style.background-color]="sTheme" [style.color]="sColor">
+            <mat-card-content class="text-center">
+              <h2>
+                No answered question yet
+              </h2>
+              <h4>
+                Answered questions will be listed here
+              </h4>
+            </mat-card-content>
+          </mat-card>
         </mat-tab>
       </mat-tab-group>    
     </div>

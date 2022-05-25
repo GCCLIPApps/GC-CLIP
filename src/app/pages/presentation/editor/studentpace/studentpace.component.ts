@@ -1,20 +1,32 @@
-import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Animations } from 'src/app/animation';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Location} from '@angular/common';
 import Swal from 'sweetalert2'
 import { Chart,registerables } from 'chart.js';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 var animates = new Animations()
+
+
+export interface Viewers {
+  image_fld: string;
+  emailadd_fld: string;
+  updatedOn: string;
+  createdOn: string;
+}
+
 
 
 @Component({
@@ -37,34 +49,42 @@ export class StudentpaceComponent implements OnInit {
   presentationId: number = 0
   totalNo:number = 0
   studentFinalResults: any = []
-  isStudentdone: boolean = true;
+  isStudentdone: boolean = false;
   responseLists:  any =[];
   studentslists: any = []
   chart: any = [];
-  viewresult: any
+  hasStart: any
   elem: any;
   code: string;
   image: string;
   sideBarOpen = true;
   id: any;
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 
+  isStart: boolean = false;
+  setStart: boolean = false
+  startWarning: string = '';
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['no_fld', 'right_fld', 'wrong_fld', 'percentage_fld'];
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
     map(result => result.matches),
     shareReplay()
   );
 
   constructor(
+  @Inject(MAT_DIALOG_DATA) public data: any,
   private location: Location,
   private activatedRoute: ActivatedRoute,
   private breakpointObserver: BreakpointObserver, 
-  private matDialog: MatDialog,
   private _snackBar: MatSnackBar,
   public _socket: SocketService,
   private _ds: DataService, 
+  private _router: Router,
   public _user: UserService) { 
-    
-    Chart.register(...registerables)
+
 
   }
 
@@ -77,41 +97,63 @@ export class StudentpaceComponent implements OnInit {
     if(this.responseLists[0].totalResponse != '0'){
     }else{
       this.responseLists[0].totalResponse = 0
-      console.log(this.responseLists[0].totalResponse)
+      // console.log(this.responseLists[0].totalResponse)
     }
     setTimeout(() =>{ this.isSpinner = true}, 2000);
   }
 
   ngOnInit(): void {
-    this._socket._socket.fromEvent('recieved-student-response').subscribe((data: any) =>{
-      // this.responseLists.push(data)
+    this.callStudentlobby();
+    this.getParams()
 
-    });
-    
+  }
+
+   getParams(){
     this.activatedRoute.params.subscribe((params) => {
       this.id = { ...params['keys'], ...params };
    
-      this.viewresult = atob(this.id.link)
-      this.id = Number(atob(this.id.code))
+      this.hasStart = atob(this.id.link)
+      sessionStorage.setItem('code', String(atob(this.id.code)))
 
-   
-        this.getPresentation()
-
-        if(this.viewresult === 'finalResult'){
-            this.setStart = true
-            this.getFinalResult()
-        }else{
-          this._socket.socketConnect()
-        }
- 
-  
+      this.getPresentation()
 
       });
+  }
 
-    this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
+  async getPresentation(){
+    this._ds.processData1(`slides/${sessionStorage.getItem('code')}`,'', 2)?.subscribe((res: any) => {
+      let load = this._ds.decrypt(res.d);
+      this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld, load.isStarted_fld, load.isassigned_fld);
+      this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
+        
+      this.presentationName = this._user.getPresentationName();
+      this.sCode = this._user.getPresentationCode();
+      this.sTheme = this._user.getPresentationTheme();
+      this.sColor = this._user.getPresentationFontColor();
+      this._socket.createRoom(this._user.getPresentationCode());
+      this.presentationId = this._user.getPresentationId()
+      this.getsocketStudents()
+
+
+      if(this.hasStart === 'replay' || this.hasStart == 0){
+        this._socket.socketConnect()
+        this.reloadPage()
+
+      }else{
+        this.setStart = true
+        this.getFinalResult()
+      }
+
+    },err =>{
+      // console.log('err', err)
+    });
+  }
+
+  getsocketStudents(){
+    if(this._user.getIsQuiz()){
+      this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
         this.studentslists.push(data)
         this._user.setNoStudents(this.studentslists)
-        console.log(this._user.getNoStudents())
       }) 
   
       this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
@@ -126,82 +168,30 @@ export class StudentpaceComponent implements OnInit {
           }
         }
       });
+    }
+    
   }
-
-  getPresentation(){
-    this._ds.processData1('slides/'+this.id,'', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
-      this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld);
-      this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
-      this.presentationName = this._user.getPresentationName();
-      this.sCode = this._user.getPresentationCode();
-      this.sTheme = this._user.getPresentationTheme();
-      this.sColor = this._user.getPresentationFontColor();
-      this._socket.createRoom(this._user.getPresentationCode());
-      this.presentationId = this._user.getPresentationId()
-    },err =>{
-      console.log('err', err)
-    });
-  }
-
 
   getFinalResult(){
-    this._ds.processData1(`scores/getAllScores/${this.id}`, '', 2)?.subscribe((res: any) => {
+    this._ds.processData1(`scores/getAllScores/${sessionStorage.getItem('code')}`, '', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
+      // console.log(load)
 
       this.studentFinalResults = load
-
       if(load.length){
-        this.isStudentdone = false;
+        this.isStudentdone = true;
       }
 
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
 
 
-
-
-
-
-  isStart: boolean = false;
-  setStart: boolean = false
-  startWarning: string = '';
 
   isStarted(){
     
     if(this.studentslists.length){
-      
-      new Chart('myChart', {
-        type: 'bar',
-        data: {
-          labels: ['Finished', 'Approved', 'Pending', 'Cancelled'],
-          datasets: [{
-            label: 'Appointments Status Analytics',
-            data: [40, 10, 20],
-            backgroundColor: [
-              'rgba(43, 46, 74, .7)',
-              'rgba(63, 191, 63, .7)',
-              'rgba(161, 191, 63, .7)',
-              'rgba(255, 74, 71, .7)',
-            ],
-            borderColor: [
-              'rgba(43, 46, 74, 0.8)',
-              'rgba(63, 191, 63, .7)',
-              'rgba(161, 191, 63, .7)',
-              'rgba(255, 74, 71, .7)',
-            ],
-            barPercentage: .5
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          scales: {
-          },
-          responsive: false,
-        }
-      });
       this.isStart = true
       this.interval = setInterval(() => {
         if(this.countDown > 0) {
@@ -209,7 +199,7 @@ export class StudentpaceComponent implements OnInit {
           this.countDown--;
           if(this.countDown == 0){
             this.setStart = true;
-            this.updateTitle(this._user.getPresentationPace())
+            this.updateTitle(this._user.getPresentationPace(), 1)
             this.startRequest()
           }
         }
@@ -220,12 +210,31 @@ export class StudentpaceComponent implements OnInit {
         isStarted: true
       })
     }else{
-      this.startWarning = 'Waiting to players before starting'
+      this.startWarning = 'Waiting for students before starting'
     }
-  
-
-    
   }
+  
+  viewFinalResult(){
+    this._router.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa('finalResult')}/result`])
+  }
+
+  reloadPage(){
+    this.updateTitle(this._user.getPresentationPace(), 0)
+    
+
+  }
+  
+  startRequest(){
+    this.interval = setInterval(() =>{ 
+     this.getFinalResult()
+    }, 2000);
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+
   copypaste(){
     this._snackBar.open("Code Copied", '', {
        duration: 1000,
@@ -235,7 +244,7 @@ export class StudentpaceComponent implements OnInit {
    returnpage(){
     Swal.fire({
       title: 'Are you sure?',
-      text: "Leaving the room?",
+      text: "Leaving the lobby?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -243,39 +252,77 @@ export class StudentpaceComponent implements OnInit {
       confirmButtonText: 'Yes'
     }).then((result) => {
       if (result.isConfirmed) {
+        this._socket.leaveRoom(this._user.getPresentationCode(), this._user.getFullname())
         this.location.back()
+  
       }
     })
    }
 
-   updateTitle(pace:number){
+   updateTitle(pace:number, no: number){
+     console.log(this._user.getPresentationCode())
     this._ds.processData1('slides/update/'+this._user.getPresentationId(),
-    {sName_fld: this.presentationName, 
-      sTheme_fld: this.sTheme, 
-      sColor_fld: this.sColor, 
+    {sName_fld: this._user.getPresentationName(), 
+      sTheme_fld: this._user.getPresentationTheme(), 
+      sColor_fld: this._user.getPresentationFontColor(), 
       sPace_fld: pace || this._user.getPresentationPace(),
-      isStarted_fld: 1}, 2)?.subscribe((res: any) => {
+      isStarted_fld: no}, 2)?.subscribe((res: any) => {
     
       let load = this._ds.decrypt(res.d);
       this._user.setPresentationTheme(load.sTheme_fld,load.sColor_fld);
       this._user.setPresPace(load.sPace_fld);
-      this._user.getPresentationNewPace()
+      this._user.getPresentationNewPaceandisAssigned()
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
   }
- 
 
+  viewers: any = [];
+  dataSource = new MatTableDataSource<Viewers>();
 
- 
-  
-  startRequest(){
-    this.interval = setInterval(() =>{ 
-     this.getFinalResult()
-    }, 3000);
+  checkViewers(){
+    this._ds.processData1('history/getSlideViewer', this._user.getPresentationId(), 2)?.subscribe((res: any) => {
+      let load = this._ds.decrypt(res.d);
+      // console.log('viewer',load);
+      this.viewers = load
+      this.dataSource = new MatTableDataSource(load); 
+      this.dataSource.sort = this.sort;
+      },err =>{
+        // console.log('err', err)
+      });``
   }
 
-  pauseTimer() {
-    clearInterval(this.interval);
+  callStudentlobby(){
+    this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
+              
+      this._snackBar.open(data['name'] + ' Joined the room', '', {
+        duration: 3000,
+      });
+  
+      for(let i = 0; i < this.studentslists.length; i++){
+
+        if(this.studentslists[i].name == data['name']){
+
+        }else{
+          this.studentslists.push(data)
+
+
+        }
+      }
+  
+    }) 
+
+    this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
+      
+      for (var i = 0; i <  this.studentslists.length; i++){
+        if (this.studentslists[i]['user']  == data['user']){
+          this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
+            duration: 3000,
+          });
+          this.studentslists.splice(i,1)
+            break;
+        }
+      }
+    })
   }
 }

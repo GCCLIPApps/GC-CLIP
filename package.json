@@ -35,8 +35,9 @@
     "ngx-csv": "^0.3.2",
     "ngx-image-cropper": "^5.0.1",
     "ngx-socket-io": "^4.1.0",
+    "pptxgenjs": "^3.10.0",
     "rxjs": "~6.6.0",
-    "sweetalert2": "^11.4.5",
+    "sweetalert2": "^11.4.15",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

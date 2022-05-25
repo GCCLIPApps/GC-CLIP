@@ -13,7 +13,7 @@ var animates = new Animations()
   selector: 'app-instructorpace',
   templateUrl: './instructorpace.component.html',
   styleUrls: ['./instructorpace.component.scss'],
-  animations: [animates.fadeAnimation, animates.fadeAnimation]
+  animations: [animates.fadeAnimation, animates.listAnimation]
 
 })
 export class InstructorpaceComponent implements OnInit {
@@ -69,25 +69,25 @@ export class InstructorpaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
-        this.studentslists.push(data)
+    // this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
+    //     this.studentslists.push(data)
 
-        this._user.setNoStudents(this.studentslists)
-        console.log(this._user.getNoStudents())
-      }) 
+    //     this._user.setNoStudents(this.studentslists)
+    //     // console.log(this._user.getNoStudents())
+    //   }) 
   
-      this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
+    //   this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
         
-        for (var i = 0; i <  this.studentslists.length; i++){
-          if (this.studentslists[i]['user']  == data['user']){
-            this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
-              duration: 3000,
-            });
-            this.studentslists.splice(i,1)
-              break;
-          }
-        }
-      })
+    //     for (var i = 0; i <  this.studentslists.length; i++){
+    //       if (this.studentslists[i]['user']  == data['user']){
+    //         this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
+    //           duration: 3000,
+    //         });
+    //         this.studentslists.splice(i,1)
+    //           break;
+    //       }
+    //     }
+    //   })
  
       if (this.elem.requestFullscreen) {
         this.elem.requestFullscreen();
@@ -102,7 +102,7 @@ export class InstructorpaceComponent implements OnInit {
         this.elem.msRequestFullscreen();
       }
  
-  
+      console.log(this.presentationData)
       this.code = this._user.getPresentationCode();
       this._socket.createRoom(this._user.getPresentationCode());
       setTimeout(() =>{ this.isSpinner = true}, 2000);
@@ -143,10 +143,10 @@ export class InstructorpaceComponent implements OnInit {
     this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
         let load = this._ds.decrypt(res.d);
         this.responseLists = load;
-        console.log('fullscreen response', this.responseLists)
+        // console.log('fullscreen response', this.responseLists)
 
           },err =>{
-            console.log('err', err)
+            // console.log('err', err)
           });
   }
 

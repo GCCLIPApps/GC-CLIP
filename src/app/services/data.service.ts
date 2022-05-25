@@ -33,7 +33,7 @@ export class DataService {
         let payload = {load: load, token: this._user.getToken(), userid: this._user.getUserID() }
 
         return this._http.post(this._user.apiLink +  btoa(api).replace('=',''), this.encrypt(encodeURIComponent(unescape(JSON.stringify(payload)))));
-        console.log(load.get('image'))
+        // console.log(load.get('image'))
       break;
 
       case 3:

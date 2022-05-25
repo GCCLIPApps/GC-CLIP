@@ -45,7 +45,7 @@
               </ng-template>
   
   
-                  <table mat-table [dataSource]="dataSource"  matSort [@listAnimation]="forAnimation.length">
+                  <table mat-table [dataSource]="dataSource"  matSort>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="sName_fld">
@@ -56,7 +56,7 @@
                           <div class="col-sm-1">
                             <mat-icon >play_circle_filled</mat-icon>
                           </div>
-                          <div class="col name-header">
+                          <div class="col name-header" [matTooltip]="element.sName_fld">
                             {{element.sName_fld}}  <span><br>({{element.PageCount}} Pages)</span>
     
                           </div>
@@ -91,7 +91,7 @@
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                           <mat-icon>more_vert</mat-icon>
                         </button>
-                        <mat-menu #menu="matMenu">
+                        <mat-menu #menu="matMenu" style="width:500px">
                           <button mat-menu-item class="action-warn" (click)="openDeleteDialog(element.id, i)">
                             <mat-icon >delete</mat-icon>
                             <span>Delete</span>
@@ -100,6 +100,13 @@
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                           </button>
+                          
+                          <mat-divider></mat-divider>
+<!-- 
+                          <button  mat-menu-item class="add_slide" (click)="generatePptx(element)" matTooltip="Generate powerpoint">
+                            <mat-icon>file_download</mat-icon>
+                            <span>Export Pptx</span> 
+                          </button> -->
                         </mat-menu>
                       </td>
                     </ng-container>
@@ -128,7 +135,7 @@
                 <p  style="margin: auto;">Quizzes <sup>{{listofQuiz}}</sup> </p>
               </ng-template>
       
-                  <table mat-table [dataSource]="dataSource"  matSort [@listAnimation]="forAnimation.length">
+                  <table mat-table [dataSource]="dataSource"  matSort>
     
                     <!-- Name Column -->
                     <ng-container matColumnDef="sName_fld">
@@ -139,7 +146,7 @@
                           <div class="col-sm-1">
                             <mat-icon >play_circle_filled</mat-icon>
                           </div>
-                          <div class="col name-header">
+                          <div class="col name-header" [matTooltip]="element.sName_fld">
                             {{element.sName_fld}}  <span><br>({{element.PageCount}} Pages)</span>
     
                           </div>
@@ -191,7 +198,7 @@
 
                           
                           <button  mat-menu-item class="add_slide" (click)="gotoResult(element.id)" matTooltip="View Result">
-                            <mat-icon>preview</mat-icon>
+                            <mat-icon>analytics</mat-icon>
                             <span>Go to results</span> 
                           </button>
 

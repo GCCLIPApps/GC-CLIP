@@ -11,7 +11,7 @@ export class SocketService {
   socketConnect(){
     this._socket.connect();
     // this._socket.fromEvent('set-id').subscribe(data =>{
-    //   console.log(data);
+      // console.log(data);
     // }) 
   }
 
@@ -22,23 +22,23 @@ export class SocketService {
   createRoom(room:any){
     this._socket.emit('create-room', room);
     this._socket.fromEvent('room-created').subscribe(data =>{
-      console.log(data);
+      // console.log(data);
     }) 
   }
 
-  leaveRoom(room:any){
-    this._socket.emit('leave-room', room);
+  leaveRoom(room:any, user: string){
+    this._socket.emit('leave-room', {room, user});
     this._socket.fromEvent('room-exited').subscribe(data =>{
-      console.log(data);
+      // console.log(data);
     }) 
   }
  
 
   sendData(data:any){
     this._socket.emit('send-data', data)
-    console.log(data)
+    // console.log(data)
     this._socket.fromEvent('data-recieved').subscribe(data =>{
-      console.log(data);
+      // console.log(data);
     }) 
   }
 
@@ -46,13 +46,13 @@ export class SocketService {
     this._socket.emit('send-timer', data)
 
     this._socket.fromEvent('timer-recieved').subscribe(data =>{
-      console.log(data);
+      // console.log(data);
     }) 
   }
 
   recievedData(){
     this._socket.fromEvent('recieved-student-response').subscribe(data =>{
-      console.log(data)
+      // console.log(data)
     });
   }
 }

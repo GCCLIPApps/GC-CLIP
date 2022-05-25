@@ -1,3 +1,9 @@
+input,textarea { border: none; width: 100%;
+  &:focus {
+    outline: none;
+}}
+
+
 .mat-card{
     height: 100% !important;
     width: 100% !important;
@@ -33,12 +39,6 @@
           
           button,mat-checkbox{
             margin: auto;
-          }
-
-        
-
-          input,textarea{
-            font-weight: normal;
           }
 
           .mat-button{

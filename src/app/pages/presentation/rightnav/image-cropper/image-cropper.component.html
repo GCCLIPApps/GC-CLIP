@@ -7,14 +7,14 @@
     [aspectRatio]="4/3"
     format="png"
     (imageLoaded)="imageLoaded()"
-    (imageCropped)="imageCropped($event)" style="max-height: 300px; width: auto;background-color: #334e5c;"></image-cropper>
+    (imageCropped)="imageCropped($event)" style="max-height: 300px; width: auto;"></image-cropper>
 
     <h3 *ngIf="!croppedImage" ><b>Click to upload image</b></h3>
     <img mat-card-image *ngIf="!croppedImage" src="../../../../assets//status/uploadimage.svg" alt="Empty" (click)="openUpload()" style="width: 40%;">
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close >Cancel</button>
-  <button mat-raised-button  *ngIf="showCropper" (click)="openUpload()">Choose again</button>
-  <button mat-raised-button mat-dialog-close="true" cdkFocusInitial (click)="submitImage()">Save</button>
+  <button mat-raised-button mat-dialog-close class="cancel" >Cancel</button>
+  <button mat-raised-button  *ngIf="showCropper" (click)="openUpload()" class="choose">Choose again</button>
+  <button mat-raised-button mat-dialog-close="true" cdkFocusInitial (click)="submitImage()" class="confirm" color="primary">Save</button>
 </mat-dialog-actions>

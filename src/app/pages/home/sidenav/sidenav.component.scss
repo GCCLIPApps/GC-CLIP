@@ -45,8 +45,8 @@
         background-color: var(--clr-lightfontgreen);
         &:hover {
           transition: 0.3s;
-          background-color: var(--clr-dbgreen);
           color:var(--clr-white) !important;
+          background-color: var(--clr-darkgreen);
           border: 1px solid var(--clr-lightfontgreen);
         }
       }

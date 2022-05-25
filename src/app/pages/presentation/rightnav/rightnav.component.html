@@ -208,7 +208,7 @@
                           <div class="head-input">
                           <!-- <mat-form-field class="form-full-width" appearance="fill" >
                             <mat-label>Message</mat-label> -->
-                            <input matInput type="text" class="input"  #message maxlength="150" [(ngModel)]="heading" placeholder="Slide with heading" (change)="updateContent('heading')">
+                            <input  type="text" class="input"  #message maxlength="150" [(ngModel)]="heading" placeholder="Slide with heading" (change)="updateContent('heading')">
                             <span class="textlength">{{ 150 - heading.length }}</span>
                             <!-- </mat-form-field> -->
                           </div>
@@ -219,7 +219,7 @@
                         
                         <div class="head-input">
 
-                          <textarea type="text" matInput #message maxlength="500"  [(ngModel)]="subheading" placeholder="Subheading"
+                          <textarea type="text"  #message maxlength="500"  [(ngModel)]="subheading" placeholder="Subheading"
                           cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" 
                           (change)="updateContent('heading')"> 
                         </textarea>
@@ -237,7 +237,7 @@
                                                
                           
                                     <div class="open-image" *ngIf="!(image || selectedImage)" (click)="openCropper('')">
-                                      <img mat-card-image src="../../../../assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
+                                      <img mat-card-image src="assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
                                       <p > 
                                         Click Here to select an image
                                         <small>Supported file types are jpg and png</small>
@@ -264,7 +264,7 @@
                         Heading
                       </div>
                       <div class="head-input">
-                          <input matInput #message maxlength="150" [(ngModel)]="heading" placeholder="Slide with header"  (change)="updateContent('paragraph')">
+                          <input type="text" #message maxlength="150" [(ngModel)]="heading" placeholder="Slide with header"  (change)="updateContent('paragraph')">
                           <span class="textlength">{{ 150 - heading.length }}</span>
 
                         </div>  
@@ -276,7 +276,7 @@
                         <div class="paragraph-input">
 
                           
-                        <textarea matInput #message maxlength="800"  [(ngModel)]="subheading" placeholder="Use this paragraph to explain something in detail."
+                        <textarea  #message maxlength="800"  [(ngModel)]="subheading" placeholder="Use this paragraph to explain something in detail."
                           cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" 
                           (change)="updateContent('paragraph')"> 
                         </textarea>
@@ -295,7 +295,7 @@
                              
                                 
                                       <div class="open-image" *ngIf="!(image || selectedImage)" (click)="openCropper('')">
-                                        <img mat-card-image src="../../../../assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
+                                        <img mat-card-image src="assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
                                         <p > 
                                           Click Here to select an image
                                           <small>Supported file types are jpg and png</small>
@@ -325,7 +325,7 @@
                           
                         <div class="head-input">
 
-                            <input matInput #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('bullets')">
+                            <input  #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('bullets')">
                             <span class="textlength">{{ 100 - heading.length }}</span>
 
                           </div>  
@@ -340,7 +340,7 @@
 
                              <div class="option-input">
                                <div class="option-holder">
-                                <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                               
                                 <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
                                </div>
@@ -373,7 +373,7 @@
                                                      
                               
                                           <div class="open-image" *ngIf="!(image || selectedImage)" (click)="openCropper('')">
-                                            <img mat-card-image src="../../../../assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
+                                            <img mat-card-image src="assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
                                             <p > 
                                               Click Here to select an image
                                               <small>Supported file types are jpg and png</small>
@@ -400,9 +400,9 @@
                         Your Question
                       </div>
                       <div class="head-input">
-                          <input matInput #message maxlength="100" *ngIf="contentTabs == 'identification'" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('identification')">
+                          <input  #message maxlength="100" *ngIf="contentTabs == 'identification'" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('identification')">
 
-                          <input matInput #message maxlength="100" *ngIf="contentTabs == 'quiz'"  placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
+                          <input  #message maxlength="100" *ngIf="contentTabs == 'quiz'"  placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
                           <span class="textlength">{{ 100 - heading.length }}</span>
 
                       </div>  
@@ -430,7 +430,7 @@
                               <div class="option-input ">
                                 <mat-checkbox  class="check-box"  *ngIf="contentTabs == 'quiz'"   matTooltip="Mark option as correct answer" [(ngModel)]="optionlist.isCorrect_fld"  [disabled]="isDisabled" [checked]="optionlist.isCorrect_fld" (change)="isCorrect(optionlist.id, contentTabs, $event)" color="primary"></mat-checkbox>
                                 <div class="option-holder">
-                                  <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                  <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                                   <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
                                 </div>
                               <!-- <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"> -->
@@ -458,7 +458,7 @@
                                
                                   
                                         <div class="open-image" *ngIf="!(image || selectedImage)" (click)="openCropper('')">
-                                          <img mat-card-image src="../../../../assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
+                                          <img mat-card-image src="assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
                                           <p > 
                                             Click Here to select an image
                                             <small>Supported file types are jpg and png</small>
@@ -482,9 +482,9 @@
                                     <span class="item">Seconds to answer</span>    
     
                                     <div class="timer-input">
-                                      <input matInput #message type="number"  *ngIf="contentTabs == 'identification'"  max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('identification')">
+                                      <input  #message type="number"  *ngIf="contentTabs == 'identification'"  max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('identification')">
 
-                                      <input matInput #message type="number"  *ngIf="contentTabs == 'quiz'"  max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('quiz')">
+                                      <input  #message type="number"  *ngIf="contentTabs == 'quiz'"  max="120" min="0" oninput="validity.valid||(value='');" [(ngModel)]="timer"  (change)="updateContent('quiz')">
                   
                                     </div>  
                                   </div>
@@ -493,9 +493,9 @@
   
                                     <div class="timer-input">
 
-                                      <input matInput #message type="number" *ngIf="contentTabs == 'identification'"  max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('identification')">
+                                      <input  #message type="number" *ngIf="contentTabs == 'identification'"  max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('identification')">
 
-                                      <input matInput #message type="number"  *ngIf="contentTabs == 'quiz'" max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('quiz')">
+                                      <input  #message type="number"  *ngIf="contentTabs == 'quiz'" max="30" min="0" oninput="validity.valid||(value='');" [(ngModel)]="points"  (change)="updateContent('quiz')">
                   
                                     </div>  
                                   </div>
@@ -527,7 +527,7 @@
 
                         <div class="paragraph-input">
 
-                            <textarea matInput #message maxlength="500"  [(ngModel)]="heading" placeholder="Paragraph"
+                            <textarea  #message maxlength="500"  [(ngModel)]="heading" placeholder="Paragraph"
                             cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" 
                             (change)="updateContent('qa')"> 
                           </textarea>
@@ -544,7 +544,7 @@
                                 <div class="open-image">
                            
                                         <div class="open-image" *ngIf="!(image || selectedImage)" (click)="openCropper('')">
-                                          <img mat-card-image src="../../../../assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
+                                          <img mat-card-image src="assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
                                           <p > 
                                             Click Here to select an image
                                             <small>Supported file types are jpg and png</small>
@@ -572,7 +572,7 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
+                        <input  #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  
@@ -596,9 +596,9 @@
                               
                               <div class="option-input">
                                 <div class="option-holder">
-                                 <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                 <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.pollchoice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                                
-                                 <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
+                                 <span class="textlength">{{ 70 - optionlist.pollchoice_fld.length }}</span>
                                 </div>
                                
                       
@@ -613,9 +613,9 @@
                                 </mat-menu>
 
                     
-                                <div class="close-button mr-3" *ngIf="!optionlist.image_fld" (click)="openCropper(optionlist.id)"  >
+                                <!-- <div class="close-button mr-3" *ngIf="!optionlist.image_fld" (click)="openCropper(optionlist.id)"  >
                                   <mat-icon>image</mat-icon>
-                                </div>
+                                </div> -->
 
                                 <div class="close-button "  (click)="removeOptions(optionlist.id,i)" >
                                  <mat-icon>highlight_off</mat-icon>
@@ -640,7 +640,7 @@
                                 
                             
                                         <div class="open-image" *ngIf="!(image || selectedImage)" (click)="openCropper('')">
-                                          <img mat-card-image src="../../../../assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
+                                          <img mat-card-image src="assets//status/uploadimage.svg" alt="Empty"  class="image_link" >
                                           <p > 
                                             Click Here to select an image
                                             <small>Supported file types are jpg and png</small>
@@ -657,7 +657,7 @@
                             </mat-card>
 
 
-                            <div class="header">
+                            <!-- <div class="header">
                               Result layout
                             </div>
                             <div class="row ">
@@ -666,7 +666,7 @@
                                   
                                 </mat-card>
                               </div>
-                            </div>
+                            </div> -->
                     </mat-card-content>
                   </div>
                 </div>
@@ -680,7 +680,7 @@
 
                       <div class="head-input">
 
-                        <input matInput #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
+                        <input  #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
                         <span class="textlength">{{ 70 - heading.length }}</span>
 
                       </div>  
@@ -704,7 +704,7 @@
                               
                               <div class="option-input">
                                 <div class="option-holder">
-                                 <input matInput #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                 <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                                
                                  <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
                                 </div>
@@ -786,7 +786,7 @@
               <div class="container">
                   <mat-card-content>
                     <mat-accordion class="example-headers-align" multi>
-                      <mat-expansion-panel  [expanded]="step === 0" (opened)="setStep(0)">
+                      <mat-expansion-panel  >
                         <mat-expansion-panel-header>
                           <mat-panel-title>
                             Settings
@@ -808,7 +808,7 @@
                         </div>
 
                          <mat-divider></mat-divider>
-                         
+
                          <div class="top-header">
                           <p>
                             NAVIGATION
@@ -818,13 +818,13 @@
                          <p>Presentation pace</p> 
                           
                           <div class="low-header-card">
-                            <mat-card (click)=" this.updatePace('0')"  [ngClass]="{'highlight': isPaceTo == 0}" >  
+                            <mat-card (click)="updatePace(0)"  [ngClass]="{'highlight': isPaceTo === 0}" >  
                               <mat-card-content>
                                 Presenters Pace
                               </mat-card-content>
                             </mat-card>
 
-                            <mat-card (click)=" this.updatePace('1')" [ngClass]="{'highlight': isPaceTo == 1}" > 
+                            <mat-card (click)="updatePace(1)" [ngClass]="{'highlight': isPaceTo === 1}" > 
                               <mat-card-content>
                                 Students Pace
                               </mat-card-content>
@@ -832,7 +832,7 @@
                           </div>
                          </div>
      
-
+<!-- 
                          <mat-divider></mat-divider>
 
                          <div class="top-header">
@@ -855,15 +855,72 @@
                             </select>
                           </mat-form-field>
                          </div>
-                        </div>
+                        </div> -->
+                      
+                          <!-- <mat-divider></mat-divider>
+                          
+                          <div *ngIf="this._user.getIsStarted()">
 
-                        <div class="header">
+                          <div class="top-header">
+                           <p>
+                             Replay
+                           </p>
+                         </div>
+                       
+                         <div class="low-header">
+                         <p>Replay presentation</p>
+  
+                          <div>
+                            <button mat-raised-button color="primary"  (click)="updatePace(isPaceTo)">Replay now</button>
+                          </div>
+                         </div>
+                        </div> -->
+                       
+
+                        <!-- <div class="header">
                           Language
                          </div>
-                        <mat-slide-toggle color="primary"
+                      <mat-slide-toggle color="primary"
                         class="check-box" [(ngModel)]="toggleLanguagechecked">
                         Always use English
-                         </mat-slide-toggle >
+                         </mat-slide-toggle > -->
+                      </mat-expansion-panel>
+
+                      <mat-expansion-panel  [expanded]="step === 1">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Sharing
+                          </mat-panel-title>
+                          <mat-panel-description>
+                            Share with students
+                            <mat-icon>share</mat-icon>
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+                         <mat-divider></mat-divider>
+                          
+                         <div class="top-header">
+                          <p>
+                            Share
+                          </p>
+                        </div>
+                        <div class="low-header">
+                          
+                          <div>
+                            <mat-slide-toggle color="primary" [(ngModel)]="toggleisAssignedto"  (change)="updatePace(isPaceTo)"
+                              class="check-box" >
+                              Assign specific students
+                            </mat-slide-toggle>
+                          </div>
+
+                            <button mat-raised-button *ngIf="toggleisAssignedto" color="primary" (click)="openAddStudents()">
+                              Add students
+                            </button>
+                         </div>
+     
+
+                   
                       </mat-expansion-panel>
 
                       <!-- <mat-expansion-panel>

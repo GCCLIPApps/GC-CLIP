@@ -33,7 +33,7 @@ export class SlidemainComponent implements OnInit {
   slidePercent: number;
   totalSelectAnswerPage: number = 0;
   slideTimer: number
-
+  isStarted: boolean = false;
   showSpinner: boolean = false;
   isQuiz: boolean = false;
 
@@ -43,7 +43,7 @@ export class SlidemainComponent implements OnInit {
 
   email: string = this._user.getEmail();
   profilepic = this._user.getProfileImage();
-  pace = this._user.getPresentationPace();
+  paceassignto: any;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
     map(result => result.matches),
@@ -59,59 +59,71 @@ export class SlidemainComponent implements OnInit {
     private matDialog: MatDialog,
     private _socket: SocketService,
     private _snackBar: MatSnackBar,
-    private _user: UserService, 
+    private _user: UserService,
     private _ds: DataService) {
 
-      this.activatedRoute.params.subscribe((params) => {
-        this.id = { ...params['keys'], ...params };
-  
-        if(this.id.code=='editor'){
-          this.activatedRoute.queryParams.subscribe(params => {
-            // console.log(params['link'])
-            let url = params['link'];
-            url = url.split("/").pop()
-         
-            this.id = Number(atob(url));
-           
-            this.getPresentation();
-          });
-          }
-        });
-
-
-      this._route.events
      }
 
 
 
 
-  ngOnInit(): void {
-      this.callSocket();
+  ngOnInit():void{   
+    this.getParams()
+      
     }
 
-  getPresentation(){
+    getParams(){
+      this.activatedRoute.params.subscribe((params) => {
+        this.id = { ...params['keys'], ...params };
+    
+            if(this.id.code=='editor'){
+              this.activatedRoute.queryParams.subscribe(params => {
+                // console.log(params['link'])
+                let url = params['link'];
+                url = url.split("/").pop()
+            
+                this.id = Number(atob(url));
+              
+                this._route.events
+                this.getPresentation();
+              });
+              }
+            });
+    }
+
+  async getPresentation(){
     this._ds.processData1('slides/'+this.id,'', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      
-      this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld);
-      console.log(this._user.getPresentationPace())
-
+      this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld, load.isStarted_fld, load.isassigned_fld);
       this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
       this.presentationName = this._user.getPresentationName();
-      this.sCode = this._user.getPresentationCode();
-      this.sTheme = this._user.getPresentationTheme();
-      this.sColor = this._user.getPresentationFontColor();
+      this.sCode = this._user.getPresentationCode(); this.sTheme = this._user.getPresentationTheme(); this.sColor = this._user.getPresentationFontColor();
+      this._user.getPresentationNewPaceandisAssigned();
+      
+      this.paceassignto =  {
+        pace: this._user.getPresentationPace(),
+        toggleAssign:  this._user.getPresentationAssignto()
+      };
+     
 
+      if(this._user.getIsQuiz() && this._user.getIsStarted()){
+        this.isStarted = true
+      }
+ 
+      if(!this._user.getIsQuiz()){
+        this.callSocket()
+        this._socket.createRoom(this.sCode);
+      }
 
     },err =>{
-      console.log('err', err)
+      // console.log('err', err)
     });
   }
 
-  callSocket(){
+  async callSocket(){
+    this._socket.socketConnect(); 
     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
       this.studentslists.push(data)
-
       this._snackBar.open(this.studentslists[this.studentslists.length - 1]['name'] + ' Joined the room', '', {
         duration: 3000,
       });
@@ -131,20 +143,36 @@ export class SlidemainComponent implements OnInit {
     })
   }
   
-  updateTitle(pace:number){
-    this.showSpinner = true;
-    this._ds.processData1('slides/update/'+this._user.getPresentationId(),
-    {sName_fld: this.presentationName, 
+  updateTitlePaceAssign(PaceandAssign:any){
+    var isAssign;
+    if(PaceandAssign.toggleAssign){
+      isAssign = 1
+      this._user.setPresAssignto(1)
+
+    }else{
+      isAssign = 0
+      this._user.setPresAssignto(0)
+    }
+
+
+    let jsonData = {sName_fld: this.presentationName, 
       sTheme_fld: this.sTheme, 
       sColor_fld: this.sColor, 
-      sPace_fld: pace || this._user.getPresentationPace()}, 2)?.pipe(finalize(() => this.showSpinner = false))?.subscribe((res: any) => {
-    
+      sPace_fld: PaceandAssign.pace,
+      isassigned_fld: isAssign,
+      isQuiz_fld: this._user.getIsQuiz(),
+      isStarted_fld: this._user.getIsStarted()
+      }
+
+    this.showSpinner = true;
+    this._ds.processData1('slides/update/'+this._user.getPresentationId(), jsonData, 2)?.pipe(finalize(() => this.showSpinner = false))?.subscribe((res: any) => {
+      
       let load = this._ds.decrypt(res.d);
       this._user.setPresentationTheme(load.sTheme_fld,load.sColor_fld);
       this._user.setPresPace(load.sPace_fld);
-      this._user.getPresentationNewPace()
+      this._user.getPresentationNewPaceandisAssigned()
       },err =>{
-        console.log('err', err)
+        // console.log('err', err)
       });
       
   }
@@ -170,11 +198,11 @@ export class SlidemainComponent implements OnInit {
 
     dialogConfig.componentInstance.mainOutput.subscribe((result) => {
 
-      console.log('The dialog was closed', result);
+      // console.log('The dialog was closed', result);
       this.sTheme = result.backgroundColor;
       this.sColor = result.color;
       this.sImage = result.backgroundImage
-      this.updateTitle(this._user.getPresentationPace());
+      this.updateTitlePaceAssign(this.paceassignto);
     });
   }
   
@@ -190,5 +218,10 @@ export class SlidemainComponent implements OnInit {
 
   isquizStart($e: any){
     this.isQuiz = $e
+  }
+
+  
+  gotoResult(){
+    this._route.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa('finalResult')}/result`])
   }
 }

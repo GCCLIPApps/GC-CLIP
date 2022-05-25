@@ -44,6 +44,9 @@ import { CreateOptionComponent } from './pages/home/dashboard/create-option/crea
 import { FullscreenviewComponent } from './pages/presentation/editor/fullscreenview/fullscreenview.component';
 import { StudentpaceComponent } from './pages/presentation/editor/studentpace/studentpace.component';
 import { InstructorpaceComponent } from './pages/presentation/editor/instructorpace/instructorpace.component';
+import { AddstudentsComponent } from './pages/presentation/rightnav/addstudents/addstudents.component';
+import { ResultComponent } from './pages/presentation/result/result.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 // const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', options: { autoConnect: false} };
 const config: SocketIoConfig = { url: environment.socket, options: { autoConnect: false} };
 
@@ -51,7 +54,6 @@ const config: SocketIoConfig = { url: environment.socket, options: { autoConnect
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     MainComponent,
     SidenavComponent,
     HeaderComponent,
@@ -73,6 +75,9 @@ const config: SocketIoConfig = { url: environment.socket, options: { autoConnect
     FullscreenviewComponent,
     StudentpaceComponent,
     InstructorpaceComponent,
+    AddstudentsComponent,
+    ResultComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

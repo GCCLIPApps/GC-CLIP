@@ -2,12 +2,20 @@
   margin: 0;
   padding: 0;
   
-  h1 {
-  color: var( --clr-darkgreen);
-  font-weight: 600;
-  font-size: 1.5rem;
-  
+  .theme-header{
+    h1 {
+      margin-left: 1rem;
+      font-size: 1.5rem;
+      font-weight: lighter;
+      color: var( --clr-darkgreen);
+      }
+    mat-icon{
+      font-size: 30px;
+      // color: var(--clr-darkgreen) !important;
+      // background-color: var(--clr-lightfontgreen);
+    }
   }
+
 }
 
 mat-divider{

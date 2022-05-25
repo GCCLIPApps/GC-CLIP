@@ -1,0 +1,48 @@
+<div class="dialog-header d-flex justify-content-between">
+    <div class="header">
+      <h1>Forget Password</h1>
+      <span  >Please provide the following information inside the form. 
+          And we will send you a link to your email for your new password.</span>
+    </div>
+    
+  
+      <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
+  </div>
+
+
+<mat-dialog-content class="mat-typography">
+
+    <div class="container-fluid">
+ 
+      <!-- [formControl]="emailFormControl" [errorStateMatcher]="matcher" autocomplete="off" -->
+             <form [formGroup]="forgotpasswordForm" (ngSubmit)="onSubmit()" ngNativeValidate >
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Faculty ID</mat-label>
+                    <input type="text" matInput  formControlName="accountno" required>                         
+                  </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Email Address</mat-label>
+                  <input type="email" matInput  formControlName="email"  autocomplete="email" required>                         
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="lname"  autocomplete="current-password" required>
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>                 
+                  </mat-form-field>
+
+                <div class="text-center">
+                      <strong *ngIf="Error" style="color:red">Incorrect Email or Password</strong>    
+                </div>
+
+                <button type="submit" class="login-button btn" style="background:'var(--clr-darkgreen)'; color:var(--clr-lightfontgreen)"  [disabled]="!forgotpasswordForm.valid"  mat-raised-button >
+                    Submit
+                </button>
+              </form>
+    </div>
+
+</mat-dialog-content>

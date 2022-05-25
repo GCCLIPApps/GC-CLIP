@@ -1,0 +1,201 @@
+<mat-sidenav-container class="sidenav-container" >
+
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false" >
+      <!-- <mat-drawer mode="side" opened="true"> -->
+        <!-- <app-main-nav></app-main-nav> -->
+    </mat-sidenav>
+    <mat-sidenav-content >
+      <mat-toolbar class="header mat-elevation-z3 justify-content-between" >
+        <button matTooltip="Exit room"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="returnpage()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">keyboard_return</mat-icon>
+        </button>
+        <app-header ></app-header>
+      </mat-toolbar>
+    <div class="container-fluid page p-5" >
+
+    <mat-card class=" mat-elevation-z8" >
+
+        <div  class="cardAnalyticholder d-flex justify-content-between">
+          <div>
+            <mat-card-title><h2>{{title}}</h2></mat-card-title>
+       
+            <div class="subtitle">
+              <mat-icon >
+                schedule
+              </mat-icon> <span>{{date | date: 'medium'}}</span> 
+            </div>
+            <mat-card-actions>
+            
+              <button mat-button (click)="viewEditor()">View quiz</button>
+            </mat-card-actions>
+          </div>
+         
+          
+          <div>
+            <div class="studentno text-center">
+              <div class="d-flex justify-content-around pb-2">
+                  <div class="pl-2">
+                    <button mat-fab  >
+                      <mat-icon matBadgeSize="medium" [matBadge]="this.studentslists.length" >account_circle</mat-icon>
+                    </button>
+                   <mat-card-footer>
+                    <p>Students</p>
+                   </mat-card-footer>
+                  </div>
+                  <div>
+                    <button mat-fab  >
+                      <mat-icon matBadgeSize="medium" [matBadge]="this.totalQuizPages.length" >contact_support</mat-icon>
+                    </button>
+                   <mat-card-footer>
+                    <p>Questions</p>
+                   </mat-card-footer>
+                  </div>
+              </div>
+            
+
+            
+            </div>
+           
+            <div class="search-input">
+              <input matInput type="text"  (keyup)="applyFilter($event)" [(ngModel)]="value" autocomplete="off" placeholder="Search here">
+              <button matSuffix aria-label="Clear" (click)="searchThis()" mat-raised-button class="btn " matTooltip="Browse your presentation">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </div>
+              <!-- <mat-card-footer>
+    
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    
+              </mat-card-footer> -->
+    
+              
+             
+        </div>
+        
+        <mat-tab-group class="result" mat-align-tabs="center" [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)" >
+        
+            <mat-tab label="Participants" style="    border-radius: 25px !important;
+            " >    
+         
+       
+                <table  mat-table [dataSource]="dataSource" matSort class="mat-elevation-z0 p-5" style="width: 100%;    border-radius: 25px !important;
+                ">
+
+                 
+                  <ng-container matColumnDef="no_fld">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                    {{i + 1}}</td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name_fld">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let element;">
+                      {{element.fname_fld}} {{element.mname_fld}} {{element.lname_fld}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="email_fld" hide>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Address </th>
+                    <td mat-cell *matCellDef="let element"> {{element.emailadd_fld}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="right_fld">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of correct answer </th>
+                    <td mat-cell *matCellDef="let element">  {{ element.totalscore_fld}}</td>
+                  </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="wrong_fld">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of wrong answer </th>
+                    <td mat-cell *matCellDef="let element">  {{ element.quiztotalno_fld - element.totalscore_fld}} </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="points_fld">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total points </th>
+                    <td mat-cell *matCellDef="let element">  {{ element.totalpoints_fld}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="created_fld">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+                    <td mat-cell *matCellDef="let element">  {{ element.createdOn | date: 'medium'}} </td>
+                  </ng-container>
+        
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                  <tr class="example-element-row" mat-row *matRowDef="let element; let i = index; columns: displayedColumns1;"></tr>
+                </table>
+
+                
+
+                  <!-- <mat-card class="students-card "  *ngFor="let studentFinalResult of studentFinalResults; let i = index"  [style.background-color]="sTheme" [style.color]="sColor">
+                    <mat-card-header>
+                      <img mat-card-avatar [src]=" ImageLink + studentFinalResult.image_fld" class="example-header-image">
+                      <mat-card-title><h6>    {{studentFinalResult.fname_fld}} {{studentFinalResult.mname_fld}} {{studentFinalResult.lname_fld}}</h6></mat-card-title>
+                      <mat-card-title><h6>  {{ studentFinalResult.totalscore_fld + ' of ' + studentFinalResult.quiztotalno_fld}}</h6></mat-card-title>
+                      <mat-card-title><h1>  {{studentFinalResult.totalpoints_fld | number: '2.' }}pts</h1></mat-card-title>
+                    </mat-card-header>
+    
+                  </mat-card> -->
+   
+                 
+    
+           </mat-tab>
+            <mat-tab label="Questions"> 
+       
+                  <table  mat-table [dataSource]="dataSource" matSort class="mat-elevation-z0 p-5" style="width: 100%;" >
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="no_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                       {{i + 1}}</td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="question_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Question </th>
+                      <td mat-cell *matCellDef="let element"> {{element.heading_fld}} </td>
+                    </ng-container>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="right_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Correct </th>
+                      <td mat-cell *matCellDef="let element"> {{element.totalcorrect_fld}} </td>
+                    </ng-container>
+      
+                    <ng-container matColumnDef="wrong_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Wrong </th>
+                      <td mat-cell *matCellDef="let element"> {{element.totalwrong_fld}} </td>
+                    </ng-container>
+      
+      
+                    <ng-container matColumnDef="percentage_fld">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Percentage </th>
+                      <td mat-cell *matCellDef="let element"> {{( element.totalcorrect_fld / element.totalwrong_fld )  * 100}} % </td>
+                    </ng-container>
+    
+      
+          
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="example-element-row" mat-row *matRowDef="let element; let i = index; columns: displayedColumns;"></tr>
+                  </table>
+      
+                  
+             
+            </mat-tab>
+          </mat-tab-group>
+    
+    </mat-card>
+  
+  
+
+
+     
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

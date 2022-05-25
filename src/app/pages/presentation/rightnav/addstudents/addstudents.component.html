@@ -1,0 +1,74 @@
+<div class="dialog-header d-flex justify-content-between">
+  <div class="addstudents-header d-flex">
+    <mat-icon color="primary">dashboard</mat-icon>
+    <h1 mat-dialog-title>Share with students</h1>
+  </div>
+  
+
+    <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+
+    <div class="container-fluid">
+ 
+      <!-- [formControl]="emailFormControl" [errorStateMatcher]="matcher" autocomplete="off" -->
+            <form class="example-form mt-3" autocomplete="off">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input type="search" matInput  [value]="inputValue" [formControl]="emailFormControl" autocomplete="off"
+                         placeholder="Add students" (keyup)="showStudentInstantly()" (click)="showDropdown($event)">
+
+                  <mat-select [(value)]="selected" (selectionChange)="clearInput($event)" >
+                    <mat-option *ngFor="let studentlist of studentlists" [value]="studentlist.accountno_fld" style="height: 100px;">
+                      <mat-card class="example-card">
+                        <mat-card-header>
+                          <img mat-card-avatar [src]=" ImageLink + studentlist.image_fld" class="example-header-image">
+                          
+                          
+                            <mat-card-title class="fullname">{{studentlist.fname_fld}} {{studentlist.mname_fld}} {{studentlist.lname_fld}}</mat-card-title>
+                     
+                            <mat-card-subtitle class="domainemail">{{studentlist.emailadd_fld}}</mat-card-subtitle>
+                          
+          
+                        </mat-card-header>
+                      </mat-card> 
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+    </div>
+    <div class="row">
+      <div class="col-6"  *ngFor="let fetchedstuds of fetchedstuds; let i = index">
+        <mat-chip-list mat-line 
+        class="example-chip"
+        cdkDropList 
+        cdkDropListOrientation="horizontal">
+        <mat-chip mat-line class="example-box d-flex justify-content-between mb-2" cdkDrag  style="width: 100%;">
+          {{fetchedstuds.fname_fld}} {{fetchedstuds.mname_fld}} {{fetchedstuds.lname_fld}}
+          <button matChipRemove (click)="removeStudent(fetchedstuds.id, fetchedstuds.accountno_fld, i)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+
+        </mat-chip>
+      </mat-chip-list>
+
+      </div>
+    </div>
+    <mat-list role="list"   >
+      <mat-list-item role="listitem" >
+   
+          <h1 mat-line></h1>
+         
+  
+          <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
+      </mat-list-item>
+  
+  
+    </mat-list>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button cdkFocusInitial  class="confirm" color="primary" (click)="addStudents()">Done</button>
+</mat-dialog-actions>

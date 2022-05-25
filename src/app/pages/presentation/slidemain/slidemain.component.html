@@ -26,7 +26,7 @@
 
                   <mat-card-content class=" d-flex flex-nowrap justify-content-between">
                     <span class="slide_title my-auto">
-                      <a [routerLink]="['/main']" routerLinkActive="router-link-active" > My Presentation </a>  <span style="color: 'var(--clr-third)';"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitle(pace)" required> 
+                      <a [routerLink]="['/main']" routerLinkActive="router-link-active" > My Presentation </a>  <span style="color: 'var(--clr-third)';"> / </span><input type="text"  [(ngModel)]="presentationName" (change)="updateTitlePaceAssign(paceassignto)" required> 
                       </span>
                           
                     <div class="slide_function d-flex align-content-end">
@@ -53,17 +53,31 @@
                         <mat-icon class="play-image-icon">water_drop</mat-icon>
                       </button>
   
-                      <button mat-raised-button  class="play btn" matTooltip="Present your slide" (click)="this.editor.openFullscreen()">
+                      <button mat-button mat-raised-button  class="play btn" matTooltip="Present your slide" [matMenuTriggerFor]="menu" *ngIf="isStarted"><mat-icon class="play-image-icon">play_arrow</mat-icon></button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item  (click)="this.editor.openFullscreen('replay')">
+                            <mat-icon>replay</mat-icon>
+                            Replay</button> 
+
+                            <button mat-menu-item (click)="gotoResult()">
+                              <mat-icon>analytics</mat-icon>
+                              View result</button>
+                          <!-- <button mat-menu-item>Item 2</button> -->
+                        </mat-menu>
+
+                      <button mat-raised-button  class="play btn" matTooltip="Present your slide" (click)="this.editor.openFullscreen('')" *ngIf="!isStarted">
                               <mat-icon class="play-image-icon">play_arrow</mat-icon>
                           <!-- <span >Present</span> -->
                       </button>
+
+                      
                     </div>
                   </mat-card-content>
               </mat-card>
             </section>
 
             <div>
-              <app-editor (quizStart)="isquizStart($event)" (toSlideMain)="renderSpinner($event, $event)"  (Pace)="updateTitle($event)" (Timer)="countDowntime($event)" [slideListPercent]="slidePercent" [totalSelectAnswerPage]="totalSelectAnswerPage"  [sTheme]="sTheme" [sColor]="sColor" [sImage]="sImage" ></app-editor>
+              <app-editor (quizStart)="isquizStart($event)" (toSlideMain)="renderSpinner($event, $event)"  (PaceandAssign)="updateTitlePaceAssign($event)" (Timer)="countDowntime($event)" [slideListPercent]="slidePercent" [totalSelectAnswerPage]="totalSelectAnswerPage"  [sTheme]="sTheme" [sColor]="sColor" [sImage]="sImage" ></app-editor>
             </div>
           
           <!-- </div>

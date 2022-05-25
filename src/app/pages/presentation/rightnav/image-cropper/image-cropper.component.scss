@@ -1,11 +1,33 @@
 
-::ng-deep.mat-dialog-container {
+// ::ng-deep.mat-dialog-container {
+//     text-align: center;
+//     margin: auto;
+//     background-color: #334e5c;
+//     color: white;
+// }
+// image-cropper{
+//     background-color: #334e5c;
+//     color: white;
+// }
+
+.mat-typography{
     text-align: center;
     margin: auto;
-    background-color: #334e5c;
-    color: white;
 }
-image-cropper{
-    background-color: #334e5c;
-    color: white;
+
+.cancel{
+    color:var(--clr-dark);
+}
+.choose{
+
+    color:var(--clr-darkgreen);
+}
+
+.confirm{
+    background-color: var(--clr-newgreen);
+    color:var(--clr-white);
+    &:hover{
+        background-color: var(--clr-darkgreen);
+
+    }
 }
