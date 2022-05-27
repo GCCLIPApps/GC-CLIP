@@ -41,32 +41,83 @@ $admin-portal-theme: mat.define-light-theme((
     // --clr-light: #9BACCC;
     // --clr-cardlist: #0a8dff;
 
-    --clr-gray: #c9c7c7;
-    --clr-lightgray: #f5f4f4;
+    // --clr-gray: #c9c7c7;
+    // --clr-lightgray: #f5f4f4;
 
-    --clr-dark: #313a3e;
+    // --clr-dark: #313a3e;
 
-    --clr-button: #3366ff;
-    --clr-success: #08f4ad;
-    --clr-warn: #ff3333;
+    // --clr-button: #3366ff;
+    // --clr-success: #08f4ad;
+    // --clr-warn: #ff3333;
 
-    --clr-third: #334e5c;
+    // --clr-third: #334e5c;
 
-    --clr-orange: #f3541f;
-    --clr-white: rgb(255, 255, 255);
-    --clr-lightgreen: #edffff;
-    --clr-darkgreen: #1da286;
-    --clr-newgreen: #2fd3ae;
-    --clr-headgreen: #0fac8a;
-    --clr-dbgreen: #2ed4ae;
+    // --clr-orange: #f3541f;
+    // --clr-white: rgb(255, 255, 255);
+    // --clr-lightgreen: #edffff;
+    // --clr-darkgreen: #1da286;
+    // --clr-newgreen: #2fd3ae;
+    // --clr-headgreen: #0fac8a;
+    // --clr-dbgreen: #2ed4ae;
 
-    // Fonts
-    --clr-fontgreen: #16a785;
-    --clr-lightfontgreen: #ebffff;
+    // // Fonts
+    // --clr-fontgreen: #16a785;
+    // --clr-lightfontgreen: #ebffff;
 
-    --clr-darkbutton: #0ca080;
+    // --clr-darkbutton: #0ca080;
 
-    --clr-gradient: linear-gradient(to top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    // --clr-gradient: linear-gradient(to top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+
+
+  // Font size
+  --font-small: .8rem;
+  --font-normal: 1rem;
+  --font-medium: 1.6rem;
+  --font-large: 1.8rem;
+    //Login, Sidenav, Headers BG
+--clr-primary: #00a783;
+
+//Mat divider
+--clr-divider: #c2c2c2;
+//Profile Image Border
+--clr-secondary: #1c886f;
+
+//Profile Image Secondary Border
+--clr-light: #32e3ba;
+--clr-white: #ffffff;
+
+//BG For Inputs
+--clr-input: #fff;
+
+//Background shade
+--background-default: #f5f5f5;
+--background-secondary: #ebffff;
+
+//Icons
+--clr-students-orange: #FF6633;
+--clr-instructor-green: #1da286;
+
+//Fonts
+--font-title: #1fad8f;
+--font-black: #212b29;
+
+--font-light: #ecffff;
+
+//For rightnav tab groups
+--font-label: #f5f4f4;
+
+//Buttons
+--btn-primary: #0ca080;
+--btn-save: #2ecc71;
+--btn-secondary: #f3541f;
+
+//Btn:hovers (Optional)
+--clr-hvr-btn: #2ed4ae;
+
+//Pop ups
+--clr-warn: red;
+--clr-dark: #313a3e;
+--clr-success: #08f4ad;
 }
 
 /* You can add global styles to this file, and also import other style files */

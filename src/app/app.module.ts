@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 // Components
 import { AppComponent } from './app.component';
@@ -97,7 +98,7 @@ const config: SocketIoConfig = { url: environment.socket, options: { autoConnect
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    
+    Ng2SearchPipeModule
   ],
   providers: [CookieService, Title,
     {provide: LocationStrategy, useClass: HashLocationStrategy}

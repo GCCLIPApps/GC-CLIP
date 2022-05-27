@@ -64,7 +64,7 @@
                                 <strong *ngIf="Error" style="color:'var(--clr-warn)'">Incorrect Email or Password</strong>    
                             </div>
             
-                            <button type="submit" class="login-button btn"  style="background:'var(--clr-darkgreen)'; color:var(--clr-lightfontgreen)" [disabled]="!loginForm.valid"  mat-raised-button >
+                            <button type="submit" class="login-button btn"  [disabled]="!loginForm.valid"  mat-raised-button >
                                 Login
                             </button>
                           </form>

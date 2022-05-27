@@ -6,14 +6,18 @@
 }
 
 mat-sidenav{
-    width: 150px;
-    background-color: var(--clr-darkgreen);
+    width: 130px;
+    background-color: var(--clr-primary);
     border-radius: 0 15px 0px 0;
 }
 
 mat-sidenav-content {
     height: 100vh;
-    background-color: var(--clr-lightgray);
+    background-color: var(--background-default);
+}
+
+.main-content{
+    padding: 3rem;
 }
 
 .mat-toolbar.header {
@@ -25,8 +29,8 @@ mat-sidenav-content {
 
 @media  screen and (max-width: 1366px) {
     mat-sidenav{
-        width: 140px;
-        background-color: var( --clr-darkgreen);
+        width: 120px;
+        background-color: var( --clr-primary);
         border-radius: 0 15px 0px 0;
     }
     

@@ -81,15 +81,18 @@ export class DashboardComponent implements OnInit {
         this.getAllQuiz()
       }, 200)
     }
-  }
+  } 
+
+  Presentations: any = []
 
   getAllPresentation(){
     this._ds.processData1(`slides/byUserId/${0}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.forAnimation = load
-      this.dataSource = new MatTableDataSource(load); 
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.Presentations = load
+      // this.dataSource = new MatTableDataSource(load); 
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
 
       this.listOfPres = load.length
   
@@ -100,14 +103,16 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  Quizzes: any = []
   getAllQuiz(){
     this._ds.processData1(`slides/byUserId/${1}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.forAnimation = load
-      this.dataSource = new MatTableDataSource(load); 
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.listofQuiz = load.length
+      this.Quizzes = load
+      // this.dataSource = new MatTableDataSource(load); 
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+      // this.listofQuiz = load.length
 
 
       
