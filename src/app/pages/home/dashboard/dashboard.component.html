@@ -34,7 +34,7 @@
             </mat-select>
           </mat-form-field>
         </section> -->
-
+        <!-- [style.background]="Presentation.sTheme_fld" [style.color]="Presentation.sColor_fld" -->
         <section class="content">
           <!-- <mat-card class="mat-elevation-z8" > -->
    
@@ -44,42 +44,87 @@
                 <p  style="margin: auto;">Presentations <sup>{{listOfPres}}</sup> </p>
               </ng-template>
 
-              <div class="container-fluid my-4">
+              <div class="main-page">
+                  <div class="card mat-elevation-z5"  *ngFor="let Presentation of Presentations; let i = index">
+                    <div class="header" >
+                      <p [matTooltip]="Presentation.sName_fld">  {{Presentation.sName_fld}}</p>
+
+                      <!-- <small>Published: <span>{{Presentation.createdOn | date: 'MMMM d, y, h:mm a'}}</span></small> -->
+                      <small>Last Updated: <span>{{Presentation.updatedOn | date: 'MMMM d, y, h:mm a'}}</span></small>
+                      <div class="header-btn">
+                        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                          <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" xPosition="before">
+                          <button mat-menu-item (click)="openPresentation(Presentation.id)">
+                            <mat-icon>edit</mat-icon>
+                            Edit
+                          </button>
+                          <button mat-menu-item (click)="openDeleteDialog(Presentation.id, i, 0)">
+                            <mat-icon >delete</mat-icon>
+                            Delete
+                          </button>
+                        </mat-menu>
+                      </div>
+                 
+
+                      <img src="assets//App logo wbg.png" alt="gcclip logo" class="logo">
+
+                    </div>
+                    <div class="footer">
+                        <div class="div">
+                          
+                        </div>
+
+                        <button mat-raised-button (click)="openPresentation(Presentation.id)"><span>Play</span>
+                          <mat-icon>
+                            play_arrow
+                          </mat-icon>
+                        </button>
+                        
+                    </div>
+                  </div>
+                 
+              </div>
+
+              <!-- <div class="container-fluid my-4">
                 <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-6" *ngFor="let Presentation of Presentations; let i = index">
                     
-                      <mat-card >
-                        <div class="presentation-holder">
 
-                          <div class="background">
-                 
-                                <mat-card-header>
-                                  <mat-card-title>
-                                    {{Presentation.sName_fld}}
-                                  </mat-card-title>
-                                  <div class="logo">
+                      <mat-card class="presentation-holder mat-elevation-z5" >
+                            <div class="foreground"  [style.background]="Presentation.sTheme_fld" [style.color]="Presentation.sColor_fld">
+                              <mat-card-header>
+                              <mat-card-title>
+                                <div class="title">
+
+                                  {{Presentation.sName_fld}}
+                                </div>
+                              </mat-card-title>
+
+                                  <div>
                                     <img src="assets//App logo wbg.png" alt="" >
                                   </div>
+                             
 
-                                  <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                                    <mat-icon>more_vert</mat-icon>
-                                  </button>
-                                  <mat-menu #menu="matMenu" xPosition="before">
-                                    <button mat-menu-item>Expand</button>
-                                    <button mat-menu-item>Remove</button>
-                                  </mat-menu>
-                                </mat-card-header>  
                                 
-       
- 
-                          </div> 
-                        </div>
-                                         
+                               
+                              </mat-card-header>  
+
+
+                              <div class="button-group">
+                                <mat-card-actions>
+                                  <button mat-button>LIKE</button>
+                                  <button mat-button>SHARE</button>
+                                </mat-card-actions>
+                              </div>
+                       
+                            </div>
                       </mat-card>
-                  
+    
                   </div>
                 </div>
-              </div>
+              </div> -->
               
 <!--   
                   <table mat-table [dataSource]="dataSource"  matSort>
@@ -170,31 +215,96 @@
               <ng-template mat-tab-label>
                 <p  style="margin: auto;">Quizzes <sup>{{listofQuiz}}</sup> </p>
               </ng-template>
+              
 
-              <div class="container-fluid my-4">
+              <div class="main-page">
+                <div class="card mat-elevation-z5"  *ngFor="let Quiz of Quizzes; let i = index">
+                  <div class="header"  [ngStyle]="{'background-image': 'radial-gradient(circle at 77% 43%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 100%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 
+                  0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg,'+Quiz.sTheme_fld+', '+Quiz.sTheme_fld+')'}">
+                    <p [matTooltip]="Quiz.sName_fld">  {{Quiz.sName_fld}}</p>
+
+                    <!-- <small>Published: <span>{{Presentation.createdOn | date: 'MMMM d, y, h:mm a'}}</span></small> -->
+                    <small>Last Updated: <span>{{Quiz.updatedOn | date: 'MMMM d, y, h:mm a'}}</span></small>
+                    <div class="header-btn">
+                      <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu" xPosition="before">
+                        <button mat-menu-item (click)="openPresentation(Quiz.id)">
+                          <mat-icon>edit</mat-icon>
+                          Edit
+                        </button>
+                        <button mat-menu-item (click)="openDeleteDialog(Quiz.id, i, 1)">
+                          <mat-icon >delete</mat-icon>
+                          Delete
+                        </button>
+                      </mat-menu>
+                    </div>
+               
+
+                    <img src="assets//App logo wbg.png" alt="gcclip logo" class="logo">
+
+                  </div>
+                  <div class="footer">
+                      <div class="div">
+                        
+                      </div>
+
+                      <button mat-raised-button (click)="openPresentation(Quiz.id)"><span>Play</span>
+                        <mat-icon>
+                          play_arrow
+                        </mat-icon>
+                      </button>
+                      
+                  </div>
+                </div>
+               
+            </div>
+              <!-- <div class="container-fluid my-4">
                 <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-6" *ngFor="let Quizz of Quizzes; let i = index">
 
-                      <mat-card >
-                        <div class="presentation-holder"  [style.background]="Quizz.sTheme_fld" [style.color]="Quizz.sColor_fld">
+          
+                      <mat-card class="presentation-holder mat-elevation-z5" >
+                            <div class="foreground"  [style.background]="Quizz.sTheme_fld" [style.color]="Quizz.sColor_fld">
+                              <mat-card-header>
+                                  <mat-card-title>
+                                    <div class="title">
 
-                         <div class="background">
-                          <div class="body-holder">
-                            <div class="title">
-                              <h6>
-                                {{Quizz.sName_fld}}
-                              </h6>
-                            </div>
-                          
-                            </div>
- 
-                          </div> 
+                                      {{Quizz.sName_fld}}
+                                    </div>
+                                  </mat-card-title>
+                               
 
-                        </div>
+                                  <div class="logo">
+                                    <img src="assets//App logo wbg.png" alt="" >
+                                  </div>
+                             
+
+                                
+                                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                                  <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu" xPosition="before">
+                                  <button mat-menu-item>Expand</button>
+                                  <button mat-menu-item>Remove</button>
+                                </mat-menu>
+                              </mat-card-header>  
+
+
+                              <div class="button-group">
+                                <mat-card-actions>
+                                  <button mat-raised-button>LIKE</button>
+                                  <button mat-raised0button>SHARE</button>
+                                </mat-card-actions>
+                              </div>
+                       
+                            </div>
                       </mat-card>
+
                   </div>
                 </div>
-              </div>
+              </div> -->
       
                   <!-- <table mat-table [dataSource]="dataSource"  matSort>
     
