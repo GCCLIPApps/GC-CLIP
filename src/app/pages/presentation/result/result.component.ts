@@ -108,7 +108,7 @@ export class ResultComponent implements OnInit {
 
   getPresentation(id: number){
     this._ds.processData1(`slides/${id}`,'', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       console.log(load)
       this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld, load.isStarted_fld, load.isassigned_fld);
       this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
@@ -127,7 +127,7 @@ export class ResultComponent implements OnInit {
 
   getFinalResult(id: number){
     this._ds.processData1(`scores/getAllScores/${id}`, '', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       console.log(load)
 
       // this.studentFinalResults = load
@@ -141,7 +141,7 @@ export class ResultComponent implements OnInit {
 
   checkViewers(){
     this._ds.processData1('history/getSlideViewer', this._user.getPresentationId(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       // console.log('viewer',load);
       this.studentslists = load
 
@@ -152,7 +152,7 @@ export class ResultComponent implements OnInit {
 
   getallData(){
     this._ds.processData1('scores/allstudData/student', {sId: Number(atob(this.id.code)), accountno: this._user.getUserID()}, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
 
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.sort = this.sort;
@@ -165,7 +165,7 @@ export class ResultComponent implements OnInit {
   
   getquizscoretally(){
     this._ds.processData1('scores/scoretally/instructor', atob(this.id.code), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
 
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.sort = this.sort;
@@ -177,7 +177,7 @@ export class ResultComponent implements OnInit {
 
   getquizpagecount(){
     this._ds.processData1('slides/pres/getquizcount/quiz',{ sId: this._user.getPresentationId(), quiz: 'quiz',identify: 'identification'}, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.totalQuizPages = load
         console.log(load)
           },err =>{

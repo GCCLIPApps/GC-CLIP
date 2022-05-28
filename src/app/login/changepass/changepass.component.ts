@@ -34,7 +34,7 @@ export class ChangepassComponent implements OnInit {
 
   onSubmit(){
     this._ds.processData1('users/account/checkCredentials', this.forgotpasswordForm.value, 1)?.subscribe((res: any)=>{
-    let load = this._ds.decrypt(res.d);
+  let load = res;;
 
 
     Swal.fire({

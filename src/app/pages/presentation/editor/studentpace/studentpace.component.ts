@@ -122,7 +122,7 @@ export class StudentpaceComponent implements OnInit {
 
   async getPresentation(){
     this._ds.processData1(`slides/${sessionStorage.getItem('code')}`,'', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld, load.isStarted_fld, load.isassigned_fld);
       this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
         
@@ -174,7 +174,7 @@ export class StudentpaceComponent implements OnInit {
 
   getFinalResult(){
     this._ds.processData1(`scores/getAllScores/${sessionStorage.getItem('code')}`, '', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       // console.log(load)
 
       this.studentFinalResults = load
@@ -268,7 +268,7 @@ export class StudentpaceComponent implements OnInit {
       sPace_fld: pace || this._user.getPresentationPace(),
       isStarted_fld: no}, 2)?.subscribe((res: any) => {
     
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this._user.setPresentationTheme(load.sTheme_fld,load.sColor_fld);
       this._user.setPresPace(load.sPace_fld);
       this._user.getPresentationNewPaceandisAssigned()
@@ -282,7 +282,7 @@ export class StudentpaceComponent implements OnInit {
 
   checkViewers(){
     this._ds.processData1('history/getSlideViewer', this._user.getPresentationId(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       // console.log('viewer',load);
       this.viewers = load
       this.dataSource = new MatTableDataSource(load); 

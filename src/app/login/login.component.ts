@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem(btoa('rememberme'));
 
     this._ds.processData1('users', this.loginForm.value, 1)?.subscribe((res: any)=>{
-      let load = this._ds.decrypt(res.d)
+    let load = res;
       // console.log(load)
 
       this._cs.set(btoa('gcclipfaculty'), CryptoJS.AES.encrypt(JSON.stringify(load.uData), this.keyString.defaultmessage).toString());

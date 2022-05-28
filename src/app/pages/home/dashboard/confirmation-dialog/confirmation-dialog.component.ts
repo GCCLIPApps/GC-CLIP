@@ -42,7 +42,7 @@ export class ConfirmationDialogComponent implements OnInit {
 
   deletePres(): void {
     this._ds.processData1('slides/delete/'+this.data.id,'', 2)?.subscribe((res: any) => {
-        let load = this._ds.decrypt(res.d);
+      let load = res;;
         this.dialogRef.close(true);
         },err =>{
           // console.log('err', err)
@@ -51,7 +51,7 @@ export class ConfirmationDialogComponent implements OnInit {
 
   deleteSlide(): void {
     this._ds.processData1('/slides/pres/'+this.data.item.id+'/rem', '', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.dialogRef.close(true);
       },err =>{
         // console.log('err', this._ds.decrypt(err.d))

@@ -39,7 +39,7 @@ export class AddstudentsComponent implements OnInit {
   showStudentInstantly(){
 
     this._ds.processData1('assignquiz/search/students', this.emailFormControl.value, 2)?.subscribe((res: any)=>{
-      let load = this._ds.decrypt(res.d)
+    let load = res;
 
       this.studentlists = load
       console.log(load)
@@ -52,7 +52,7 @@ export class AddstudentsComponent implements OnInit {
 
   getStudentslist(){
     this._ds.processData1('assignquiz/getallassigned/students', this._us.getPresentationId(), 2)?.subscribe((res: any)=>{
-      let load = this._ds.decrypt(res.d)
+    let load = res;
 
       this.fetchedstuds = load
       console.log(load)

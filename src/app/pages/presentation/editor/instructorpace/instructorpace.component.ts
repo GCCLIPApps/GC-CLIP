@@ -141,7 +141,7 @@ export class InstructorpaceComponent implements OnInit {
 
   getResponse(){
     this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
-        let load = this._ds.decrypt(res.d);
+      let load = res;;
         this.responseLists = load;
         // console.log('fullscreen response', this.responseLists)
 

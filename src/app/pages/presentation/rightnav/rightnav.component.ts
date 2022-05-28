@@ -82,7 +82,7 @@ export class RightnavComponent implements OnInit{
 
       this.SubjectslideId =  this._user.SubjectslideId?.subscribe((data) => {
       this._ds.processData1('slides/pres/byOneSlideId', {sdId: data}, 2)?.subscribe((res: any) => {
-        let load = this._ds.decrypt(res.d);
+      let load = res;;
         this.contentTabs = load[0]["sType_fld"];
        
         if(this.contentTabs == '' && load[0]["sNo_fld"] == ''){
@@ -200,7 +200,7 @@ export class RightnavComponent implements OnInit{
     this.toggleisAssignedto = this._user.getPresentationAssignto()   
 
     this._ds.processData1('slides/pres/'+this._user.getSlideId(),{sType_fld: type}, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.currentTabIndex = 1
       this.contentTabs = type;
 
@@ -234,7 +234,7 @@ export class RightnavComponent implements OnInit{
       }
       
       this._ds.processData1(path,this._user.getSlideId(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       // console.log(load)
       this.optionLists = load;
       this.DisabledInput();
@@ -251,7 +251,7 @@ export class RightnavComponent implements OnInit{
     }
 
     this._ds.processData1(path,this._user.getSlideId(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.optionLists.push({id: load})
       this.DisabledInput();
       },err =>{
@@ -359,7 +359,7 @@ updateOptionImage(id:any){
   
   // console.log(id, fd.get('image'))
   this._ds.processData1('upload/option/'+id, fd , 3)?.subscribe((res: any) => {
-    let load = this._ds.decrypt(res.d);
+  let load = res;;
     this.DisabledInput();
 
     for (var i = 0; i < this.optionLists.length; i++){
@@ -396,7 +396,7 @@ uploadImage(){
   const fd = new FormData();
   fd.append('image', this.newImage);
   this._ds.processData1('upload/content/'+ this._user.getContentId(), fd, 3)?.subscribe((res: any) => {
-    let load = this._ds.decrypt(res.d);
+  let load = res;;
     this.image = load;
     this.updateContent(this.contentTabs);
     },err =>{
@@ -416,7 +416,7 @@ uploadImage(){
 
   checkViewers(){
     this._ds.processData1('history/getSlideViewer', this._user.getPresentationId(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       // console.log('viewer',load);
       this.viewers = load
       this.dataSource = new MatTableDataSource(load); 

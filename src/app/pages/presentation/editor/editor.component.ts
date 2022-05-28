@@ -188,7 +188,7 @@ export class EditorComponent implements OnInit {
   getResponse(){
     // this.modalSubscription =  this._user.SubjectslideId?.subscribe((data) => {
       this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
-        let load = this._ds.decrypt(res.d);
+      let load = res;;
         this.responseLists = load;
         // console.log(this.responseLists)
 
@@ -202,7 +202,7 @@ export class EditorComponent implements OnInit {
 
   getOptions(){
     this._ds.processData1('poll/getPolls',this._user.getSlideId(), 2)?.subscribe((res: any) => {
-    let load = this._ds.decrypt(res.d);
+  let load = res;;
     // console.log(load)
     this.fullscreenRef.componentInstance.showOptions = load;
     },err =>{
@@ -362,7 +362,7 @@ export class EditorComponent implements OnInit {
     this.isPresssedEnter = false;
  
     this._ds.processData1('contents/update/'+this._user.getContentId(), this.myArrayData, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
         this.isCardloading = false;
         this.toSlideMain.emit({isSpin: true, type: this.type});
   

@@ -76,7 +76,7 @@ export class ResponseviewerComponent implements OnInit {
     }
    
     this._ds.processData1('response/markAnswered/'+id, status, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.getResponse()
 
         },err =>{
@@ -93,7 +93,7 @@ export class ResponseviewerComponent implements OnInit {
 
   getResponse(){
       this._ds.processData1('response/getAllResponseBysdId', this._user.getSlideId() , 2)?.subscribe((res: any) => {
-        let load = this._ds.decrypt(res.d);
+      let load = res;;
         this.responses = load;
 
           },err =>{

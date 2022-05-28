@@ -93,7 +93,7 @@ export class SlidemainComponent implements OnInit {
 
   async getPresentation(){
     this._ds.processData1('slides/'+this.id,'', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this._user.setPresentation(load.id, load.sCode_fld,load.sName_fld,load.sPace_fld, load.isQuiz_fld, load.isStarted_fld, load.isassigned_fld);
       this._user.setPresentationTheme(load.sTheme_fld, load.sColor_fld);
       this.presentationName = this._user.getPresentationName();
@@ -167,7 +167,7 @@ export class SlidemainComponent implements OnInit {
     this.showSpinner = true;
     this._ds.processData1('slides/update/'+this._user.getPresentationId(), jsonData, 2)?.pipe(finalize(() => this.showSpinner = false))?.subscribe((res: any) => {
       
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this._user.setPresentationTheme(load.sTheme_fld,load.sColor_fld);
       this._user.setPresPace(load.sPace_fld);
       this._user.getPresentationNewPaceandisAssigned()

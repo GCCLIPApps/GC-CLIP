@@ -72,7 +72,7 @@ export class SlidelistComponent implements OnInit {
   getSlidelist(){
     // console.log(this.id, this.slideTimer)
     this._ds.processData1('slides/pres/bySlideId', this.id, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       // console.log(load)
       this.items = load;
       this.slideSelector(load[0], 0);
@@ -96,7 +96,7 @@ export class SlidelistComponent implements OnInit {
     {sId: this._user.getPresentationId(), 
     sNo_fld: length
     }, 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.DisabledInput();
       this.items.push(load);
       this.slideSelector(load, length);

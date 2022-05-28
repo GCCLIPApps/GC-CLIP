@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
 
   getAllPresentation(){
     this._ds.processData1(`slides/byUserId/${0}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
       this.forAnimation = load
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.paginator = this.paginator;
@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
 
   getAllQuiz(){
     this._ds.processData1(`slides/byUserId/${1}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;
       this.forAnimation = load
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.paginator = this.paginator;
@@ -170,7 +170,7 @@ export class DashboardComponent implements OnInit {
   exportResult(id: number){
     // console.log(id)
     this._ds.processData1(`scores/getAllScores/${id}`, '', 2)?.subscribe((res: any) => {
-      let load = this._ds.decrypt(res.d);
+    let load = res;;
 
         this.generateExcel(load);
 
