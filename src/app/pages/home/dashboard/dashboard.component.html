@@ -238,6 +238,16 @@
                           <mat-icon >delete</mat-icon>
                           Delete
                         </button>
+                        <button  mat-menu-item (click)="exportResult(Quiz.id)" matTooltip="Excel Result">
+                          <mat-icon>file_download</mat-icon>
+                          <span>Export results</span> 
+                        </button>
+
+                        
+                        <button  mat-menu-item (click)="gotoResult(Quiz.id)" matTooltip="View Result">
+                          <mat-icon>analytics</mat-icon>
+                          <span>Go to results</span> 
+                        </button>
                       </mat-menu>
                     </div>
                
@@ -260,51 +270,7 @@
                 </div>
                
             </div>
-              <!-- <div class="container-fluid my-4">
-                <div class="row">
-                  <div class="col-xl-4 col-lg-4 col-md-6" *ngFor="let Quizz of Quizzes; let i = index">
-
           
-                      <mat-card class="presentation-holder mat-elevation-z5" >
-                            <div class="foreground"  [style.background]="Quizz.sTheme_fld" [style.color]="Quizz.sColor_fld">
-                              <mat-card-header>
-                                  <mat-card-title>
-                                    <div class="title">
-
-                                      {{Quizz.sName_fld}}
-                                    </div>
-                                  </mat-card-title>
-                               
-
-                                  <div class="logo">
-                                    <img src="assets//App logo wbg.png" alt="" >
-                                  </div>
-                             
-
-                                
-                                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                                  <mat-icon>more_vert</mat-icon>
-                                </button>
-                                <mat-menu #menu="matMenu" xPosition="before">
-                                  <button mat-menu-item>Expand</button>
-                                  <button mat-menu-item>Remove</button>
-                                </mat-menu>
-                              </mat-card-header>  
-
-
-                              <div class="button-group">
-                                <mat-card-actions>
-                                  <button mat-raised-button>LIKE</button>
-                                  <button mat-raised0button>SHARE</button>
-                                </mat-card-actions>
-                              </div>
-                       
-                            </div>
-                      </mat-card>
-
-                  </div>
-                </div>
-              </div> -->
       
                   <!-- <table mat-table [dataSource]="dataSource"  matSort>
     
