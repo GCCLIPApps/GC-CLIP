@@ -1,1 +1,79 @@
-<p>profile works</p>
+
+<div class="main-container">
+
+
+    <header>
+        <mat-icon>
+            account_circle
+       </mat-icon>
+       <h5>Instructor's Information</h5>
+    </header>
+
+
+    
+  
+  
+
+
+    <div class="main-page">
+        <div class="basic-info mat-elevation-z3">
+                <div class="header">
+                    <div class="image-holder">
+                        <img [src]="profilepic" alt="">
+                    </div>
+                    <div class="profile-content">
+                        <h5>{{fullname}}</h5>
+                        <p>{{department}}</p>
+                    </div>
+                  
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card"></div>
+
+                    </div>
+                    <div class="col">
+                        <div class="card"></div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="personal-info mat-elevation-z3">
+                    <div class="header">
+                        <div class="personal-content">
+                            <mat-icon>
+                                account_circle
+                           </mat-icon>
+                           <h5>Personal Information</h5>
+                        </div>
+                    
+                    </div>
+                <hr>
+                <div class="profile-form">
+                    <div class="info-group">
+                        <label for="">Instructor ID</label>
+                        <p>
+                            {{user_id}}
+                        </p>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Email Addres</label>
+                        <p>
+                            {{email}}
+                        </p>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Department</label>
+                        <p>
+                            {{department}}
+                        </p>
+                    </div>
+             
+                </div>
+
+            </div>
+    </div>
+</div>
+    
