@@ -41,6 +41,13 @@ mat-sidenav-content {
         background-color: var(--clr-white);
     }
     .main-content{
+        padding: 2.5rem;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .main-content{
         padding: .5rem;
     }
 }
+
