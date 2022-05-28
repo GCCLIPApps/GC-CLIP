@@ -100,7 +100,7 @@ $admin-portal-theme: mat.define-light-theme((
 //Fonts
 --font-title: #1fad8f;
 --font-black: #212b29;
-
+--font-white: #ffffff;
 --font-light: #ecffff;
 
 //For rightnav tab groups
@@ -128,7 +128,8 @@ html, body { height: 100%; }
 * { 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-   
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
