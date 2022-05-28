@@ -86,6 +86,7 @@ $admin-portal-theme: mat.define-light-theme((
 --clr-light: #32e3ba;
 --clr-white: #ffffff;
 
+--clr-lightgreen: #00d796;
 //BG For Inputs
 --clr-input: #fff;
 
@@ -99,7 +100,7 @@ $admin-portal-theme: mat.define-light-theme((
 
 //Fonts
 --font-title: #1fad8f;
---font-black: #212b29;
+--font-black: #212121;
 --font-white: #ffffff;
 --font-light: #ecffff;
 
@@ -166,7 +167,7 @@ html, body { height: 100%; }
   }
   
   .snackbar-error {
-    background-color: red;
+    background-color: var(--clr-warn);
   }
   
   .snackbar-success {
@@ -175,4 +176,8 @@ html, body { height: 100%; }
   
   .snackbar-info {
     color: var(--clr-lightfontgreen) !important;
+  }
+
+  label,p,h1,h2,h3,h4,h5,h6{
+    margin: 0;
   }
