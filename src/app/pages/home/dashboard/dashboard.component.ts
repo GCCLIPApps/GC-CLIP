@@ -104,6 +104,7 @@ export class DashboardComponent implements OnInit {
   }
 
   Quizzes: any = []
+  
   getAllQuiz(){
     this._ds.processData1(`slides/byUserId/${1}`, this._user.getUserID(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
@@ -141,7 +142,7 @@ export class DashboardComponent implements OnInit {
  
   }
 
-  openDeleteDialog(presId: number, index: number) {
+  openDeleteDialog(presId: number, index: number, status: number) {
     const dialogRef = this.matDialog.open(ConfirmationDialogComponent,{
       data:{
         id: presId,
@@ -155,9 +156,16 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
+          if(status){
+            this.Quizzes.splice(index, 1);
+          }else{
+            this.Presentations.splice(index, 1);
+          }
           this.dataSource.data.splice(index, 1);
           this.dataSource._updateChangeSubscription();
           this._snackBar.ngOnDestroy();
+
+
           this._snackBar.open("Presentation Deleted", '', {
             duration: 2000,
           });
