@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import * as CryptoJS from 'crypto-js';
 import { DataSchema } from '../data-schema';
 import { DataService } from "../services/data.service";
@@ -9,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { ChangepassComponent } from './changepass/changepass.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
     return new Array(i);
   }
   constructor(
+    private _sb: NotificationService,
     private _cs: CookieService,
-    private _snackBar: MatSnackBar,
     private _fb: FormBuilder, 
     private _ds: DataService,
     private _user: UserService,  
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.rememberme = atob((localStorage.getItem(btoa('rememberme')?.replace('=','')) || '' ))
     this.loginForm = this._fb.group({
-      email: ['', Validators.email],
+      email: ['', [Validators.required, Validators.email] ],
       password: ['', Validators.required],
       status: ['1'],
       rememberme: [this.rememberme]
@@ -91,10 +91,8 @@ export class LoginComponent implements OnInit {
       }
 
       this._router.navigate(['/main']);
-      this._snackBar.open("Welcome "+ this._user.getFullname(), "", {
-        duration: 2000,
-        panelClass: ['login-snackbar']
-      });
+      this._sb.success("Welcome "+ this._user.getFullname())
+ 
 
       }, err =>{
         this.Error = true;
@@ -106,16 +104,14 @@ export class LoginComponent implements OnInit {
 
   openchangepass(){
     const dialogRef = this.matDialog.open(ChangepassComponent,{
-      
+      height: 'auto',
       width: '30%'
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
     
-          this._snackBar.open("Presentation Deleted", '', {
-            duration: 2000,
-          });
+
       }
     });
   }

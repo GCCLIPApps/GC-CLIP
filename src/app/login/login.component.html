@@ -1,4 +1,4 @@
-<div class="background">
+<!-- <div class="background">
 
     
 <div id="main" class="fullscreen">
@@ -16,7 +16,6 @@
                 <div class="header">
                     <div class="header_image">
                         <img src="assets//App logo wbg.png" alt="" class="logo">
-                        <!-- <img src="../../assets/App logo wbg.png" alt="" class="logo"> -->
                     </div>
                     <div class="welcome">
                         <h3 >Welcome to <strong>GC CLIP</strong></h3>
@@ -69,10 +68,10 @@
                             </button>
                           </form>
                     </mat-card-content>
-                    <div class="text-center">
+                    <div class="text-center"> -->
                         <!-- <small  >No account yet? <a routerLink="/signup"><strong>Click Here</strong></a></small>
                         <br> -->
-                        <small >Forget Password ? <a ><strong (click)="openchangepass()">Click Here</strong></a></small>
+                        <!-- <small >Forget Password ? <a ><strong (click)="openchangepass()">Click Here</strong></a></small>
                     </div>
                 
                 </mat-card>
@@ -80,10 +79,65 @@
     
         </div>
     </div>
+</div> -->
+
+<div class="bg"></div>
+
+
+<div class="text">
+    <p>Instructors</p>
+</div>
+<div class="d-flex full">
+        <div class="d-flex top">
+            <div class="shape d-flex"></div>
+            <div class="shape-light d-flex"></div>
+        </div>
 </div>
 
-<!-- <footer>
-	<p>
-	  Team Parallel Startup 2021-2022
-	</p>
-</footer> -->
+<div class="front d-flex">
+    <div class="left">
+        <img class="img-top" src="./assets/images/Other/Student 1.png" alt="">
+        <div class="bot">
+            <img class="logo" src="./assets/images/Logo/applogo-white.png" alt="">
+            <img class="logo-gc" src="./assets/images/Logo/gc-logo white.png" alt="">
+        </div>
+    </div>
+    <div class="right">
+        <div class="d-flex form-container">
+            <form class="form-login" [formGroup]="loginForm" (ngSubmit)="signIn()" ngNativeValidate  class="d-flex justify-content-center align-items-center flex-column">
+                <div id="greet" class="d-flex">
+                    <h4>Instructors Portal</h4>
+                </div>
+
+                <div class="input-container">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Enter your email</mat-label>
+                        <input type="email" matInput  formControlName="email" autocomplete="email" required>                         
+                      </mat-form-field>
+                </div>
+
+                <div class="input-container">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" autocomplete="current-password" required>
+                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>                 
+                    </mat-form-field>
+                </div>
+                <strong *ngIf="Error" style="color:'var(--clr-warn)'">Incorrect Email or Password</strong>    
+
+                <p style="margin-bottom: 15px;">
+                    <mat-checkbox color="primary" formControlName="rememberme" [checked]="rememberme"> Remember Me</mat-checkbox>
+                <p>
+                <p>
+                    <button type="submit"  id="btn-login" mat-raised-button type="submit" [disabled]="!loginForm.valid" >Login</button>
+                </p>
+                <p class="forgot">
+                    <small >Forget Password ? <a ><strong (click)="openchangepass()">Click Here</strong></a></small>
+                <p>
+
+            </form>
+        </div>
+    </div>
+</div>
