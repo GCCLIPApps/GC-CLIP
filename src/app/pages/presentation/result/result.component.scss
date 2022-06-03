@@ -1,22 +1,36 @@
 
 .mat-toolbar{
-    background-color: var(--clr-darkgreen);
+    color: var(--font-white);
+    background-color: var(--clr-primary);
 }
 
-.mat-card{
+.main-card{
     padding: 0 !important;
     height: 100% !important;
-    border-radius: 25px !important;
-
+    border-radius: 15px !important; 
+    .btn-holder{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px !important;
+        button{
+          width: 40%;
+          font-weight: 600;
+          letter-spacing: 1px;
+          color: var(--font-white);
+          background-color: var(--btn-save) !important;
+        }
+      
+      }
     .cardAnalyticholder{
-        border-radius: 25px !important;
-        color: white;
+        border-radius: 15px !important; 
+        color:var(--clr-input);
         padding: 1.5rem;
-        background-color:var(--clr-darkgreen) !important;
+        background-color:var(--clr-instructor-green) !important;
       }
     .subtitle{
         font-size: .9rem;
-        color: var(--clr-gray);
+        color: var(--font-label);
         display: flex;
         align-items: center;
         mat-icon{
@@ -25,37 +39,29 @@
     }
 }
 
+
+
 .studentno{
     button.mat-fab{
         color: var(--clr-dark) !important;
-        background-color: var(--clr-gray) !important;
+        background-color: var(--clr-input) !important;
     }
     p{
         font-weight: 600;
         margin-top: .5rem;
-        color: var(--clr-lightfontgreen);
+        color: var(--background-secondary);
     }
 }
 
 
-mat-tab-body-content{
-    height: 100% !important;
-    
-}
-
-  mat-tab-group {
-    border-radius: 25px !important;
-
-      min-height: 50vh !important;
-      background-color: white;
-      mat-card{
-          height: 100% !important;
-      }
-  }
 .students-card{
     padding: 1rem !important;
 }
 .result{
+    border-radius: 15px !important; 
+    min-height: 50vh !important;
+    background-color:var(--clr-input);
+
     .mat-tab-label {
         padding: .5rem;
         font-size: 1.5rem;
@@ -73,14 +79,51 @@ mat-tab-body-content{
     }
     
 }
+.mat-column-right_fld{
+    .email-header{
+        margin-left: 1rem !important;
+
+    }
+}
+    .mat-column-email_fld{
+        letter-spacing: .5px;
+        color: var(--font-white);
+        background-color: var(--clr-darkblue);
+        .name-header {
+            transition: .5s;
+            font-weight: 600;
+            overflow: hidden;
+            margin-left: 1rem;
+            white-space: nowrap !important; 
+            text-overflow: ellipsis !important; 
+       
+        }
+    }
+
+   .mat-column-name_fld{
+        letter-spacing: .5px;
+        color: var(--font-white);
+        background-color: var(--clr-darkblue);
+        .name-header {
+            transition: .5s;
+            font-weight: 600;
+            overflow: hidden;
+            margin-left: 1rem;
+            white-space: nowrap !important; 
+            text-overflow: ellipsis !important; 
+       
+        }
+    }
 
 .mat-table{
   background-color:transparent!important;  
 }
 table {
   width: 100%;
+  text-align: center;
   border-collapse: collapse;
-  border-radius: 25px !important;
+  border-radius: 15px !important; 
+
 }
 table tr:last-child td /*To remove the last border*/
 {
@@ -89,7 +132,7 @@ table tr:last-child td /*To remove the last border*/
 th, td{
     cursor: pointer;
     text-align: left;
-    color: var(--clr-third);
+    color: var(--background-default);
 }
 td{
     margin: auto;
@@ -99,16 +142,21 @@ td{
 .mat-header-cell {
     transition: .5s;
     font-weight: 600;
-    color: var(--clr-headgreen); 
-    background:var(--clr-lightfontgreen);
-
+    color: var(--font-white);
+    // color: var(--font-title); 
+    // background:var(--background-secondary);
+    background-color:var(--clr-darkblue);
     tr.example-element-row:not(.example-expanded-row):active,:hover {
         transition: .5s;
-        color: var(--clr-lightgray); 
+        color: var(--background-default); 
     }
 }
 
 tr.example-element-row:not(.example-expanded-row):hover  {
     transition: .5s;
-    background: var(--clr-lightgray);
+    background: var(--background-default);
+}
+
+.barchart{
+    padding: 1rem;
 }
