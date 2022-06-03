@@ -5,9 +5,9 @@
   .theme-header{
     h1 {
       margin-left: 1rem;
-      font-size: 1.5rem;
       font-weight: lighter;
-      color: var( --clr-darkgreen);
+      color: var(--font-title);
+      font-size: var(--font-large);
       }
     mat-icon{
       font-size: 30px;
@@ -18,11 +18,11 @@
 
 }
 
-mat-divider{
-    width: 100%;
-    // padding-bottom: 1rem;
-    border-color: var(--clr-darkgreen);
-}
+// mat-divider{
+//     width: 100%;
+//     // padding-bottom: 1rem;
+//     border-color: var(--clr-darkgreen);
+// }
 
 .btn-close {
   height: 23px;
