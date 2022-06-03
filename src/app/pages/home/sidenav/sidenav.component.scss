@@ -61,8 +61,9 @@
   a.router-link-active {
     // padding-right: .5rem;
     // letter-spacing: .5px;
+    pointer-events: none;
     color: var(--clr-white) !important;
-    border-left: 5px solid var(--clr-newgreen);
+    // border-left: 5px solid var(--clr-newgreen);
     ::ng-deep {
       .mat-list-item-content {
         opacity: 1;
