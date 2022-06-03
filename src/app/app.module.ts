@@ -48,9 +48,11 @@ import { InstructorpaceComponent } from './pages/presentation/editor/instructorp
 import { AddstudentsComponent } from './pages/presentation/rightnav/addstudents/addstudents.component';
 import { ResultComponent } from './pages/presentation/result/result.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { StudentresultComponent } from './dialogs/studentresult/studentresult.component';
 // const config: SocketIoConfig = { url: 'http://gordoncollegeccs.edu.ph:4231', options: { autoConnect: false} };
 const config: SocketIoConfig = { url: environment.socket, options: { autoConnect: false} };
 
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,7 @@ const config: SocketIoConfig = { url: environment.socket, options: { autoConnect
     AddstudentsComponent,
     ResultComponent,
     ProfileComponent,
+    StudentresultComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,9 @@ const config: SocketIoConfig = { url: environment.socket, options: { autoConnect
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgChartsModule
+
   ],
   providers: [CookieService, Title,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
