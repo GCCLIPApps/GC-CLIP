@@ -7,6 +7,7 @@ import * as encHex from 'crypto-js/enc-hex';
 import * as aes from 'crypto-js/aes';
 import * as padZeroPadding from 'crypto-js/pad-zeropadding';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -107,4 +108,5 @@ export class DataService {
   //   return  JSON.parse(decodeURIComponent(decrypted));
     
   // }
+
 }
