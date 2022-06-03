@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     h1 {
-    color: var( --clr-darkgreen);
+    color: var( --clr-instructor-green);
     font-weight: 600;
     font-size: 1.5rem;
     
@@ -13,20 +13,20 @@
 mat-divider{
     width: 100%;
     // padding-bottom: 1rem;
-    border-color: var(--clr-darkgreen);
+    // border-color: var(--clr-instructor-green);
 }
 
 .btn-close {
     height: 23px;
     width: 23px;
     border: none;
-    color: var(--clr-black);
+    color: var(--clr-dark);
     background-color: transparent;
     mat-icon{
         height: 25px;
         width: 25px;
         border-radius: 50%;
-        background-color: var(--clr-lightgray);
+        background-color: var(--font-label);
 
     }
 }
@@ -44,8 +44,9 @@ mat-form-field{
 }
 
 .success{
+    font-weight: 600;
     color: var(--clr-white);
-    background-color: var(--clr-darkgreen);
+    background-color: var(--clr-instructor-green);
     button{
         width: 100%;
     }

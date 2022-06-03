@@ -1,10 +1,27 @@
-<mat-nav-list class="d-flex ">
-    <a mat-list-item (click)="openCreateDialog('Quiz')" class="mr-1">
-        <mat-icon>quiz</mat-icon> <span>Quiz</span>
-    </a>
-  
-    <a  mat-list-item (click)="openCreateDialog('Presentation')">
-        <mat-icon>present_to_all</mat-icon> <span>Presentation</span>
+<ng-container>
+    <div class="dialog-header d-flex justify-content-between" mat-dialog-title>
 
-    </a>
-  </mat-nav-list>
+        <div class="addstudents-header d-flex">
+          <mat-icon color="primary">abc</mat-icon>
+          <h1 mat-dialog-title>Choose Type</h1>
+        </div>
+  
+     
+  
+              <div mat-dialog-close class="close-button">
+                <mat-icon>highlight_off</mat-icon>
+            </div>
+      </div> 
+
+      <mat-divider>
+        
+      </mat-divider>
+    <mat-dialog-content class="mat-typography">
+        <div class="btn-holder">
+            <button mat-button  (click)="openCreateDialog('Presentation')" mat-dialog-close>Presentation</button>
+            <button mat-button  (click)="openCreateDialog('Quiz')" mat-dialog-close>Quiz</button>
+        </div>
+        
+    </mat-dialog-content>
+</ng-container>
+

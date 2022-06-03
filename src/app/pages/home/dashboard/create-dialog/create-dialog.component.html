@@ -1,27 +1,30 @@
-<div class="dialog-header d-flex justify-content-between">
-    <h1  mat-dialog-title>{{'Create '+isQuiz}}</h1>
-
-    <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
-</div>
-
-<mat-divider></mat-divider>
-
-
-<mat-dialog-content class="mat-typography">
-    <div class="row gx-5">
-   
-            <mat-form-field appearance="fill">
-                <mat-label>{{isQuiz +' title'}}</mat-label>
-                <input matInput [(ngModel)]="title" required class="input">
-            </mat-form-field>
-     
+<ng-container>
+    <div class="dialog-header d-flex justify-content-between">
+        <h1  mat-dialog-title>{{'Create '+isQuiz}}</h1>
+    
+        <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
     </div>
-</mat-dialog-content>
+    
+    <mat-divider></mat-divider>
+    
+    
+    <mat-dialog-content class="mat-typography">
+        <div class="row gx-5">
+       
+                <mat-form-field appearance="fill">
+                    <mat-label>{{isQuiz +' title'}}</mat-label>
+                    <input matInput type="search" [(ngModel)]="title" required class="input" autocomplete="off">
+                </mat-form-field>
+         
+        </div>
+    </mat-dialog-content>
+    
+    
+       
+    <mat-dialog-actions align="end">
+        <div class="button">
+            <button mat-raised-button (click)="onSubmit()" [disabled]="title.length <= 6" class="success">Submit</button>
+        </div>
+    </mat-dialog-actions>  
+</ng-container>
 
-
-   
-<mat-dialog-actions align="end">
-    <div class="button">
-        <button mat-raised-button (click)="onSubmit()" [disabled]="title.length <= 6" class="success"><mat-icon>check</mat-icon></button>
-    </div>
-</mat-dialog-actions>  

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA,MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
+import { UserService } from 'src/app/services/user.service';
 import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 
 @Component({
@@ -11,12 +13,11 @@ import { CreateDialogComponent } from '../create-dialog/create-dialog.component'
 export class CreateOptionComponent implements OnInit {
 
   constructor(private matDialog: MatDialog,
-    private _bottomSheetRef: MatBottomSheetRef) { }
+  ) { }
 
   ngOnInit(): void {
   }
   openCreateDialog(createMsg: string){
-    this._bottomSheetRef.dismiss();
 
     const dialogConfig = this.matDialog.open(CreateDialogComponent, {
       data:{
