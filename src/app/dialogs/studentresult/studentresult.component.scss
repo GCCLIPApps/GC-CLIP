@@ -1,0 +1,110 @@
+.mat-button{
+    width: 40%;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--clr-white);
+    background-color: var(--btn-save) !important;
+}
+
+.mat-divider{
+    margin-bottom: 20px;
+   }
+
+.dialog-header{
+    h1{ 
+        text-align: left;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color: var(--font-title) !important;
+    }
+}
+.student-header{
+    h1{
+
+    }
+    p{
+
+    }
+
+}
+.score-holder{
+    padding: 3rem;
+    border-radius: 15px !important;
+    background-image: radial-gradient(circle at 67% 33%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 50%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg, var(--clr-instructor-green),var(--font-title));
+    .chiplist{
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        .score,.time,.points{
+            margin: 1rem;
+            display: flex;
+            transition: .5s;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px !important;
+            background-color: var(--btn-secondary);
+            width: 150px !important;
+            height: 150px !important;
+             h1{
+                 font-size: var(--font-large);
+                 color: var(--font-white);
+                 font-weight: 600;
+             }
+             &:hover{
+                 background-color: var(--clr-gray);
+             }
+        }
+        .score{
+            background-color: var(--card-score);
+        }
+        .time{
+            background-color: var(--card-time);
+
+        }
+        .points{
+            background-color: var(--card-points);
+
+        }
+
+    }
+}
+
+.student-result
+{
+    .info-group{
+      gap: 1rem;
+      margin-bottom: 1rem;
+      label{
+          font-size: var(--font-normal);
+
+          font-weight: bold;
+      }
+      p{  
+        display: block;
+        align-items: center;
+        padding: 1rem;
+        margin-top: .5rem;
+        font-size: var(--font-normal);
+        background-color: var(--background-default);
+
+        mat-icon{
+              margin: auto !important;
+        }
+      }
+  }
+}
+
+.highlight {
+    font-weight: bold;
+    color: var(--font-white);
+    background-color:  var(--clr-instructor-green) !important;    // color: rgb(118, 118, 255);
+    &:hover {
+      // opacity: 0.9;
+      cursor: pointer;
+      transition: 0.5s;
+      color: var(--clr-input);
+      background-color: var(--clr-instructor-green) !important;
+    }
+  }

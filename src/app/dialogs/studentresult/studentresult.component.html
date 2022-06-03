@@ -1,0 +1,57 @@
+<ng-container >
+    <div class="dialog-header text-header d-flex justify-content-between">
+
+        <h1 mat-dialog-title>Quiz Result</h1>
+
+            <div mat-dialog-close class="close-button">
+              <mat-icon>highlight_off</mat-icon>
+          </div>
+      </div>  
+
+      <mat-divider></mat-divider>
+
+    <mat-dialog-content class="mat-typography">
+
+        <div class="student-header">
+            <h1>{{fname}} {{mname}} {{lname}}</h1>
+                <p>{{email}}</p>
+        </div>
+
+        <div class="score-holder">
+            <div class="chiplist">
+                <div class="score">
+                   <h1>{{   score}} of {{ totalquestion}}</h1> 
+                </div>
+                <div class="time">
+                   <h1>{{timeelapse}} sec</h1> 
+                </div>
+                <div class="points">
+                   <h1> {{totalpoints}} pts.</h1>
+                </div>
+            </div>
+        </div>
+
+        <mat-card>
+            <mat-card-content>
+                <div class="student-result">
+                    <div class="info-group" *ngFor="let quizResult of quizResults; let i = index">
+                        <label for="">{{ i + 1}}. {{quizResult.heading_fld}}  <small>({{quizResult.timeanswered_fld}} seconds) </small> </label>
+                        <p [ngClass]="{'highlight':quizResult.iscorrect_fld == 1}"  >
+                            {{quizResult.response_fld}}
+                            <mat-icon  *ngIf="quizResult.iscorrect_fld == 1">
+                                done
+                            </mat-icon>
+                            <mat-icon *ngIf="quizResult.iscorrect_fld == 0">
+                                close
+                            </mat-icon>
+                        </p>
+                      
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    
+    
+    </mat-dialog-content>   
+
+</ng-container> 

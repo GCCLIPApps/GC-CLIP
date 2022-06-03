@@ -41,7 +41,7 @@ $admin-portal-theme: mat.define-light-theme((
     // --clr-light: #9BACCC;
     // --clr-cardlist: #0a8dff;
 
-    // --clr-gray: #c9c7c7;
+
     // --clr-lightgray: #f5f4f4;
 
     // --clr-dark: #313a3e;
@@ -103,6 +103,7 @@ $admin-portal-theme: mat.define-light-theme((
 --font-black: #212121;
 --font-white: #ffffff;
 --font-light: #ecffff;
+--clr-gray: #c9c7c7;
 
 //For rightnav tab groups
 --font-label: #f5f4f4;
@@ -119,6 +120,12 @@ $admin-portal-theme: mat.define-light-theme((
 --clr-warn: red;
 --clr-dark: #313a3e;
 --clr-success: #08f4ad;
+--clr-darkblue: #334e5c;
+
+// Result Card
+--card-score: #f1c40f;
+--card-time: #3498db;
+--card-points: #e74c3c;
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -167,15 +174,18 @@ html, body { height: 100%; }
   }
   
   .snackbar-error {
+    color: var(--font-light);
     background-color: var(--clr-warn);
   }
   
   .snackbar-success {
+    color: var(--font-light);
     background: var(--clr-dark) !important;
   }
   
   .snackbar-info {
-    color: var(--clr-lightfontgreen) !important;
+    color: var(--font-light);
+    color: var(--clr-secondary) !important;
   }
 
   label,p,h1,h2,h3,h4,h5,h6{
