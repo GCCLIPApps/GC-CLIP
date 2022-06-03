@@ -3,7 +3,9 @@
 .header_title{
     top: 0;
     z-index: 90;
-    background-color: var(--clr-darkgreen);
+    position: sticky;
+    background-image: radial-gradient(circle at 67% 33%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 50%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg, var(--clr-instructor-green),var(--font-title));
+    
 }
 .wrapper{
     margin: 1rem 0rem 0 0rem;
@@ -46,19 +48,19 @@ mat-card{
             font-size: .8rem;
             margin-right: 1rem;
             font-weight: lighter;
-            color: var(--clr-lightgray);
+            color: var(--font-label);
         }
     }
     .play{      
         transition: .3s;
         color: var(--clr-white);
-        background-color: var(--clr-darkbutton);
+        background-color: var(--clr-primary);
 
 
         &:hover{
             transition: .3s;
-            color: var(--clr-orange);
-            background-color: var(--clr-dbgreen); 
+            color: var(--btn-secondary);
+            background-color: var(--background-secondary); 
         }
     }
     .theme_code{
@@ -69,8 +71,8 @@ mat-card{
 
         &:hover{
             transition: .3s;
-            color: var(--clr-fontgreen); 
-            background-color: var(--clr-lightfontgreen); 
+            color: var(--font-title); 
+            background-color: var(--background-secondary); 
 
         }
     }
@@ -85,7 +87,7 @@ mat-card{
   }
   ::ng-deep .mat-simple-snackbar {
     justify-content: center!important;
-    color: var(--clr-lightfontgreen) !important;
+    color: var(--background-secondary) !important;
     font-family: 'Quattrocento Sans';
   }
 
@@ -106,14 +108,14 @@ input[type="text"]:focus{
     outline: none;
     width: 500px;
     padding-left: 1rem;    
-    border: 1px solid var(--clr-lightgray);
-    box-shadow: 0px 0px 5px var(--clr-lightgray);
-    }
+    border: 1px solid var(--background-default);
+    box-shadow: 0px 0px 5px var(--background-default);
+}
     
-    input[type="text"]:hover{
+input[type="text"]:hover{
     padding-left: 1rem;
-    border: 1px solid var(--clr-gray);
-    }
+    border: 1px solid var(--clr-hvr-btn);
+}
     
     // input[type="text"]:focus:hover{
     // outline: none;
@@ -121,19 +123,19 @@ input[type="text"]:focus{
     // box-shadow: 0px 0px 5px #9B9B9B;
     // }  
     
-    @media  screen and (max-width: 1366px) {
-        input[type="text"]:focus{
-            outline: none;
-            width: 300px;
-            padding-left: 1rem;    
-            border: 1px solid var(--clr-lightgray);
-            box-shadow: 0px 0px 5px var(--clr-lightgray);
-        }
-
-        .header_title{
-            position: relative;
-            top: 0;
-            z-index: 90;
-            background-color: var(--clr-darkgreen);
-        }
+@media  screen and (max-width: 1366px) {
+    input[type="text"]:focus{
+        outline: none;
+        width: 400px;
+        padding-left: 1rem;    
+        border: 1px solid var(--background-default);
+        box-shadow: 0px 0px 5px var(--background-default);
     }
+
+    .header_title{
+        position: relative;
+        top: 0;
+        z-index: 90;
+        background-color: var(--clr-primary);
+    }
+}
