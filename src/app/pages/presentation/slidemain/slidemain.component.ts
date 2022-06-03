@@ -154,7 +154,6 @@ export class SlidemainComponent implements OnInit {
       this._user.setPresAssignto(0)
     }
 
-
     let jsonData = {sName_fld: this.presentationName, 
       sTheme_fld: this.sTheme, 
       sColor_fld: this.sColor, 
