@@ -20,18 +20,18 @@
     top: 5px;
     z-index: 50;
     position: sticky;
-    background-color: var(--clr-darkgreen);    
+    background-color: var(--clr-instructor-green);    
     .add_slide{
       width: auto;
       height: 2.5rem;
       color: var(--clr-white);
-      background-color: var(--clr-darkbutton);
+      background-color: var(--btn-primary);
   
       span{
         font-weight: lighter;
       }
       &:hover{
-        background-color: var(--clr-dbgreen);
+        background-color: var(--clr-hvr-btn);
       }
     }
   
@@ -73,11 +73,11 @@
   
 
   .mat-menu-item{
-    color: var(--clr-third) !important;
+    color: var(--clr-dark) !important;
     transition: 0.5s;
 
     mat-icon{
-      color: var(--clr-third) !important;
+      color: var(--clr-dark) !important;
     }
 
     &:hover{
@@ -102,7 +102,7 @@
       // justify-content: center; 
       width: 120%;
       height: 80px !important;
-      border-radius: 25px;
+      border-radius: 5px;
       border: .01rem solid  var(--clr-gray);
     
         .mat-card-content{
@@ -148,7 +148,7 @@
     }
     .mat-card{
       border: 1px solid var(--clr-newgreen);
-      box-shadow: 0px 0px 10px var(--clr-darkgreen);
+      box-shadow: 0px 0px 10px var(--clr-instructor-green);
     }
   }
 
@@ -161,7 +161,7 @@
 
   .cdk-drag-preview {
     box-sizing: border-box;
-    border-radius: 4px;
+    // border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
                 0 8px 10px 1px rgba(0, 0, 0, 0.14),
                 0 3px 14px 2px rgba(0, 0, 0, 0.12);
