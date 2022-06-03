@@ -6,7 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Subject, Subscription } from 'rxjs';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig,MatDialogRef} from '@angular/material/dialog';
+
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { SocketService } from 'src/app/services/socket.service';
 import { AddstudentsComponent } from './addstudents/addstudents.component';
@@ -431,10 +432,24 @@ uploadImage(){
     this.Pace.emit({pace: pace, toggleAssign: this.toggleisAssignedto })
   }
 
-  openAddStudents(){
-    let dialogConfig = this.matDialog.open(AddstudentsComponent,{
-      width: '40%', height:'auto',
+  openAddStudents(status: number){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    let dialogRef = this.matDialog.open(AddstudentsComponent,{
+      width: '50%', height:'auto',
+      data: {
+        status: status
+      }
     });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+
+      }
+    });
+
   }
  
 }

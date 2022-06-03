@@ -831,59 +831,7 @@
                             </mat-card>
                           </div>
                          </div>
-     
-<!-- 
-                         <mat-divider></mat-divider>
 
-                         <div class="top-header">
-                          <p>
-                            Language
-                          </p>
-                        </div>
-                      
-                        <div class="low-header">
-                        <p>Presentation Language</p>
-
-                         <div>
-                          <mat-form-field appearance="fill" class="choose-language"> 
-                            <mat-label>Choose Language</mat-label>
-                            <select matNativeControl required>
-                              <option value="volvo">English</option>
-                              <option value="saab">Saab</option>
-                              <option value="mercedes">Mercedes</option>
-                              <option value="audi">Audi</option>
-                            </select>
-                          </mat-form-field>
-                         </div>
-                        </div> -->
-                      
-                          <!-- <mat-divider></mat-divider>
-                          
-                          <div *ngIf="this._user.getIsStarted()">
-
-                          <div class="top-header">
-                           <p>
-                             Replay
-                           </p>
-                         </div>
-                       
-                         <div class="low-header">
-                         <p>Replay presentation</p>
-  
-                          <div>
-                            <button mat-raised-button color="primary"  (click)="updatePace(isPaceTo)">Replay now</button>
-                          </div>
-                         </div>
-                        </div> -->
-                       
-
-                        <!-- <div class="header">
-                          Language
-                         </div>
-                      <mat-slide-toggle color="primary"
-                        class="check-box" [(ngModel)]="toggleLanguagechecked">
-                        Always use English
-                         </mat-slide-toggle > -->
                       </mat-expansion-panel>
 
                       <mat-expansion-panel  [expanded]="step === 1">
@@ -914,9 +862,16 @@
                             </mat-slide-toggle>
                           </div>
 
-                            <button mat-raised-button *ngIf="toggleisAssignedto" color="primary" (click)="openAddStudents()">
+                          <div class="btn-holder mt-3">
+                            <button mat-raised-button *ngIf="toggleisAssignedto" color="primary" (click)="openAddStudents(1)">
                               Add students
                             </button>
+
+                            <button mat-raised-button *ngIf="toggleisAssignedto" color="primary" (click)="openAddStudents(0)">
+                              View Students
+                            </button>
+                          </div>
+                         
                          </div>
      
 
