@@ -2,7 +2,8 @@
     // border-radius: 25px;
     border-radius: 15px;
     padding: 0 !important;
-    // background-color: var(--clr-darkgreen);
+    
+    background-color: var(--background-default);
 }
 .wrapper{
     margin-top: 1rem;
@@ -29,10 +30,11 @@
         justify-content: space-between;
 
         button{
+
             color: var(--clr-white);
-            background-color: var(--clr-primary);
+            background-color: var(--btn-primary);
             span{
-                font-weight: lighter;
+                font-weight: 600;
             }
 
             // &:hover{
@@ -103,6 +105,7 @@
                 word-break: keep-all;
 
                 p{  
+                    height: 40px !important;
                     font-weight: 600;
                     width: 260px !important;
                     font-size: var(--font-normal); 

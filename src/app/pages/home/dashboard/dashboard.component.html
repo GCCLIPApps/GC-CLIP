@@ -38,10 +38,10 @@
         <section class="content">
           <!-- <mat-card class="mat-elevation-z8" > -->
    
-          <mat-tab-group [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)">
+          <mat-tab-group mat-align-tabs="center" [selectedIndex]="currentTabIndex" (selectedTabChange)="onTabChange($event)">
             <mat-tab label="Presentations">
               <ng-template mat-tab-label>
-                <p  style="margin: auto;">Presentations <sup>{{listOfPres}}</sup> </p>
+                <p  style="margin: auto;">Presentations <sup>{{Presentations.length}}</sup> </p>
               </ng-template>
 
               <div class="main-page">
@@ -209,18 +209,17 @@
     
   
             </mat-tab>
-         
-
+            <!-- [ngStyle]="{'background-image': 'radial-gradient(circle at 77% 43%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 100%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 
+            0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg,'+Quiz.sTheme_fld+', '+Quiz.sTheme_fld+')'}" -->
             <mat-tab label="Quizzes" >
               <ng-template mat-tab-label>
-                <p  style="margin: auto;">Quizzes <sup>{{listofQuiz}}</sup> </p>
+                <p  style="margin: auto;">Quizzes <sup>{{Quizzes.length}}</sup> </p>
               </ng-template>
               
 
               <div class="main-page">
                 <div class="card mat-elevation-z5"  *ngFor="let Quiz of Quizzes; let i = index">
-                  <div class="header"  [ngStyle]="{'background-image': 'radial-gradient(circle at 77% 43%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 100%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 
-                  0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg,'+Quiz.sTheme_fld+', '+Quiz.sTheme_fld+')'}">
+                  <div class="header"  >
                     <p [matTooltip]="Quiz.sName_fld">  {{Quiz.sName_fld}}</p>
 
                     <!-- <small>Published: <span>{{Presentation.createdOn | date: 'MMMM d, y, h:mm a'}}</span></small> -->
