@@ -20,16 +20,17 @@ mat-sidenav-content {
     padding: 3rem;
 }
 
-.mat-toolbar.header {
+.mat-toolbar.header,.mat-drawer-container {
     top: 0;
     z-index: 100;
     position: sticky;
-    background-color: var(--clr-white);
+    color: var(--font-white);
+    background-color: var(--clr-secondary);
 }
 
 @media  screen and (max-width: 1366px) {
     mat-sidenav{
-        width: 120px;
+        width: 130px;
         background-color: var( --clr-primary);
         border-radius: 0 15px 0px 0;
     }
@@ -38,7 +39,8 @@ mat-sidenav-content {
         top: 0;
         z-index: 100;
         position: sticky;
-        background-color: var(--clr-white);
+        color: var(--font-white);
+        background-color: var(--clr-secondary);
     }
     .main-content{
         padding: 2.5rem;
