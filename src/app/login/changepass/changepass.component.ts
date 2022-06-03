@@ -26,7 +26,7 @@ export class ChangepassComponent implements OnInit {
   ngOnInit(): void {
     this.forgotpasswordForm = this._fb.group({
       accountno: ['', Validators.required],
-      email: ['', Validators.required ],
+      email: ['', [Validators.required, Validators.email] ],
       lname: ['', Validators.required],
       status: ['1'],
     })

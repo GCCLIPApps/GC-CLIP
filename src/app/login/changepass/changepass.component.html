@@ -1,4 +1,4 @@
-<div class="dialog-header d-flex justify-content-between">
+<div class="dialog-header d-flex justify-content-between  mb-3">
     <div class="header">
       <h1>Forget Password</h1>
       <span  >Please provide the following information inside the form. 
@@ -39,7 +39,7 @@
                       <strong *ngIf="Error" style="color:red">Incorrect Email or Password</strong>    
                 </div>
 
-                <button type="submit" class="login-button btn" style="background:'var(--clr-darkgreen)'; color:var(--clr-lightfontgreen)"  [disabled]="!forgotpasswordForm.valid"  mat-raised-button >
+                <button type="submit" class="login-button btn" style="background:'var(--btn-primary)'; color:var(--font-light)"  [disabled]="!forgotpasswordForm.valid"  mat-raised-button >
                     Submit
                 </button>
               </form>
