@@ -1,74 +1,134 @@
-<div class="dialog-header d-flex justify-content-between">
-  <div class="addstudents-header d-flex">
-    <mat-icon color="primary">dashboard</mat-icon>
-    <h1 mat-dialog-title>Share with students</h1>
-  </div>
+<!-- <div class="dialog-header d-flex justify-content-between">
+
   
 
     <button type="button" class="btn-close" mat-dialog-close><mat-icon>close</mat-icon></button>
-</div>
+</div> -->
 
-<mat-divider></mat-divider>
-<mat-dialog-content class="mat-typography">
+    <div class="dialog-header d-flex justify-content-between" mat-dialog-title>
 
-    <div class="container-fluid">
- 
-      <!-- [formControl]="emailFormControl" [errorStateMatcher]="matcher" autocomplete="off" -->
-            <form class="example-form mt-3" autocomplete="off">
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Email</mat-label>
-                  <input type="search" matInput  [value]="inputValue" [formControl]="emailFormControl" autocomplete="off"
-                         placeholder="Add students" (keyup)="showStudentInstantly()" (click)="showDropdown($event)">
-
-                  <mat-select [(value)]="selected" (selectionChange)="clearInput($event)" >
-                    <mat-option *ngFor="let studentlist of studentlists" [value]="studentlist.accountno_fld" style="height: 100px;">
-                      <mat-card class="example-card">
-                        <mat-card-header>
-                          <img mat-card-avatar [src]=" ImageLink + studentlist.image_fld" class="example-header-image">
-                          
-                          
-                            <mat-card-title class="fullname">{{studentlist.fname_fld}} {{studentlist.mname_fld}} {{studentlist.lname_fld}}</mat-card-title>
-                     
-                            <mat-card-subtitle class="domainemail">{{studentlist.emailadd_fld}}</mat-card-subtitle>
-                          
-          
-                        </mat-card-header>
-                      </mat-card> 
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </form>
-    </div>
-    <div class="row">
-      <div class="col-6"  *ngFor="let fetchedstuds of fetchedstuds; let i = index">
-        <mat-chip-list mat-line 
-        class="example-chip"
-        cdkDropList 
-        cdkDropListOrientation="horizontal">
-        <mat-chip mat-line class="example-box d-flex justify-content-between mb-2" cdkDrag  style="width: 100%;">
-          {{fetchedstuds.fname_fld}} {{fetchedstuds.mname_fld}} {{fetchedstuds.lname_fld}}
-          <button matChipRemove (click)="removeStudent(fetchedstuds.id, fetchedstuds.accountno_fld, i)">
-            <mat-icon>cancel</mat-icon>
-          </button>
-
-        </mat-chip>
-      </mat-chip-list>
-
+      <div class="addstudents-header d-flex">
+        <mat-icon color="primary">dashboard</mat-icon>
+        <h1 mat-dialog-title>Share with students</h1>
       </div>
-    </div>
-    <mat-list role="list"   >
-      <mat-list-item role="listitem" >
-   
-          <h1 mat-line></h1>
-         
-  
-          <!-- <small mat-line>{{response.createdOn | date:'medium'}}</small> -->
-      </mat-list-item>
-  
-  
-    </mat-list>
 
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-raised-button cdkFocusInitial  class="confirm" color="primary" (click)="addStudents()">Done</button>
-</mat-dialog-actions>
+   
+
+            <div mat-dialog-close class="close-button">
+              <mat-icon>highlight_off</mat-icon>
+          </div>
+    </div>  
+
+    <mat-divider></mat-divider>
+    <mat-dialog-content class="mat-typography">
+
+      <mat-stepper labelPosition="bottom" #stepper *ngIf="isAdd">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup" ngNativeValidate>
+            <ng-template matStepLabel>Class</ng-template>
+
+            <mat-form-field appearance="fill" >
+                <mat-label>Select Class</mat-label>
+                <mat-select (selectionChange)="selectClass($event.value)" formControlName="class_id"  required>
+                    <mat-option  *ngFor="let class of classes" value="{{class.id}}" class="studentclassoption" >
+                
+                        <h4 >{{class.subject_description_fld}}</h4>
+                        <p >{{class.class_code_fld}} {{class.subject_code_fld}}</p>
+
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <div>
+                <div class="btn-holder">
+
+                    <button mat-button matStepperNext [disabled]="!firstFormGroup.valid">Next</button>
+                </div>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" >
+          <form [formGroup]="secondFormGroup" ngNativeValidate>
+            <ng-template matStepLabel>Students</ng-template>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Select Students</mat-label>
+              <mat-select (selectionChange)="change($event.value)" formControlName="student_id" required multiple>
+                  <mat-option  *ngFor="let student of students" value="{{student.accountno_fld}}">{{student.lname_fld}} {{student.fname_fld}} {{student.mname_fld}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+
+            <div>
+                <div class="btn-holder">
+                    <button mat-button matStepperPrevious>Back</button>
+
+
+                    <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
+                </div>
+          
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <div class="btn-holder">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="addStudents()" [disabled]="!firstFormGroup.valid || !secondFormGroup.valid">Submit</button>
+                <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+            </div>
+          </div>
+        </mat-step>
+      </mat-stepper>
+
+
+       <table mat-table [dataSource]="dataSource"  *ngIf="!isAdd" matSort>
+  
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                    
+                    <!-- # Column -->
+                    <ng-container matColumnDef="#" class="mr-2">
+                      <th mat-header-cell *matHeaderCellDef  mat-sort-header> # </th>
+                      <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                    </ng-container>   
+                          
+                    <ng-container matColumnDef="class">
+                      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Class </th>
+                      <td mat-cell *matCellDef="let element"> {{element.subject_description_fld}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="program">
+                      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Program </th>
+                      <td mat-cell *matCellDef="let element"> {{element.program_fld}}</td>
+                    </ng-container>
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="name" >
+                      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Student Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.fname_fld}} {{element.mname_fld}} {{element.lname_fld}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="emailadd">
+                      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Email Address </th>
+                      <td mat-cell *matCellDef="let element"> {{element.emailadd_fld}}  </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="action">
+                      <th mat-header-cell *matHeaderCellDef> Action </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <button  mat-menu-item color="primary" class="action"  matTooltip="Remove student from the list" (click)="removeStudent(element.id,element.accountno_fld,i)" >
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+
+    </mat-dialog-content>

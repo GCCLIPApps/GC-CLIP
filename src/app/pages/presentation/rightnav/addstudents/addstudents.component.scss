@@ -1,81 +1,69 @@
 .dialog-header{
-    margin: 0;
-    padding: 0;
-    
-   
-
-    .addstudents-header{
-      h1 {
-        margin-left: 1rem;
-        font-size: 1.5rem;
-        font-weight: lighter;
-        color: var( --clr-darkgreen);
-        }
-      mat-icon{
-        font-size: 30px;
-        // color: var(--clr-darkgreen) !important;
-        // background-color: var(--clr-lightfontgreen);
+  margin: 0;
+  padding: 0;
+  
+  .addstudents-header{
+    h1 {
+      margin-left: 1rem;
+      font-weight: lighter;
+      color: var(--font-title);
+      font-size: var(--font-large);
       }
-    }
-  }
-  
-  mat-divider{
-      width: 100%;
-      // padding-bottom: 1rem;
-      border-color: var(--clr-darkgreen);
-  }
-  
-  .btn-close {
-    height: 23px;
-    width: 23px;
-    border: none;
-    color: var(--clr-black);
-    background-color: transparent;
     mat-icon{
-        height: 25px;
-        width: 25px;
-        border-radius: 50%;
-        background-color: var(--clr-lightgray);
-  
+      font-size: 30px;
+      // color: var(--clr-darkgreen) !important;
+      // background-color: var(--clr-lightfontgreen);
     }
   }
-  
-  .example-header-image {
-    background-size: cover;
+
+}
+
+
+.btn-holder{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  button{
+    width: 40%;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--clr-white);
+    background-color: var(--btn-save) !important;
   }
-  .example-full-width {
+
+}
+
+
+.mat-divider{
+  margin-bottom: 20px;
+ }
+
+.mat-form-field {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.studentclassoption {
+  height: 120px !important;
+}
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+table {
     width: 100%;
-  }
-  .header-card {
-    margin: 0% !important;
-    max-width: 100% !important;
-    .mat-card-avatar{
-      margin-left: 0 !important;
-      
-    }
-    mat-card-title.fullname{
-      padding: 0 !important;
-      margin: 0 !important;
-
-      font-size: 1rem;
-    }
-    p.domainemail{
-      color: var(--clr-gray);
-    }
-  }
-  ::-webkit-scrollbar {
-    width: 3px;
-}
-
-.mat-tab-group{
-    height: 50vh;
-}
-
-.confirm{
-  background-color: var(--clr-newgreen);
-  color:var(--clr-white);
-  &:hover{
-      background-color: var(--clr-darkgreen);
 
   }
+
+.mat-header-cell {
+    transition: .5s;
+    font-weight: 600;
+    color: var(--clr-input); 
+    background:var(--clr-primary);
+
+    tr.example-element-row:not(.example-expanded-row):active,:hover {
+       transition: .5s;
+        color: var(--background-secondary); 
+    }
 }
