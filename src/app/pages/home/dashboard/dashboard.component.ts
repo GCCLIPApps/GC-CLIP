@@ -138,8 +138,13 @@ export class DashboardComponent implements OnInit {
   }
 
   onCreate(){
-    this._bottomSheet.open(CreateOptionComponent)
- 
+    const dialogRef =  this.matDialog.open(CreateOptionComponent,{
+      width: '40%'
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   openDeleteDialog(presId: number, index: number, status: number) {
