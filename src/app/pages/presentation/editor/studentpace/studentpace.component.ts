@@ -12,10 +12,17 @@ import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Location} from '@angular/common';
 import Swal from 'sweetalert2'
-import { Chart,registerables } from 'chart.js';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+
+
+
+import { Chart, registerables } from 'chart.js';
+import { ChartConfiguration, ChartDataset, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+
+import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 
 var animates = new Animations()
 
@@ -36,6 +43,7 @@ export interface Viewers {
   animations: [animates.fadeAnimation, animates.listAnimation]
 })
 export class StudentpaceComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() sTheme:string = this._user.getPresentationTheme();
   @Input() sColor: string = this._user.getPresentationFontColor();
   @Output() isPressExit : EventEmitter<any> = new EventEmitter<any>();
@@ -52,7 +60,6 @@ export class StudentpaceComponent implements OnInit {
   isStudentdone: boolean = false;
   responseLists:  any =[];
   studentslists: any = []
-  chart: any = [];
   hasStart: any
   elem: any;
   code: string;
@@ -74,6 +81,20 @@ export class StudentpaceComponent implements OnInit {
     shareReplay()
   );
 
+
+
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+   
+  };
+  public barChartType: ChartType = 'bar';
+  public barChartPlugins = [
+    DataLabelsPlugin
+  ];
+
+  public barChartData: ChartData<'bar'>;
+
   constructor(
   @Inject(MAT_DIALOG_DATA) public data: any,
   private location: Location,
@@ -85,6 +106,7 @@ export class StudentpaceComponent implements OnInit {
   private _router: Router,
   public _user: UserService) { 
 
+    Chart.register(...registerables)
 
   }
 
@@ -103,20 +125,19 @@ export class StudentpaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.callStudentlobby();
+    // this.callStudentlobby();
     this.getParams()
+    this.getPresentation()
+    
+    this.Updatechart()
 
   }
 
    getParams(){
     this.activatedRoute.params.subscribe((params) => {
       this.id = { ...params['keys'], ...params };
-   
       this.hasStart = atob(this.id.link)
       sessionStorage.setItem('code', String(atob(this.id.code)))
-
-      this.getPresentation()
-
       });
   }
 
@@ -132,8 +153,7 @@ export class StudentpaceComponent implements OnInit {
       this.sColor = this._user.getPresentationFontColor();
       this._socket.createRoom(this._user.getPresentationCode());
       this.presentationId = this._user.getPresentationId()
-      this.getsocketStudents()
-
+      this.callStudentlobby()
 
       if(this.hasStart === 'replay' || this.hasStart == 0){
         this._socket.socketConnect()
@@ -149,28 +169,83 @@ export class StudentpaceComponent implements OnInit {
     });
   }
 
-  getsocketStudents(){
-    if(this._user.getIsQuiz()){
-      this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
-        this.studentslists.push(data)
-        this._user.setNoStudents(this.studentslists)
-      }) 
+  // getsocketStudents(){
+  //   if(this._user.getIsQuiz()){
+  //     this.studentslists.push({name: 'gerald tagle'})
+  //     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
+   
+  //       // this.studentslists = []
+  //       // if (this.studentslists.includes(data.name) === false)   this.studentslists.push(data.name)
+
+  //       // console.log(this.studentslists)
+
+  //       this._user.setNoStudents(this.studentslists)
+  //     }) 
   
-      this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
+  //     // this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
         
-        for (var i = 0; i <  this.studentslists.length; i++){
-          if (this.studentslists[i]['user']  == data['user']){
-            this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
-              duration: 3000,
-            });
-            this.studentslists.splice(i,1)
-              break;
-          }
-        }
-      });
-    }
+  //     //   for (var i = 0; i <  this.studentslists.length; i++){
+  //     //     if (this.studentslists[i]['user']  == data['user']){
+  //     //       this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
+  //     //         duration: 3000,
+  //     //       });
+  //     //       this.studentslists.splice(i,1)
+  //     //         break;
+  //     //     }
+  //     //   }
+  //     // });
+  //   }
     
+  // }
+
+  newTally: any = []
+  label: any = []
+  right: any = []
+  wrong: any = []
+  getquizscoretally(){
+    this.newTally = []
+    this.label = []
+    this.right = []
+    this.wrong = []
+    this._ds.processData1('scores/scoretally/instructor', atob(this.id.code), 2)?.subscribe((res: any) => {
+      let load = this._ds.decrypt(res.d);
+      this.newTally =load
+      this.dataSource = new MatTableDataSource(load); 
+      this.dataSource.sort = this.sort;
+      
+
+      this.Updatechart()
+  
+        
+          },err =>{
+        // console.log('err', err)
+      });
   }
+
+  public Updatechart(): void {
+
+    
+
+    for(let i = 0; this.newTally.length > i; i++){
+      this.label.push(this.newTally[i].heading_fld)
+      this.right.push(this.newTally[i].correct)
+      this.wrong.push(this.newTally[i].wrong)
+    
+    }
+
+    this.barChartData = {
+      labels: this.label,
+      datasets: [
+        { data: this.wrong, label: 'Wrong', stack: 'a' },
+        { data: this.right, label: 'Correct', stack: 'b' }
+      ]
+    };
+
+    this.barChartData.datasets[0].data = this.wrong ;
+    this.barChartData.datasets[1].data = this.right;
+    this.chart?.update();
+  }
+
 
   getFinalResult(){
     this._ds.processData1(`scores/getAllScores/${sessionStorage.getItem('code')}`, '', 2)?.subscribe((res: any) => {
@@ -199,7 +274,7 @@ export class StudentpaceComponent implements OnInit {
           this.countDown--;
           if(this.countDown == 0){
             this.setStart = true;
-            this.updateTitle(this._user.getPresentationPace(), 1)
+            this.updateTitle(1)
             this.startRequest()
           }
         }
@@ -219,15 +294,17 @@ export class StudentpaceComponent implements OnInit {
   }
 
   reloadPage(){
-    this.updateTitle(this._user.getPresentationPace(), 0)
+    this.updateTitle(0)
     
 
   }
-  
+
+  // Pull of data
   startRequest(){
     this.interval = setInterval(() =>{ 
-     this.getFinalResult()
-    }, 2000);
+    //  this.getFinalResult()
+    this.getquizscoretally()
+    }, 5000);
   }
 
   pauseTimer() {
@@ -259,13 +336,14 @@ export class StudentpaceComponent implements OnInit {
     })
    }
 
-   updateTitle(pace:number, no: number){
-     console.log(this._user.getPresentationCode())
+   updateTitle(no: any){
+
     this._ds.processData1('slides/update/'+this._user.getPresentationId(),
     {sName_fld: this._user.getPresentationName(), 
       sTheme_fld: this._user.getPresentationTheme(), 
       sColor_fld: this._user.getPresentationFontColor(), 
-      sPace_fld: pace || this._user.getPresentationPace(),
+      isassigned_fld: this._user.getPresentationAssignto(),
+      sPace_fld: this._user.getPresentationPace(),
       isStarted_fld: no}, 2)?.subscribe((res: any) => {
     
       let load = this._ds.decrypt(res.d);
@@ -294,21 +372,21 @@ export class StudentpaceComponent implements OnInit {
 
   callStudentlobby(){
     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
-              
+      this.studentslists.push(data)
       this._snackBar.open(data['name'] + ' Joined the room', '', {
         duration: 3000,
       });
   
-      for(let i = 0; i < this.studentslists.length; i++){
+      // for(let i = 0; i < this.studentslists.length; i++){
 
-        if(this.studentslists[i].name == data['name']){
+      //   if(this.studentslists[i].name == data['name']){
 
-        }else{
-          this.studentslists.push(data)
+      //   }else{
+      //     this.studentslists.push(data)
 
 
-        }
-      }
+      //   }
+      // }
   
     }) 
 

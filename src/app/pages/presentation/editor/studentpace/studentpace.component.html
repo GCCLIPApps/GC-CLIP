@@ -7,9 +7,9 @@
         <!-- <mat-drawer mode="side" opened="true"> -->
           <!-- <app-main-nav></app-main-nav> -->
       </mat-sidenav>
-      <mat-sidenav-content >
-        <mat-toolbar class="header mat-elevation-z8 justify-content-between">
-          <button matTooltip="Exit room"
+      <mat-sidenav-content  >
+        <mat-toolbar class="header mat-elevation-z8 justify-content-between"  [style.background-color]="sTheme" [style.color]="sColor">
+          <button matTooltip="Exit room" [style.color]="sColor"
             type="button"
             aria-label="Toggle sidenav"
             mat-icon-button
@@ -17,15 +17,16 @@
             <mat-icon aria-label="Side nav toggle icon">keyboard_return</mat-icon>
           </button>
           <div class="row mr-2 ml-auto">
-            <button mat-button  class="theme_code btn"  [cdkCopyToClipboard]="sCode" (click)="copypaste()"  matTooltip="Room Code">
+            <button mat-button  class="theme_code btn"  [cdkCopyToClipboard]="sCode" (click)="copypaste()"  matTooltip="Room Code" [style.color]="sColor">
               <mat-icon class="play-image-icon">content_copy</mat-icon>
               <span>{{sCode}}</span>
             </button>
           </div>
         </mat-toolbar>
-      <div class="container-fluid page p-5" >
+      
+        <div class="main-content p-5">
 
-        <mat-card class="main-card" [style.background-color]="sTheme" >
+        <mat-card class="main-card mat-elevation-z8"  >
           <div class="d-flex justify-content-center mb-4" >
             <button mat-raised-button *ngIf="!isStart && !setStart && !isStudentdone" (click)="isStarted()" class="start-button" [matTooltip]="startWarning">START</button>          
           </div>
@@ -39,12 +40,15 @@
               <mat-icon [matBadge]="this.studentslists.length" matBadgeSize="medium" >account_circle</mat-icon>
             </button>
           </div>
-  
-          <div class="students-lists mt-2 d-flex flex-start mb-5"  *ngIf="studentFinalResults.length" >
-            <button class="mr-3"  mat-raised-button [style.background-color]="sTheme" [style.color]="sColor" (click)="viewFinalResult()">
-              <mat-icon class="play-image-icon">visibility</mat-icon>
-              View Final Result
-            </button>
+          <!-- mt-2 d-flex flex-start mb-5 -->
+          <div class="students-lists"  *ngIf="setStart" >
+            <div class="btn-holder">
+              <button class="mr-3"  mat-raised-button [style.background-color]="sTheme" [style.color]="sColor" (click)="viewFinalResult()">
+                <mat-icon class="play-image-icon">visibility</mat-icon>
+                View Final Result
+              </button>
+            </div>
+       
             <!-- <button  mat-raised-button [style.background-color]="sTheme" [style.color]="sColor" (click)="reloadPage()">
               <mat-icon class="play-image-icon">play_arrow</mat-icon>
               Replay Presentation
@@ -53,42 +57,58 @@
   
           <div class="pulsate d-flex align-items-center justify-content-center">
             
-            <div class="waitingPlayers"  *ngIf="!studentslists.length && !isStudentdone " [style.color]="sColor" >Waiting for students to join...</div>
+            <div class="waitingPlayers"  *ngIf="!studentslists.length && !isStudentdone " >Waiting for students to join...</div>
             <div class="countDown" *ngIf="isStart && !setStart" >{{countDown}}</div>
   
-            <div class="waitingPlayers" *ngIf="!studentFinalResults.length && !countDown" [style.color]="sColor" >Waiting for students to finish...</div>
+            <!-- <div class="waitingPlayers" *ngIf="!newTally.length && !countDown" >Waiting for students to finish...</div> -->
       
           </div>
   
   
-          <div class="card-container row d-flex justify-content-start"  *ngIf="!isStart && studentslists.length && !studentFinalResults.length">
-            <div class="col-xl-2 col-lg-3 col-md-6" *ngFor="let item of studentslists" @listAnimation>
-              <mat-card class="students-card "   [style.background-color]="sTheme" [style.color]="sColor" >
-                <mat-card-header>
-                  <div mat-card-avatar class="students-header-image"></div>
-                  <mat-card-title><p >{{item.name}}</p></mat-card-title>
-                </mat-card-header>
-              </mat-card>
+         
+          <div class="card-container row my-1 d-flex justify-content-start"  *ngIf="!isStart && studentslists.length && !studentFinalResults.length">
+            <div class="main-page" @listAnimation>
+              <div class="students-card"  *ngFor="let item of studentslists"  [style.color]="sColor" >
+                <div class="header" >
+                  <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="">
+                   <p >{{item.name}}</p>
+                </div>
+              </div>
             </div>
           </div> 
   
   
   
-          <div   *ngIf="studentFinalResults.length">
-            <div class="card-container row d-flex justify-content-start"   >
+          <div *ngIf="setStart">
+
+                <div class="barchart">
+                  <div>
+                    <div >
+                      <canvas baseChart  style="width: 100% !important;height: 450px !important"
+                        [data]="barChartData"
+                        [options]="barChartOptions"
+                        [plugins]="barChartPlugins"
+                        [type]="barChartType"
+                        >
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+     
+            <!-- <div class="card-container row d-flex justify-content-start"   >
               <div class="col-xl-2 col-lg-3 col-md-6" *ngFor="let studentFinalResult of studentFinalResults; let i = index" >
                 <mat-card class="students-card "   [style.background-color]="sTheme" [style.color]="sColor" >
                   <mat-card-header>
                     <div mat-card-avatar class="students-header-image"></div>
                     <mat-card-title><h6>    {{studentFinalResult.fname_fld}} {{studentFinalResult.mname_fld}} {{studentFinalResult.lname_fld}}</h6></mat-card-title>
-                    <mat-card-title><h6>  {{ studentFinalResult.totalscore_fld + ' of ' + studentFinalResult.quiztotalno_fld}}</h6></mat-card-title>
+                    <mat-card-title><h6>  {{ studentFinalResult.totalscore_fld + ' of ' + studentFinalResult.total_no_question_fld}}</h6></mat-card-title>
                     <mat-card-title><h1>  {{studentFinalResult.totalpoints_fld | number: '2.' }}pts</h1></mat-card-title>
                   </mat-card-header>
   
                 </mat-card>
               </div>
             </div> 
-  
+   -->
    
           </div>
         </mat-card>
