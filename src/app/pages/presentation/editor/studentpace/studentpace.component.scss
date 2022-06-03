@@ -1,6 +1,6 @@
 
 .mat-toolbar{
-  background-color: var(--clr-darkgreen) !important;
+  // background-color: var(--clr-primary) !important;
 }
 
 
@@ -9,28 +9,97 @@
   border-radius: 25px !important;
 
 }
-
-.students-card {
-    text-align: left;
-    margin: .5rem;
-    transition: .5s;
-    width: 290px;
-    height: 120px;
-    border-radius: 25px;
-    box-shadow: 0 9px var(--clr-gray);
+// *ngIf="setStart" 
+.students-lists{
+  .btn-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px !important;
+    button{
+      width: 20%;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--font-white);
+      background-color: var(--card-time) !important;
+     }
   
-    &:hover{
+  }
+}
+
+
+.main-page{
+  gap: 1em;
+  display: grid;
+  margin: 1rem;
+  .students-card{
+      transition: .5s;
+      border-radius: 15px;
+      height: 100px !important;
+      width: 200px !important;
+      box-shadow: 0 9px var(--clr-gray);
+      .header{
+          display: flex;
+          align-content: center;
+          justify-content: center;
+          max-height: 100px;
+          width: 200px !important;
+          height: 100px;
+          padding: 1.5em;
+          color: var(--font-white);
+          background-image: radial-gradient(circle at 67% 33%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 100%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg,var(--clr-primary),var(--clr-light));
+          border-radius: 15px;
+          text-overflow: ellipsis !important; 
+
+          img{
+            margin-right: .5rem;
+            border-radius: 50%;
+            width: 50px !important;
+            height: 50px !important;
+          }
+          p{
+            margin: auto;
+            text-align: center;
+            word-break: break-all;
+            width: 150px !important;
+          };
+      }
+
+      &:hover{
         opacity: .9;
         transform: translate(0px, 5px);
         -webkit-transform: translate(0px, 5px);
         box-shadow: 0px 1px 0px 0px;
-        background-color: var(--clr-lightfontgreen);
+        background-color: var(--clr-secondary);
         box-shadow: 0 15px var(--clr-lightfontgreen);
     }
+    }
+  
+}
 
-  }
+
+// .students-card {
+//     text-align: left;
+//     transition: .5s;
+//     width: 290px;
+//     height: 120px;
+//     border-radius: 25px;
+//     box-shadow: 0 9px var(--clr-gray);
+//     background-color: var(--clr-primary);
+
+//     &:hover{
+//         opacity: .9;
+//         transform: translate(0px, 5px);
+//         -webkit-transform: translate(0px, 5px);
+//         box-shadow: 0px 1px 0px 0px;
+//         background-color: var(--clr-secondary);
+//         box-shadow: 0 15px var(--clr-lightfontgreen);
+//     }
+
+//   }
   
   .students-header-image {
+    text-align: center;
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
@@ -46,7 +115,7 @@
 }
 mat-sidenav-content {
     height: 100vh !important;
-    background: var(--clr-dbgreen) !important;
+    background: var(--clr-primary) !important;
 }
 
 .start-button{
@@ -170,4 +239,23 @@ mat-sidenav-content {
     justify-content: center!important;
     color: var(--clr-lightfontgreen) !important;
     font-family: 'Quattrocento Sans';
+  }
+
+  @media  screen and (min-width: 1366px) {
+  
+    .main-page{
+        gap: 1em;
+        grid-template-columns: repeat(6,minmax(10%,1fr));
+    }
+
+  
+  }
+  
+
+@media  screen and (max-width: 1024px) and (min-width: 768px) {
+
+    .main-page{
+        grid-template-columns: repeat(2,minmax(40%,1fr));
+        gap: 1em;
+    }
   }
