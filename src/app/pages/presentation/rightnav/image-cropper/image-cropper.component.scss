@@ -20,14 +20,14 @@
 }
 .choose{
 
-    color:var(--clr-darkgreen);
+    color:var(--font-title);
 }
 
 .confirm{
-    background-color: var(--clr-newgreen);
+    background-color: var(--btn-primary);
     color:var(--clr-white);
     &:hover{
-        background-color: var(--clr-darkgreen);
+        background-color: var(--clr-primary);
 
     }
 }
