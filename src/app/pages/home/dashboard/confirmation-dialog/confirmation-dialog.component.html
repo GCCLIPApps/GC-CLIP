@@ -1,10 +1,20 @@
-<div mat-dialog-content>
-    <p>		{{message}}</p>
+<ng-container>
+  <div class="dialog-header d-flex justify-content-between">
+    <h1  mat-dialog-title>Delete</h1>
   
   </div>
-  <div mat-dialog-actions style="justify-content: center;">
-    <button mat-raised-button *ngIf="!isPresentation" class="success" (click)="deletePres()" >{{confirmButtonText}}</button>
-    <button mat-raised-button *ngIf="isPresentation" class="success" (click)="deleteSlide()" >{{confirmButtonText}}</button>
+  
+  <mat-divider></mat-divider>
+  
+  <mat-dialog-content class="mat-typography">
+    <p>		{{message}}</p>
+    
+  </mat-dialog-content> 
+    <mat-dialog-actions align="end">
+      <button mat-raised-button *ngIf="!isPresentation" class="success" (click)="deletePres()" >{{confirmButtonText}}</button>
+      <button mat-raised-button *ngIf="isPresentation" class="success" (click)="deleteSlide()" >{{confirmButtonText}}</button>
+  
+      <button mat-raised-button class="warn" mat-dialog-close>{{cancelButtonText}}</button>
+    </mat-dialog-actions>
+</ng-container>
 
-    <button mat-raised-button class="warn" mat-dialog-close>{{cancelButtonText}}</button>
-  </div>
