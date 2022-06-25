@@ -54,6 +54,7 @@ header{
                     font-weight: 500;
                     font-size:  1.3rem;
                     line-height: 1.2;
+                    color: var(--font-black);
                 }
                 p{
                     color: var(--clr-divider);
@@ -72,9 +73,22 @@ header{
                 }
             }
         }
-
+        .card-header{
+            background-color: var(--clr-primary);
+            h6{
+                font-weight: 600;
+            }
+        }
         .card{
-            height: 130px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--clr-dark);
+            height: 90px !important;
+            h1{
+                font-weight: 600;
+                font-size: 3rem;
+            }
         }
     }
 
@@ -95,6 +109,7 @@ header{
          
                 h5{ 
                     font-weight: 500;
+                    color: var(--font-black);
                     font-size: var(--font-medium);
                 }
             }
@@ -105,9 +120,9 @@ header{
                 gap: 1rem;
                 margin-bottom: 1rem;
                 label{
-                    font-size: var(--font-normal);
-
                     font-weight: bold;
+                    color: var(--font-black);
+                    font-size: var(--font-normal);
                 }
                 p{  
                     background-color: var(--background-default);
