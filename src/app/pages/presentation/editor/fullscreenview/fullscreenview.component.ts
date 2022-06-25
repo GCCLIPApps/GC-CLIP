@@ -29,6 +29,7 @@ export class FullscreenviewComponent implements OnInit {
   @Input() isCardloading: boolean;
   @Input() isPresented: boolean;
   @Input() percent: number;
+  @Input() image: any;
   isSpinner: boolean = false;
   
   totalNo:number = 0
@@ -37,7 +38,7 @@ export class FullscreenviewComponent implements OnInit {
   interval: any;
   elem: any;
   code: string;
-  image: string;
+
   // heading: string
   @Input() sTheme:string = this._user.getPresentationTheme();
   @Input() sColor: string = this._user.getPresentationFontColor();
@@ -59,13 +60,14 @@ export class FullscreenviewComponent implements OnInit {
     // this.isSpinner = false;
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    // this.recieveData()
+    this.recieveData()
     if(this.type == 'paragraph' || this.type == 'bullet' || this.type == 'poll' || this.type == 'heading'){
       this.pauseTimer()
     }else{
     
     }
-  
+   
+
   }
 
   ngOnInit(): void {
@@ -110,7 +112,7 @@ export class FullscreenviewComponent implements OnInit {
         this.elem.msRequestFullscreen();
       }
  
-      console.log(this.presentationData)
+      // console.log(this.presentationData)
 
       this.code = this._user.getPresentationCode();
       this._socket.createRoom(this._user.getPresentationCode());
@@ -128,7 +130,7 @@ export class FullscreenviewComponent implements OnInit {
 
  
   recieveData(){
-    this.image = this.presentationData.image_fld
+    this.image = this._user.imageLink+this.presentationData.image_fld
   }
 
   setStart: boolean = false

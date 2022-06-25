@@ -28,8 +28,10 @@
                         <h5 class="question-status"  *ngIf="totalNo">{{status}}</h5>
                         <p  *ngIf="type == 'qa' && totalNo">{{smallParagraph}}</p>
         
-                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                        <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                        <div class="image-holder">
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>  
                       
                       </div>
                     </ng-container>
@@ -44,31 +46,25 @@
                         
                         <div class="bulletlists" *ngFor="let item of showOptions; let i = index" >
                         
-                          <div class="bulletlist-holder" *ngIf="type == 'bullets' ">
-                            <mat-icon>arrow_forward</mat-icon>
-                            {{item.choice_fld}}
-                          </div>       
+                          <div class="bulletlist-holder"  *ngIf=" type == 'bullets'">
+                            <mat-icon *ngIf=" type == 'bullets'">arrow_forward</mat-icon>
+                            <h5>{{item.choice_fld}}</h5>
+                          </div>
            
                        
                           <div class="bulletlist-holder" *ngIf=" type == 'poll'">
                     
-                            <span class="mr-2"></span>
-                           <p><span *ngIf="item.choice_fld">{{i + 1 }}.{{item.choice_fld}}
+                           <h5><span *ngIf="item.pollchoice_fld">{{i + 1 }}. {{item.pollchoice_fld}} = {{item.totalpoll_fld}}
                             
-                           </span> </p> 
-                           <p><span *ngIf="item.pollchoice_fld">{{i + 1 }}.{{item.pollchoice_fld}}  ----  {{item.totalpoll_fld}}
-                            
-                          </span> </p> 
-
-
+                          </span> </h5> 
                      
-                          </div>
-
-              
-       
+                          </div>       
                         </div>
-                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                        <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+
+                        <div class="image-holder">
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>  
                       </div>
                       
                     </ng-container>
@@ -138,8 +134,11 @@
                            
                           </div>
                         
-                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                            <div class="image-holder">
+                              <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                              <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                            </div>  
+                    
                           </div>
   
                     </ng-container>
@@ -148,10 +147,14 @@
                       <ng-container *ngIf="type == 'heading' || type == 'paragraph'">
                         <div class="content-holder" >
                           <h2 class="card-head"> {{this.presentationData.heading_fld}}</h2>
-                          <h6  class="card-paragraph" *ngIf="type == 'paragraph'">{{this.presentationData.subheading_fld}}</h6>
-                          <p class="card-subhead" *ngIf="type == 'heading'">{{this.presentationData.subheading_fld}}</p>
+                          <h4  class="card-paragraph" *ngIf="type == 'paragraph'">{{this.presentationData.subheading_fld}}</h4>
+                          <h5 class="card-subhead" *ngIf="type == 'heading'">{{this.presentationData.subheading_fld}}</h5>
                           <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                          <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+
+                          <div class="image-holder">
+                            <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                          </div>
+                        
                         </div>
                         
                       </ng-container>
