@@ -56,9 +56,14 @@ input,textarea { border: none; width: 100%;
           width: 4rem;
         }
         .paragraph-input{
-          height: 120px;
+          height: 100px;
         }
         
+        .head-input{
+          textarea{
+            height: 70px;
+          }
+        }
         .option-input{
           display: flex;
           height: 2.5rem;

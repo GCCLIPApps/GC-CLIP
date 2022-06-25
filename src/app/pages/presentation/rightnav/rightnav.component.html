@@ -208,8 +208,8 @@
                           <div class="head-input">
                           <!-- <mat-form-field class="form-full-width" appearance="fill" >
                             <mat-label>Message</mat-label> -->
-                            <input  type="text" class="input"  #message maxlength="150" [(ngModel)]="heading" placeholder="Slide with heading" (change)="updateContent('heading')">
-                            <span class="textlength">{{ 150 - heading.length }}</span>
+                            <input  type="search" class="input"  #message maxlength="50" [(ngModel)]="heading" placeholder="Slide with heading" (change)="updateContent('heading')">
+                            <span class="textlength">{{ 50 - heading.length }}</span>
                             <!-- </mat-form-field> -->
                           </div>
                       
@@ -219,11 +219,11 @@
                         
                         <div class="head-input">
 
-                          <textarea type="text"  #message maxlength="500"  [(ngModel)]="subheading" placeholder="Subheading"
+                          <textarea type="search"  #message maxlength="200"  [(ngModel)]="subheading" placeholder="Subheading"
                           cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" 
                           (change)="updateContent('heading')"> 
                         </textarea>
-                        <span class="textlength">{{ 500 - subheading.length }}</span>
+                        <span class="textlength">{{ 200 - subheading.length }}</span>
 
                       </div>
 
@@ -264,8 +264,8 @@
                         Heading
                       </div>
                       <div class="head-input">
-                          <input type="text" #message maxlength="150" [(ngModel)]="heading" placeholder="Slide with header"  (change)="updateContent('paragraph')">
-                          <span class="textlength">{{ 150 - heading.length }}</span>
+                          <input type="search" #message maxlength="50" [(ngModel)]="heading" placeholder="Slide with header"  (change)="updateContent('paragraph')">
+                          <span class="textlength">{{ 50 - heading.length }}</span>
 
                         </div>  
                       
@@ -276,11 +276,11 @@
                         <div class="paragraph-input">
 
                           
-                        <textarea  #message maxlength="800"  [(ngModel)]="subheading" placeholder="Use this paragraph to explain something in detail."
-                          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" 
+                        <textarea  #message maxlength="300"  [(ngModel)]="subheading" placeholder="Use this paragraph to explain something in detail."
+                          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="4" 
                           (change)="updateContent('paragraph')"> 
                         </textarea>
-                        <span class="textlength">{{ 800 - subheading.length }}</span>
+                        <span class="textlength">{{ 300 - subheading.length }}</span>
 
                        
                         </div>
@@ -325,8 +325,8 @@
                           
                         <div class="head-input">
 
-                            <input  #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('bullets')">
-                            <span class="textlength">{{ 100 - heading.length }}</span>
+                            <input type="search"  #message maxlength="50" placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('bullets')">
+                            <span class="textlength">{{ 50 - heading.length }}</span>
 
                           </div>  
 
@@ -340,9 +340,9 @@
 
                              <div class="option-input">
                                <div class="option-holder">
-                                <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                <input type="search"  #message maxlength="50" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                               
-                                <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
+                                <span class="textlength">{{ 50 - optionlist.choice_fld.length }}</span>
                                </div>
                               
                      
@@ -400,9 +400,9 @@
                         Your Question
                       </div>
                       <div class="head-input">
-                          <input  #message maxlength="100" *ngIf="contentTabs == 'identification'" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('identification')">
+                          <input type="search" #message maxlength="100" *ngIf="contentTabs == 'identification'" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('identification')">
 
-                          <input  #message maxlength="100" *ngIf="contentTabs == 'quiz'"  placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
+                          <input type="search" #message maxlength="100" *ngIf="contentTabs == 'quiz'"  placeholder="Ask me anything" [(ngModel)]="heading" (change)="updateContent('quiz')">
                           <span class="textlength">{{ 100 - heading.length }}</span>
 
                       </div>  
@@ -430,8 +430,8 @@
                               <div class="option-input ">
                                 <mat-checkbox  class="check-box"  *ngIf="contentTabs == 'quiz'"   matTooltip="Mark option as correct answer" [(ngModel)]="optionlist.isCorrect_fld"  [disabled]="isDisabled" [checked]="optionlist.isCorrect_fld" (change)="isCorrect(optionlist.id, contentTabs, $event)" color="primary"></mat-checkbox>
                                 <div class="option-holder">
-                                  <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
-                                  <span class="textlength">{{ 70 - optionlist.choice_fld.length }}</span>
+                                  <input type="search" #message maxlength="50" placeholder="Bullet Here" [(ngModel)]="optionlist.choice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                  <span class="textlength">{{ 50 - optionlist.choice_fld.length }}</span>
                                 </div>
                               <!-- <button matSuffix mat-button (click)="removeOptions(optionlist.id,i)"  [disabled]="isDisabled"> -->
                                 <div class="close-button"  (click)="removeOptions(optionlist.id,i)" >
@@ -527,11 +527,11 @@
 
                         <div class="paragraph-input">
 
-                            <textarea  #message maxlength="500"  [(ngModel)]="heading" placeholder="Paragraph"
+                            <textarea  #message maxlength="300"  [(ngModel)]="heading" placeholder="Paragraph"
                             cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" 
                             (change)="updateContent('qa')"> 
                           </textarea>
-                          <span class="textlength">{{ 500 - heading.length }}</span>
+                          <span class="textlength">{{ 300 - heading.length }}</span>
 
                         </div>  
                       
@@ -572,8 +572,8 @@
 
                       <div class="head-input">
 
-                        <input  #message maxlength="70" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('mc')">
-                        <span class="textlength">{{ 70 - heading.length }}</span>
+                        <input type="search"  #message maxlength="100" placeholder="Ask me anything" [(ngModel)]="heading"  (change)="updateContent('poll')">
+                        <span class="textlength">{{ 100 - heading.length }}</span>
 
                       </div>  
 
@@ -596,9 +596,9 @@
                               
                               <div class="option-input">
                                 <div class="option-holder">
-                                 <input  #message maxlength="70" placeholder="Bullet Here" [(ngModel)]="optionlist.pollchoice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
+                                 <input type="search" #message maxlength="50" placeholder="Bullet Here" [(ngModel)]="optionlist.pollchoice_fld" (change)="updateOption(optionlist.id, contentTabs,$event)">
                                
-                                 <span class="textlength">{{ 70 - optionlist.pollchoice_fld.length }}</span>
+                                 <span class="textlength">{{ 50 - optionlist.pollchoice_fld.length }}</span>
                                 </div>
                                
                       

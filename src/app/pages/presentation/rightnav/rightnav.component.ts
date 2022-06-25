@@ -117,7 +117,7 @@ export class RightnavComponent implements OnInit{
     this.isDisabled = true;
     setTimeout(() =>{
       this.isDisabled = false;
-    }, 1000);
+    }, 2000);
   }
   
   setStep(index: number) {
