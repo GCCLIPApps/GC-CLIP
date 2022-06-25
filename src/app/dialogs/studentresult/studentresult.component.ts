@@ -23,7 +23,7 @@ export class StudentresultComponent implements OnInit {
     private _user: UserService,  ) { 
 
     if(data){
-      console.log(data)
+      // console.log(data)
       this.fname = data.studData.fname_fld;
       this.lname =  data.studData.lname_fld;
       this.mname =  data.studData.mname_fld;
@@ -43,7 +43,7 @@ export class StudentresultComponent implements OnInit {
     this._ds.processData1(`scores/getScoreByStudId/${this._user.getPresentationId()}`, id, 2)?.subscribe((res: any)=>{
       let load = this._ds.decrypt(res.d)
       this.quizResults= load
-      console.log(this.quizResults)
+      // console.log(this.quizResults)
     },err =>{
 
   

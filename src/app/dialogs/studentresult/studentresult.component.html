@@ -1,7 +1,7 @@
 <ng-container >
     <div class="dialog-header text-header d-flex justify-content-between">
 
-        <h1 mat-dialog-title>Quiz Result</h1>
+        <h1 mat-dialog-title>Student Quiz Result</h1>
 
             <div mat-dialog-close class="close-button">
               <mat-icon>highlight_off</mat-icon>
@@ -12,24 +12,32 @@
 
     <mat-dialog-content class="mat-typography">
 
-        <div class="student-header">
-            <h1>{{fname}} {{mname}} {{lname}}</h1>
-                <p>{{email}}</p>
-        </div>
+            <div class="header">
+                <div class="student-header">
+                    <h1>{{fname}} {{mname}} {{lname}}</h1>
+                        <p>{{email}}</p>
+                </div>
 
-        <div class="score-holder">
-            <div class="chiplist">
-                <div class="score">
-                   <h1>{{   score}} of {{ totalquestion}}</h1> 
-                </div>
-                <div class="time">
-                   <h1>{{timeelapse}} sec</h1> 
-                </div>
-                <div class="points">
-                   <h1> {{totalpoints}} pts.</h1>
+                <div class="score-holder">
+                    
+                    <div class="chiplist">
+                        <div class="score">
+                        <h1>{{   score}} out of {{ totalquestion}}
+                           Total Questions
+                        </h1> 
+                        </div>
+                        <div class="time">
+                        <h1>{{timeelapse}} <br>Time Elapse <small>(Sec)</small> </h1> 
+                        </div>
+                        <div class="points">
+                        <h1> {{totalpoints}} 
+                            <br>
+                            Total Points</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+      
 
         <mat-card>
             <mat-card-content>
