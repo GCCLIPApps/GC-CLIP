@@ -26,7 +26,7 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.forgotpasswordForm.value)
+    // console.log(this.forgotpasswordForm.value)
   }
 
 }
