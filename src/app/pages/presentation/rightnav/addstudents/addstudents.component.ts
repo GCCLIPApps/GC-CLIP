@@ -3,11 +3,12 @@ import {FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm, Validat
 import {ErrorStateMatcher} from '@angular/material/core';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatOption } from '@angular/material/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -49,13 +50,14 @@ export class AddstudentsComponent implements OnInit {
     displayedColumns: string[] = ['#','class','program','name', 'emailadd', 'action'];
     dataSource = new MatTableDataSource<Students>();
 
+
   constructor(  
     @Inject (MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<AddstudentsComponent>,
     private _formBuilder: FormBuilder,
     private _ds: DataService, 
     private _us: UserService,    
-    private _snackBar: MatSnackBar,
+    private __sb: NotificationService,
 
     ) {
       if(data){
@@ -64,6 +66,7 @@ export class AddstudentsComponent implements OnInit {
 
      }
 
+     @ViewChild('allSelected') allSelected!: MatOption;
      @ViewChild(MatSort) sort!: MatSort;
      @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -95,6 +98,26 @@ export class AddstudentsComponent implements OnInit {
     });
   }
 
+    // Select Students Array
+    change(studentid: any) {
+      this.studentsid = studentid
+     }
+  
+  
+   //Mat option Toggle all 
+    toggleAllSelection() {
+      this.studentsid = []
+  
+      if (this.allSelected.selected) {
+        this.secondFormGroup.controls.student_id.patchValue([...this.students.map((item: any) => item.accountno_fld),0])
+        this.studentsid = this.secondFormGroup.get(`student_id`)?.value
+      } else {
+   
+        this.secondFormGroup.controls.student_id.patchValue([]);
+      }
+  
+    }
+
   showClasses() {
 
     this._ds.processData1('assignquiz/showClasses/instructor', this._us.getUserID(), 2)?.subscribe((res: any)=>{
@@ -110,10 +133,10 @@ export class AddstudentsComponent implements OnInit {
 
   selectClass(classid:any){
     this.classid = classid;
-    this._ds.processData1('assignquiz/getStudentsinClass/instructor', classid, 2)?.subscribe((res: any)=>{
+    this._ds.processData1('assignquiz/getStudentsinClass/instructor', {class_id: classid, pres_id: this._us.getPresentationId()}, 2)?.subscribe((res: any)=>{
       let load = this._ds.decrypt(res.d)
       this.students = load
-      console.log(load)
+
     }, err =>{
     
         console.log('Error',err)
@@ -135,6 +158,7 @@ export class AddstudentsComponent implements OnInit {
     });
   }
 
+  // Get Students Assigned 
   getStudentslist(){
     this._ds.processData1('assignquiz/getallassigned/students', this._us.getPresentationId(), 2)?.subscribe((res: any)=>{
       let load = this._ds.decrypt(res.d)
@@ -148,6 +172,20 @@ export class AddstudentsComponent implements OnInit {
     });
   }
 
+  removeStudent(id: number, accountno: number, index: number){
+  
+    this._ds.processData1(`assignquiz/delete/students/${accountno}`,id, 2)?.subscribe((res: any)=>{
+      this.getStudentslist()
+      this.dataSource.data.splice(index, 1);
+      this.__sb.success("Student has been removed");
+    }, err =>{
+    
+        console.log('Error',err)
+     
+    });
+
+  }
+
   addStudents(){
     if(this.firstFormGroup.valid  && this.secondFormGroup.valid){
       
@@ -157,9 +195,7 @@ export class AddstudentsComponent implements OnInit {
 
         this.dialogRef.close(true);
 
-        this._snackBar.open('',"New student has been added", {
-          duration: 2000,
-        });
+        this.__sb.success("New student has been added");
   
       }, err =>{
       
@@ -190,10 +226,6 @@ export class AddstudentsComponent implements OnInit {
     return JSON.stringify(data)
   }
 
-  change(studentid: any) {
-    this.studentsid = studentid
-   }
-
   clearInput(e:any){
     console.log(e)
     this.inputValue = ""
@@ -204,20 +236,6 @@ export class AddstudentsComponent implements OnInit {
     // this.studentlists
   }
 
-  removeStudent(id: number, accountno: number, index: number){
-    this._ds.processData1(`assignquiz/delete/students/${accountno}`,id, 2)?.subscribe((res: any)=>{
-      this.dataSource.data.splice(index, 1);
-      this.getStudentslist()
-      this._snackBar.open('',"Student has been removed", {
-        duration: 2000,
-      });
 
-    }, err =>{
-    
-        console.log('Error',err)
-     
-    });
-
-  }
 
 }

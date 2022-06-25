@@ -30,7 +30,7 @@
             <mat-form-field appearance="fill" >
                 <mat-label>Select Class</mat-label>
                 <mat-select (selectionChange)="selectClass($event.value)" formControlName="class_id"  required>
-                    <mat-option  *ngFor="let class of classes" value="{{class.id}}" class="studentclassoption" >
+                    <mat-option  *ngFor="let class of classes" [value]="class.id" class="studentclassoption" >
                 
                         <h4 >{{class.subject_description_fld}}</h4>
                         <p >{{class.class_code_fld}} {{class.subject_code_fld}}</p>
@@ -55,7 +55,9 @@
             <mat-form-field appearance="fill">
               <mat-label>Select Students</mat-label>
               <mat-select (selectionChange)="change($event.value)" formControlName="student_id" required multiple>
-                  <mat-option  *ngFor="let student of students" value="{{student.accountno_fld}}">{{student.lname_fld}} {{student.fname_fld}} {{student.mname_fld}}</mat-option>
+                <mat-option *ngIf="!students.length">No Data</mat-option>
+                <mat-option #allSelected (click)="toggleAllSelection()" [value]="0" *ngIf="students.length">All</mat-option>
+                  <mat-option  *ngFor="let student of students" [value]="student.accountno_fld">{{student.lname_fld}} {{student.fname_fld}} {{student.mname_fld}}</mat-option>
               </mat-select>
             </mat-form-field>
             
