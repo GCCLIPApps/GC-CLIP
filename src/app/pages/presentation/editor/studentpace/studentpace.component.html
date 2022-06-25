@@ -68,7 +68,7 @@
          
           <div class="card-container row my-1 d-flex justify-content-start"  *ngIf="!isStart && studentslists.length && !studentFinalResults.length">
             <div class="main-page" @listAnimation>
-              <div class="students-card"  *ngFor="let item of studentslists"  [style.color]="sColor" >
+              <div class="students-card" *ngFor="let item of studentslists; let i = index"  [style.color]="sColor" >
                 <div class="header" >
                   <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="">
                    <p >{{item.name}}</p>
@@ -80,11 +80,10 @@
   
   
           <div *ngIf="setStart">
-
-                <div class="barchart">
+                <div class="barchart d-flex justify-content-start">
                   <div>
-                    <div >
-                      <canvas baseChart  style="width: 100% !important;height: 450px !important"
+                    <div style="width: 70rem !important;height: auto !important">
+                      <canvas baseChart 
                         [data]="barChartData"
                         [options]="barChartOptions"
                         [plugins]="barChartPlugins"

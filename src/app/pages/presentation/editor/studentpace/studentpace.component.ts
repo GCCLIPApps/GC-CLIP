@@ -3,7 +3,8 @@ import { Animations } from 'src/app/animation';
 import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
 import { SocketService } from 'src/app/services/socket.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from 'src/app/services/notification.service';
+
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -82,11 +83,18 @@ export class StudentpaceComponent implements OnInit {
   );
 
 
-
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    indexAxis: 'y',
     // We use these empty structures as placeholders for dynamic theming.
-   
+      scales: {
+        x: {
+            stacked: true
+        },
+        y: {
+            stacked: true
+        }
+    }
   };
   public barChartType: ChartType = 'bar';
   public barChartPlugins = [
@@ -100,7 +108,7 @@ export class StudentpaceComponent implements OnInit {
   private location: Location,
   private activatedRoute: ActivatedRoute,
   private breakpointObserver: BreakpointObserver, 
-  private _snackBar: MatSnackBar,
+  private _sb: NotificationService,
   public _socket: SocketService,
   private _ds: DataService, 
   private _router: Router,
@@ -125,12 +133,11 @@ export class StudentpaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.callStudentlobby();
     this.getParams()
     this.getPresentation()
-    
+    this.getquizscoretally()
     this.Updatechart()
-
+    this._socket.socketConnect()   
   }
 
    getParams(){
@@ -153,11 +160,11 @@ export class StudentpaceComponent implements OnInit {
       this.sColor = this._user.getPresentationFontColor();
       this._socket.createRoom(this._user.getPresentationCode());
       this.presentationId = this._user.getPresentationId()
-      this.callStudentlobby()
+      
 
       if(this.hasStart === 'replay' || this.hasStart == 0){
-        this._socket.socketConnect()
         this.reloadPage()
+        this.callStudentlobby()
 
       }else{
         this.setStart = true
@@ -169,34 +176,6 @@ export class StudentpaceComponent implements OnInit {
     });
   }
 
-  // getsocketStudents(){
-  //   if(this._user.getIsQuiz()){
-  //     this.studentslists.push({name: 'gerald tagle'})
-  //     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
-   
-  //       // this.studentslists = []
-  //       // if (this.studentslists.includes(data.name) === false)   this.studentslists.push(data.name)
-
-  //       // console.log(this.studentslists)
-
-  //       this._user.setNoStudents(this.studentslists)
-  //     }) 
-  
-  //     // this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
-        
-  //     //   for (var i = 0; i <  this.studentslists.length; i++){
-  //     //     if (this.studentslists[i]['user']  == data['user']){
-  //     //       this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
-  //     //         duration: 3000,
-  //     //       });
-  //     //       this.studentslists.splice(i,1)
-  //     //         break;
-  //     //     }
-  //     //   }
-  //     // });
-  //   }
-    
-  // }
 
   newTally: any = []
   label: any = []
@@ -270,7 +249,7 @@ export class StudentpaceComponent implements OnInit {
       this.isStart = true
       this.interval = setInterval(() => {
         if(this.countDown > 0) {
-          console.log(this.countDown)
+          // console.log(this.countDown)
           this.countDown--;
           if(this.countDown == 0){
             this.setStart = true;
@@ -295,8 +274,6 @@ export class StudentpaceComponent implements OnInit {
 
   reloadPage(){
     this.updateTitle(0)
-    
-
   }
 
   // Pull of data
@@ -313,9 +290,7 @@ export class StudentpaceComponent implements OnInit {
 
 
   copypaste(){
-    this._snackBar.open("Code Copied", '', {
-       duration: 1000,
-     });
+    this._sb.success("Code Copied");
    }
 
    returnpage(){
@@ -371,32 +346,59 @@ export class StudentpaceComponent implements OnInit {
   }
 
   callStudentlobby(){
+
     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
-      this.studentslists.push(data)
-      this._snackBar.open(data['name'] + ' Joined the room', '', {
-        duration: 3000,
-      });
-  
-      // for(let i = 0; i < this.studentslists.length; i++){
 
-      //   if(this.studentslists[i].name == data['name']){
-
-      //   }else{
-      //     this.studentslists.push(data)
+      this._sb.success(data['name'] + ' Joined the room')
+    
+        if(this.studentslists.length === 0){
+              
+          this.studentslists.push(data)
 
 
-      //   }
-      // }
-  
+        }else{
+
+          var res = this.studentslists.filter((p: any, i: any) => {
+
+            if(p.name == data['name']){
+
+              this.studentslists.splice(i, 1)
+
+            }
+
+          })
+    
+        this.studentslists.push(data)
+
+         
+          // for(let i = 0; i < this.studentslists.length; i++){
+          //   if(data['name'] == this.studentslists[i].name){
+
+          //     this.studentslists.splice(i, 1)
+          //     this.studentslists.push(data)
+          
+          //     break;
+          //   }else{
+
+          //     this.studentslists.push(data)
+          //     console.log(this.studentslists)
+          //   }
+
+          //   if(this.studentslists[i]['name'] == data['name']){
+
+          //     this.studentslists.splice(i,1)
+          //     this.studentslists.push(data)
+          //   }else{
+            // }
+        // }
+      }
+
     }) 
-
     this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
       
       for (var i = 0; i <  this.studentslists.length; i++){
         if (this.studentslists[i]['user']  == data['user']){
-          this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
-            duration: 3000,
-          });
+          this._sb.success(this.studentslists[i]['user'] + ' Left the room');
           this.studentslists.splice(i,1)
             break;
         }

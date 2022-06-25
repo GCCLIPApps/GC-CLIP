@@ -31,21 +31,21 @@
 .main-page{
   gap: 1em;
   display: grid;
-  margin: 1rem;
+  margin: .5rem;
   .students-card{
       transition: .5s;
       border-radius: 15px;
       height: 100px !important;
-      width: 200px !important;
+      width: 220px !important;
       box-shadow: 0 9px var(--clr-gray);
       .header{
           display: flex;
           align-content: center;
           justify-content: center;
           max-height: 100px;
-          width: 200px !important;
+          width: 220px !important;
           height: 100px;
-          padding: 1.5em;
+          padding: 1em;
           color: var(--font-white);
           background-image: radial-gradient(circle at 67% 33%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 100%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg,var(--clr-primary),var(--clr-light));
           border-radius: 15px;
