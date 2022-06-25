@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild,Optional } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { DataService } from 'src/app/services/data.service';
 import { SocketService } from 'src/app/services/socket.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { NotificationService } from 'src/app/services/notification.service';
 import { finalize } from 'rxjs/operators';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';  
@@ -38,7 +38,12 @@ export class SlidemainComponent implements OnInit {
   isQuiz: boolean = false;
 
   sImage: string = ''
-  studentslists: any = [];
+  studentslists: any = [
+    {
+      name: '',
+      code: ''
+    }
+  ]
 
 
   email: string = this._user.getEmail();
@@ -58,7 +63,7 @@ export class SlidemainComponent implements OnInit {
     @Optional() public MatDialogRef: MatDialogRef<ThemesComponent>,
     private matDialog: MatDialog,
     private _socket: SocketService,
-    private _snackBar: MatSnackBar,
+    private _sb: NotificationService ,
     private _user: UserService,
     private _ds: DataService) {
 
@@ -69,26 +74,27 @@ export class SlidemainComponent implements OnInit {
 
   ngOnInit():void{   
     this.getParams()
-      
+    this.getPresentation();
+    this._socket.socketConnect(); 
+
     }
 
     getParams(){
       this.activatedRoute.params.subscribe((params) => {
         this.id = { ...params['keys'], ...params };
     
-            if(this.id.code=='editor'){
-              this.activatedRoute.queryParams.subscribe(params => {
-                // console.log(params['link'])
-                let url = params['link'];
-                url = url.split("/").pop()
-            
-                this.id = Number(atob(url));
-              
-                this._route.events
-                this.getPresentation();
-              });
-              }
-            });
+        if(this.id.code=='editor'){
+          this.activatedRoute.queryParams.subscribe(params => {
+            // console.log(params['link'])
+            let url = params['link'];
+            url = url.split("/").pop()
+        
+            this.id = Number(atob(url));
+          
+            this._route.events
+          });
+        }
+      });
     }
 
   async getPresentation(){
@@ -99,7 +105,8 @@ export class SlidemainComponent implements OnInit {
       this.presentationName = this._user.getPresentationName();
       this.sCode = this._user.getPresentationCode(); this.sTheme = this._user.getPresentationTheme(); this.sColor = this._user.getPresentationFontColor();
       this._user.getPresentationNewPaceandisAssigned();
-      
+      this._socket.createRoom(this.sCode);
+
       this.paceassignto =  {
         pace: this._user.getPresentationPace(),
         toggleAssign:  this._user.getPresentationAssignto()
@@ -112,7 +119,6 @@ export class SlidemainComponent implements OnInit {
  
       if(!this._user.getIsQuiz()){
         this.callSocket()
-        this._socket.createRoom(this.sCode);
       }
 
     },err =>{
@@ -120,29 +126,46 @@ export class SlidemainComponent implements OnInit {
     });
   }
 
-  async callSocket(){
-    this._socket.socketConnect(); 
+   callSocket(){
     this._socket._socket.fromEvent('room-joined').subscribe((data:any) =>{
-      this.studentslists.push(data)
-      this._snackBar.open(this.studentslists[this.studentslists.length - 1]['name'] + ' Joined the room', '', {
-        duration: 3000,
-      });
-    }) 
+
+      this._sb.success(data['name'] + ' Joined the room')
+    
+        if(this.studentslists.length === 0){
+              
+          this.studentslists.push(data)
+
+
+        }else{
+
+          var res = this.studentslists.filter((p: any, i: any) => {
+
+            if(p.name == data['name']){
+
+              this.studentslists.splice(i, 1)
+
+            }
+
+          })
+    
+        this.studentslists.push(data)
+
+      }
+
+    })
 
     this._socket._socket.fromEvent('room-exited').subscribe((data:any) =>{
       
       for (var i = 0; i <  this.studentslists.length; i++){
         if (this.studentslists[i]['user']  == data['user']){
-          this._snackBar.open(this.studentslists[i]['user'] + ' Left the room', '', {
-            duration: 3000,
-          });
+          this._sb.success(this.studentslists[i]['user'] + ' Left the room');
           this.studentslists.splice(i,1)
             break;
         }
       }
     })
   }
-  
+
   updateTitlePaceAssign(PaceandAssign:any){
     var isAssign;
     if(PaceandAssign.toggleAssign){
@@ -186,9 +209,7 @@ export class SlidemainComponent implements OnInit {
   }
 
   copypaste(){
-   this._snackBar.open("Code Copied", '', {
-      duration: 1000,
-    });
+   this._sb.success("Code Copied");
   }
 
 
@@ -218,7 +239,6 @@ export class SlidemainComponent implements OnInit {
   isquizStart($e: any){
     this.isQuiz = $e
   }
-
   
   gotoResult(){
     this._route.navigate([`/quiz/${btoa(String(this._user.getPresentationId()))}/${btoa('finalResult')}/result`])
