@@ -643,145 +643,145 @@ $lime_orange: #FF6633;
 
 
 // PORTRAIT
-// @media screen and (min-width: 0px) and (max-width: 767px) {
-//     .text{
-//         display: none;
-//     }
-//     .front{
-//         flex-direction: column;
+@media screen and (min-width: 0px) and (max-width: 767px) {
+    .text{
+        display: none;
+    }
+    .front{
+        flex-direction: column;
 
-//         .left{
-//             width: 100%;
-//             height: 50%;
-//             justify-content: center;
+        .left{
+            width: 100%;
+            height: 50%;
+            justify-content: center;
 
-//             .img-top,img.logo-gc{
-//                 display: none;
-//             }
+            .img-top,img.logo-gc{
+                display: none;
+            }
 
-//             img.logo{
-//                 height: 5em;
-//                 width: 5em;
-//             }
+            img.logo{
+                height: 5em;
+                width: 5em;
+            }
 
-//         }
-//         .right{
-//             width: 100%;
-//             background-color: #fff;
-//             border-top-left-radius: 2em;
-//             border-top-right-radius: 2em;
+        }
+        .right{
+            width: 100%;
+            background-color: #fff;
+            border-top-left-radius: 2em;
+            border-top-right-radius: 2em;
 
-//             ::ng-deep{
+            ::ng-deep{
 
-//                 form{
-//                     width: 100%;
-//                     padding: 1em;
-//                     align-items: center;
-//                     text-align: center;
+                form{
+                    width: 100%;
+                    padding: 1em;
+                    align-items: center;
+                    text-align: center;
 
-//                     #greet h4{
-//                         text-align: center;
-//                         font-size:1.5em;
-//                     }
+                    #greet h4{
+                        text-align: center;
+                        font-size:1.5em;
+                    }
 
-//                     .mat-form-field{
-//                         width: 85%;
-//                     }
+                    .mat-form-field{
+                        width: 85%;
+                    }
 
-//                 }
+                }
 
                 
-//             }
-//         }
-//     }
-// }
+            }
+        }
+    }
+}
 
-// // LANDSCAPE
-// @media screen and (max-width: 767px) and (orientation: landscape){
-//     .text{
-//         display: none;
-//     }
-//     .front{
-//         flex-direction: column;
+// LANDSCAPE
+@media screen and (max-width: 767px) and (orientation: landscape){
+    .text{
+        display: none;
+    }
+    .front{
+        flex-direction: column;
 
-//         .left{
-//             display: none;
-//             width: 100%;
-//             height: 50%;
-//             justify-content: center;
+        .left{
+            display: none;
+            width: 100%;
+            height: 50%;
+            justify-content: center;
 
-//             .img-top,img.logo-gc{
-//                 display: none;
-//             }
+            .img-top,img.logo-gc{
+                display: none;
+            }
 
-//             img.logo{
-//                 height: 5em;
-//                 width: 5em;
-//             }
+            img.logo{
+                height: 5em;
+                width: 5em;
+            }
 
-//         }
-//         .right{
-//             width: 100%;
-//             background-color: #fff;
-//             border-top-left-radius: 0!important;
-//             border-top-right-radius: 0!important;
+        }
+        .right{
+            width: 100%;
+            // background-color: #fff;
+            border-top-left-radius: 0!important;
+            border-top-right-radius: 0!important;
 
-//             ::ng-deep{
+            ::ng-deep{
 
-//                 form{
-//                     width: 100%;
-//                     padding: 1em;
-//                     align-items: center;
-//                     text-align: center;
+                form{
+                    width: 100%;
+                    padding: 1em;
+                    align-items: center;
+                    text-align: center;
 
-//                     #greet h4{
-//                         text-align: center;
-//                     }
+                    #greet h4{
+                        text-align: center;
+                    }
 
-//                     .mat-form-field{
-//                         width: 85%;
-//                     }
+                    .mat-form-field{
+                        width: 85%;
+                    }
 
-//                 }
+                }
 
-//                 #greet h4{
-//                     font-size:1.5em;
-//                 }
+                #greet h4{
+                    font-size:1.5em;
+                }
                 
-//             }
-//         }
-//     }
-// }
+            }
+        }
+    }
+}
 
-// @media screen and (min-width: 768px) and (max-width: 920px) {
-//     .text{
-//         font-size: 4em;
-//     }
+@media screen and (min-width: 768px) and (max-width: 920px) {
+    .text{
+        font-size: 4em;
+    }
 
-//     .left{
+    .left{
 
-//         .img-top{
-//             width: 25em!important;
-//             height: 25em!important;
-//         }
-//     }
+        .img-top{
+            width: 25em!important;
+            height: 25em!important;
+        }
+    }
 
-//     .right{
+    .right{
 
-//         form{
-//             background: #fff;
-//             padding: 20px;
-//             border-radius: 10px;
-//             box-shadow: 5px 5px 5px -6px rgb(0 0 0 / 50%);
+        form{
+            // background: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px -6px rgb(0 0 0 / 50%);
 
-//             #greet h4{
-//                 width: 100%;
-//                 font-size:1.5em;
-//                 text-align: center;
-//             }
-//         }
-//     }
-// }
+            #greet h4{
+                width: 100%;
+                font-size:1.5em;
+                text-align: center;
+            }
+        }
+    }
+}
 
 @media screen and (min-width: 0px) and (max-width: 1024px) {
     .shape{

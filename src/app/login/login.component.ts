@@ -9,16 +9,13 @@ import { CookieService } from 'ngx-cookie-service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { ChangepassComponent } from './changepass/changepass.component';
 import { NotificationService } from '../services/notification.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   private keyString = new DataSchema();
-
   public version = this._user.appVersion;
   Error: boolean = false;
   rememberme: any;
@@ -37,8 +34,6 @@ export class LoginComponent implements OnInit {
     private matDialog: MatDialog) { 
     
   }  
-
-
   ngOnInit(): void {
     this.rememberme = atob((localStorage.getItem(btoa('rememberme')?.replace('=','')) || '' ))
     this.loginForm = this._fb.group({
@@ -47,14 +42,10 @@ export class LoginComponent implements OnInit {
       status: ['1'],
       rememberme: [this.rememberme]
     })
-
     if(this.rememberme){
-     
       let email = atob((localStorage.getItem(btoa('email')?.replace('=',''))||''))
-
       let decrypted =  CryptoJS.AES.decrypt( localStorage.getItem(btoa('password').replace('=',''))||'', this.keyString.defaultmessage)
       let password = decrypted.toString(CryptoJS.enc.Utf8)
-
       this.loginForm.setValue({
         email: email,
         password: password,
@@ -62,24 +53,17 @@ export class LoginComponent implements OnInit {
         rememberme: this.rememberme
       })
     }
-
     if(this._user.isUserLoggedIn()){
-
        this._router.navigate(['/main']);
     }
    
   }
-
-
   signIn(){
     localStorage.removeItem(btoa('email'));
     localStorage.removeItem(btoa('password'));
     localStorage.removeItem(btoa('rememberme'));
-
     this._ds.processData1('users', this.loginForm.value, 1)?.subscribe((res: any)=>{
       let load = this._ds.decrypt(res.d)
-      // console.log(load)
-
       this._cs.set(btoa('gcclipfaculty'), CryptoJS.AES.encrypt(JSON.stringify(load.uData), this.keyString.defaultmessage).toString());
       load = load.uData
       this._user.setUserLoggedIn(load.id, load.token, load.email, load.fname, load.mname, load.lname, load.status, load.dept, load.program, load.passwordchange, load.profile);
@@ -89,11 +73,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(btoa('password').replace('=', ''), password);
         localStorage.setItem(btoa('rememberme').replace('=', ''), btoa(this.loginForm.get('rememberme')?.value))
       }
-
       this._router.navigate(['/main']);
       this._sb.success("Welcome "+ this._user.getFullname())
- 
-
       }, err =>{
         this.Error = true;
         setTimeout(() => { this.Error = false}, 5000)
@@ -101,7 +82,6 @@ export class LoginComponent implements OnInit {
        
       });
   }
-
   openchangepass(){
     const dialogRef = this.matDialog.open(ChangepassComponent,{
       height: 'auto',
@@ -110,8 +90,6 @@ export class LoginComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-    
-
       }
     });
   }
