@@ -56,15 +56,15 @@
                       
                       <div class="bulletlists" *ngFor="let item of showOptions; let i = index" >
                       
-                        <div class="bulletlist-holder" *ngIf="type == 'bullets' ">
+                        <div class="bulletlist-holder" *ngIf="type == 'bullets'">
                           <mat-icon>arrow_forward</mat-icon>
-                          {{item.choice_fld}}
+                          <h5>{{item.choice_fld}}</h5>
                         </div>
                 
                          
                         <div class="bulletlist-holder" *ngIf="type == 'poll' ">
                           <span class="mr-2">{{i + 1 }}</span>
-                          {{item.pollchoice_fld}}
+                          <h5>{{item.pollchoice_fld}}</h5>
                         </div>
 
                       </div>
@@ -99,8 +99,10 @@
                        
                       </div>
                     
-                      <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                      <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        <div class="image-holder">
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>
                       </div>
                   </ng-container>
                   
@@ -135,9 +137,12 @@
                           </div>
                          
                         </div>
-                      
-                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                        <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        
+                        <div class="image-holder">
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>
+                   
                         </div>
 
                   </ng-container>
@@ -146,10 +151,13 @@
                     <ng-container *ngIf="type == 'heading' || type == 'paragraph'">
                       <div class="content-holder">
                         <h2 class="card-head"> {{heading}}</h2>
-                        <h6  class="card-paragraph" *ngIf="type == 'paragraph'">{{subheading}}</h6>
-                        <p class="card-subhead" *ngIf="type == 'heading'">{{subheading}}</p>
-                        <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
-                        <img *ngIf="image" [src]="this._user.imageLink+image" class="img-thumbnail" >
+                        <h4  class="card-paragraph" *ngIf="type == 'paragraph'">{{subheading}}</h4>
+                        <h5 class="card-subhead" *ngIf="type == 'heading'">{{subheading}}</h5>
+                        
+                        <div class="image-holder">
+                          <img *ngIf="selectedImage" [src]="selectedImage" class="img-thumbnail" >
+                          <img *ngIf="image" [src]="this._user.imageLink+image" class="big-image" >
+                        </div>
                       </div>
                       
                     </ng-container>

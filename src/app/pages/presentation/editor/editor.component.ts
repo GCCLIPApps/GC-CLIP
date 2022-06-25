@@ -120,7 +120,8 @@ export class EditorComponent implements OnInit {
 
   //Fetch Data rom RightNav 
   getcontentFrom(data:any, type: any, newOption: any){
- 
+    
+
 
     this.type = type.newType;
     if(this.type == 'qa' || this.type == 'poll'|| this.type == 'mc'){
@@ -169,7 +170,7 @@ export class EditorComponent implements OnInit {
             "image_fld": data.contentForm.image,
           }  
     }
-   
+      console.log(newOption.options)
       this.heading = data.contentForm.heading;
       this.subheading = data.contentForm.subheading;
       this.image =  data.contentForm.image ;
@@ -177,7 +178,7 @@ export class EditorComponent implements OnInit {
       this.showOptions = newOption.options;
 
     this.updateContent();
-    console.log(this.isPresented)
+
     if(this.isPresented){
       this.sendtoSocket();
       this.sendDatatoModals(status);
@@ -295,14 +296,13 @@ export class EditorComponent implements OnInit {
         this.component = FullscreenviewComponent
       }
       this.sendDatatoModals(status);
-      this.isPresented = true
+      this.isPresented = true;
     } 
   }
 
   sendDatatoModals(status: string){
 
     if(this.isPresented){
-      console.log('this works')
 
       this.sendtoSocket();
       this.fullscreenRef.componentInstance.presentationData = this.myArrayData
@@ -311,9 +311,9 @@ export class EditorComponent implements OnInit {
       this.fullscreenRef.componentInstance.percent =  this.percent
       this.fullscreenRef.componentInstance.status =  this.status
       this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
+      this.fullscreenRef.componentInstance.image =  this.image
+
     }else{
-
-
       this.fullscreenRef = this.matDialog.open(this.component,{
         maxWidth: '100vw',
         maxHeight: '100vh',
@@ -332,7 +332,8 @@ export class EditorComponent implements OnInit {
       this.fullscreenRef.componentInstance.percent =  this.percent
       this.fullscreenRef.componentInstance.status =  this.status
       this.fullscreenRef.componentInstance.smallParagraph =  this.smallParagraph
-  
+      this.fullscreenRef.componentInstance.image =  this.image
+
   
       this.fullscreenRef.componentInstance.isPressExit.subscribe((result :any) => {
         if (result) {
@@ -374,12 +375,13 @@ export class EditorComponent implements OnInit {
 
 
   sendtoSocket(){
+  
     if(!(this.type === 'heading' || this.type === 'paragraph' || this.type === 'qa')){
       
       this._socket.sendData({
         room: this._user.getPresentationCode(), 
         slideId: this._user.getSlideId(), 
-        type: this._user.getSlideType(), 
+        type: this.type, 
         slideData: this.myArrayData, 
         optionData:this.showOptions
       })
@@ -388,7 +390,7 @@ export class EditorComponent implements OnInit {
       this._socket.sendData({
         room: this._user.getPresentationCode(), 
         slideId: this._user.getSlideId(), 
-        type: this._user.getSlideType(), 
+        type: this.type, 
         slideData: this.myArrayData, 
         optionData: null})
      }
