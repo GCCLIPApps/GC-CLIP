@@ -102,7 +102,7 @@ export class InstructorpaceComponent implements OnInit {
         this.elem.msRequestFullscreen();
       }
  
-      console.log(this.presentationData)
+      // console.log(this.presentationData)
       this.code = this._user.getPresentationCode();
       this._socket.createRoom(this._user.getPresentationCode());
       setTimeout(() =>{ this.isSpinner = true}, 2000);
