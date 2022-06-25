@@ -7,7 +7,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DatePipe } from '@angular/common';
@@ -16,6 +15,7 @@ import pptxgen from "pptxgenjs";
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { CreateOptionComponent } from './create-option/create-option.component';
+import { NotificationService } from 'src/app/services/notification.service';
   
 
 export interface Presentations {
@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
   
   constructor( 
     private _bottomSheet: MatBottomSheet,
-    private _snackBar: MatSnackBar, 
+    private _sb: NotificationService, 
     private _route: Router, 
     private _ds: DataService, 
     private _user: UserService, 
@@ -93,11 +93,6 @@ export class DashboardComponent implements OnInit {
       // this.dataSource = new MatTableDataSource(load); 
       // this.dataSource.paginator = this.paginator;
       // this.dataSource.sort = this.sort;
-
-      this.listOfPres = load.length
-  
-
-      
       },err =>{
         // console.log('err', err)
       });
@@ -114,9 +109,6 @@ export class DashboardComponent implements OnInit {
       // this.dataSource.paginator = this.paginator;
       // this.dataSource.sort = this.sort;
       // this.listofQuiz = load.length
-
-
-      
       },err =>{
         // console.log('err', err)
       });
@@ -161,6 +153,8 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
+        this._sb.success("Presentation Removed");
+
           if(status){
             this.Quizzes.splice(index, 1);
           }else{
@@ -168,12 +162,8 @@ export class DashboardComponent implements OnInit {
           }
           this.dataSource.data.splice(index, 1);
           this.dataSource._updateChangeSubscription();
-          this._snackBar.ngOnDestroy();
 
 
-          this._snackBar.open("Presentation Deleted", '', {
-            duration: 2000,
-          });
       }
     });
 }
@@ -233,7 +223,7 @@ export class DashboardComponent implements OnInit {
   }
 
   generatePptx(pres: any){
-    console.log(pres)
+    // console.log(pres)
     let pptx = new pptxgen();
 
     // // 2. Add a Slide
