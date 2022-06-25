@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class CreateDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _ds: DataService,
     private _user: UserService,
+    private _sb: NotificationService,
     private dialogRef: MatDialogRef<CreateDialogComponent>,
     private _route: Router) { 
 
@@ -51,9 +54,15 @@ export class CreateDialogComponent implements OnInit {
     }, 2)?.subscribe((res: any)=>{
 
       let load =  this._ds.decrypt(res.d)
- 
-      this._route.navigate([]).then(result => {  window.open( `${this._user.webLink}editor?link=${btoa(this._user.webLink)}/${btoa(load.id)}`); });
-      this.dialogRef.close(load);
+      
+      if(load == 1){  
+        this._sb.error("Title is not available")
+
+      }else{
+        this._route.navigate([]).then(result => {  window.open( `${this._user.webLink}editor?link=${btoa(this._user.webLink)}/${btoa(load.id)}`); });
+        this.dialogRef.close(load);
+      }
+      
 
     }, err =>{
       // console.log('err', err)
