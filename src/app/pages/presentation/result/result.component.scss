@@ -1,57 +1,97 @@
+:host{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+ 
+}
+.matgroup{
+    padding: 4rem;
+    ::ng-deep .mat-tab-label-active {
+        background-color: var(--clr-dark);
+      }
+    
+}
 
 .mat-toolbar{
+    top: 0 !important;
+    z-index: 100 !important;
+    position: sticky !important;
     color: var(--font-white);
     background-color: var(--clr-primary);
 }
 
 .main-card{
+    z-index: 0 !important;
     padding: 0 !important;
     height: 100% !important;
     border-radius: 15px !important; 
-    .btn-holder{
+  
+
+    .matheader{
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        height: 50px !important;
-        button{
-          width: 40%;
-          font-weight: 600;
-          letter-spacing: 1px;
-          color: var(--font-white);
-          background-color: var(--btn-save) !important;
-        }
-      
-      }
-    .cardAnalyticholder{
-        border-radius: 15px !important; 
-        color:var(--clr-input);
         padding: 1.5rem;
-        background-color:var(--clr-instructor-green) !important;
-      }
-    .subtitle{
-        font-size: .9rem;
-        color: var(--font-label);
-        display: flex;
-        align-items: center;
-        mat-icon{
-            margin-right:  5px;
+        border-radius: 15px !important; 
+        justify-content: space-between;
+        background-image: radial-gradient(circle at 67% 33%,hsla(0,0%,65.9%,.04) 0,hsla(0,0%,65.9%,.04) 50%,rgba(10,10,10,.04) 0,rgba(10,10,10,.04) 100%),radial-gradient(circle at 33% 65%,hsla(0,0%,97.3%,.04) 0,hsla(0,0%,97.3%,.04) 50%,hsla(0,0%,89.4%,.04) 0,hsla(0,0%,89.4%,.04) 100%),radial-gradient(circle at 92% 79%,hsla(0,0%,59.6%,.04) 0,hsla(0,0%,59.6%,.04) 50%,rgba(28,28,28,.04) 0,rgba(28,28,28,.04) 100%),radial-gradient(circle at 91% 13%,rgba(41,41,41,.04) 0,rgba(41,41,41,.04) 50%,hsla(0,0%,83.9%,.04) 0,hsla(0,0%,83.9%,.04) 100%),linear-gradient(90deg,var(--clr-primary),var(--btn-save));
+
+        .cardAnalyticholder{
+        
+            color:var(--clr-input);
+            mat-card-title{
+                text-align: center;
+                word-break: keep-all;
+            }
+            
+            .btn-holder{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                height: 50px !important;
+                button{
+                  width: 200px;
+                  font-weight: 600;
+                  letter-spacing: 1px;
+                  color: var(--font-white);
+                  background-color: var(--btn-save) !important;
+                }
+              
+              }
+            .subtitle{
+                font-size: .9rem;
+                color: var(--font-label);
+                display: flex;
+                align-items: center;
+                mat-icon{
+                    margin-right:  5px;
+                }
+            }
         }
+
+        .studentno{
+            .button-fabs{
+                display: flex;
+                margin-bottom: 1rem;
+                justify-content: space-around;
+                button.mat-fab{
+                    color: var(--clr-dark) !important;
+                    background-color: var(--clr-input) !important;
+                }
+            }
+     
+            p{
+                font-weight: 600;
+                margin-top: .5rem;
+                color: var(--background-secondary);
+            }
+        }
+ 
     }
+  
 }
 
 
 
-.studentno{
-    button.mat-fab{
-        color: var(--clr-dark) !important;
-        background-color: var(--clr-input) !important;
-    }
-    p{
-        font-weight: 600;
-        margin-top: .5rem;
-        color: var(--background-secondary);
-    }
-}
+
 
 
 .students-card{
@@ -160,3 +200,49 @@ tr.example-element-row:not(.example-expanded-row):hover  {
 .barchart{
     padding: 1rem;
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .matgroup{
+        padding: 0rem;
+        border-radius: 0px !important; 
+    }
+    .matheader,.main-card{
+        border-radius: 0px !important; 
+
+    }
+    .matheader{
+        display: flex;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        flex-direction: column;
+        justify-content: space-between;
+        .cardAnalyticholder{
+            text-align: center;
+       
+            .btn-holder{
+                button{
+                  width: 100% !important;
+                }
+              }
+        }
+
+        .studentno  {
+            .button-fabs{
+                display: flex;
+                margin-bottom: 1rem;
+                justify-content: space-around;
+                button.mat-fab{
+                    color: var(--clr-dark) !important;
+                    background-color: var(--clr-input) !important;
+                }
+            }
+     
+            p{
+                font-weight: 600;
+                margin-top: .5rem;
+                color: var(--background-secondary);
+            }
+        }
+    }
+}
+

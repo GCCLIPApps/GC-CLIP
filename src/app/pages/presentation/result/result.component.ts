@@ -41,8 +41,16 @@ export class ResultComponent implements OnInit {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    indexAxis: 'y',
     // We use these empty structures as placeholders for dynamic theming.
-   
+      scales: {
+        x: {
+            stacked: true
+        },
+        y: {
+            stacked: true
+        }
+    }
   };
   public barChartType: ChartType = 'bar';
   public barChartPlugins = [
@@ -59,11 +67,19 @@ export class ResultComponent implements OnInit {
   totalQuizPages: any = 0 
   dataSource = new MatTableDataSource<Viewers>();
   studentFinalResults: any = []
-  displayedColumns1: string[] = ['name_fld', 'email_fld', 'right_fld', 'wrong_fld','points_fld','time_fld','created_fld'];
+  displayedColumns1: string[] = ['name_fld', 'email_fld', 'right_fld', 'wrong_fld','points_fld','time_fld'];
+  displayedColumns: string[] = ['no_fld', 'question_fld', 'right_fld','percentage_right_fld', 'wrong_fld', 'percentage_wrong_fld'];
 
-  displayedColumns: string[] = ['no_fld', 'question_fld', 'right_fld', 'wrong_fld', 'percentage_fld'];
+
   ImageLink = this._user.imageLink;
   currentTabIndex = 0
+
+  sColor: string;
+  sTheme: string;
+  title: string;
+  date: any;
+  value: string;
+  
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
@@ -88,13 +104,10 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.getParams()
+   
   }
 
-  sColor: string;
-  sTheme: string;
-  title: string;
-  date: any;
-  value: string;
+
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     console.log(event, active);
@@ -104,9 +117,11 @@ export class ResultComponent implements OnInit {
     console.log(event, active);
   }
 
+  // Return to dashboard
   returnpage(){
     this._route.navigate(['main/app'])
   }
+  // Search in tables
   searchThis(){
     this.value = ""
   }
@@ -119,8 +134,13 @@ export class ResultComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  // Triggers when click mat tab group
+
   onTabChange(event: any) {
+
     if(event.index == 0  || event.index == 2){
+      this.getquizscoretally()
 
     }else{
       // this.getallata()3
@@ -129,18 +149,19 @@ export class ResultComponent implements OnInit {
     }
   }
 
+  // Opens new tab in view quiz
   viewEditor(){
     this._route.navigate([]).then(result => {  window.open( `${this._user.webLink}editor?link=${btoa(this._user.webLink)}/${btoa(String(this._user.getPresentationId()))}`); });
-
   }
 
+  //Get code in url
   getParams(){
     this.activatedRoute.params.subscribe((params) => {
       this.id = { ...params['keys'], ...params };
       this.viewresult = atob(this.id.link)
       let code = Number(atob(this.id.code))
         if(this.viewresult === 'finalResult'){
-
+       
           this.getquizscoretally()
           this.getPresentation(code)
           this.getParticipantsResult(code)
@@ -148,7 +169,11 @@ export class ResultComponent implements OnInit {
       });
   }
 
+  // Get Presentations
   getPresentation(id: number){
+
+
+
     this._ds.processData1(`slides/${id}`,'', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
 
@@ -167,10 +192,11 @@ export class ResultComponent implements OnInit {
     });
   }
 
+  // Get Participants in participants tab
   getParticipantsResult(id: number){
     this._ds.processData1(`scores/getAllScores/${id}`, '', 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
-      console.log(load)
+      // console.log(load)
 
       // this.studentFinalResults = load
       this.dataSource = new MatTableDataSource(load); 
@@ -183,33 +209,51 @@ export class ResultComponent implements OnInit {
   label: any = []
   right: any = []
   wrong: any = []
+
+  // Get data for Overview and Questions tab
   getquizscoretally(){
+    this.newTally = []
+    this.label = []
+    this.right = []
+    this.wrong = []
+    
     this._ds.processData1('scores/scoretally/instructor', atob(this.id.code), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
       this.newTally =load
       this.dataSource = new MatTableDataSource(load); 
       this.dataSource.sort = this.sort;
-        for(let i = 0; this.newTally.length > i; i++){
-          this.label.push(this.newTally[i].heading_fld)
-          this.right.push(this.newTally[i].correct)
-          this.wrong.push(this.newTally[i].wrong)
-        
-          }
+      this.Updatechart()
 
-        this.barChartData = {
-          labels: this.label,
-          datasets: [
-            { data: this.wrong, label: 'Wrong', stack: 'a' },
-            { data: this.right, label: 'Correct', stack: 'b' }
-          ]
-        };
-      
 
           },err =>{
         // console.log('err', err)
       });
   }
 
+  // Renders new data in bar chart
+  public Updatechart(): void {
+
+    for(let i = 0; this.newTally.length > i; i++){
+      this.label.push(this.newTally[i].heading_fld)
+      this.right.push(this.newTally[i].correct)
+      this.wrong.push(this.newTally[i].wrong)
+    
+    }
+
+    this.barChartData = {
+      labels: this.label,
+      datasets: [
+        { data: this.wrong, label: 'Wrong', stack: 'a' },
+        { data: this.right, label: 'Correct', stack: 'b' }
+      ]
+    };
+
+    this.barChartData.datasets[0].data = this.wrong ;
+    this.barChartData.datasets[1].data = this.right;
+    this.chart?.update();
+  }
+
+ // Get Total Number of Student Viewed the quiz
   getStudents(){
     this._ds.processData1('history/getSlideViewer', this._user.getPresentationId(), 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
@@ -221,6 +265,7 @@ export class ResultComponent implements OnInit {
       });
   }
 
+  // Get Total Page Count
   getquizpagecount(){
     this._ds.processData1('slides/pres/getquizcount/quiz',{ sId: this._user.getPresentationId(), quiz: 'quiz',identify: 'identification'}, 2)?.subscribe((res: any) => {
       let load = this._ds.decrypt(res.d);
@@ -243,6 +288,7 @@ export class ResultComponent implements OnInit {
   //     });``
   // }
 
+  // Time Interval
   startRequest(){
     this.interval = setInterval(() =>{ 
       this.getParticipantsResult(Number(atob(this.id.code)))
@@ -254,13 +300,15 @@ export class ResultComponent implements OnInit {
     clearInterval(this.interval);
   }
 
+  // View specific student data in participants
   viewStudentResult(studData: any){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
     let dialogRef = this.matDialog.open(StudentresultComponent,{
-      width: 'auto',
+      width: '80vw',
+      height:'90vh',
       data: {
         studData: studData
       }
